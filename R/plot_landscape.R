@@ -1,0 +1,48 @@
+# Function to plot the landscape grid
+  ## Input:
+   # - land (list of 2: - List of landscape occupancy and vector of env1)
+   # - title if needed
+  ## Output:
+   # - an image()
+
+plot_landscape <- function(land, title = NULL)
+{
+  # function to convert state letters in values (needed to plot image)
+  convertState <- function(state) {
+    if(state == "B") {
+      state <- 1
+    }else if(state == "T") {
+      state <- 2
+    }else if(state == "M") {
+      state <- 3
+    }else{
+      state <- 4
+    }
+    state <- as.numeric(state)
+    return(state)
+  }
+
+  # define coordinates
+  coordx <- seq(0, length(land[['land']]))
+  coordy <- seq(0, length(land[['land']][[1]]))
+
+  # convert states in values and then in a matrix
+  landConverted <- sapply(unlist(land[['land']], use.names = F), convertState)
+  landM <- matrix(landConverted, ncol = length(land[[1]]))
+
+  # plot
+  col <- c("darkcyan","orange","palegreen3","black")
+  main <- paste0(title, '\nClimRange = ', min(land[['env1']]), ' to ', max(land[['env1']]))
+
+  par(mar = c(0.5,0.5,3,0.5))
+  image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
+      col = col, main = main)
+
+  # add north arrow
+  north.arrow = function(x, y, h) {
+    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y + h, y), col = "black", border = NA)
+    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y - h, y))
+    #text(x, y, "N", adj = c(7, 0.4), cex = 2.5)
+  }
+  north.arrow(max(coordy) - 1, min(coordx) + 2, 1.5)
+}
