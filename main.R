@@ -20,4 +20,6 @@ lands <- run_model(steps = 200, initLand, params) # 1000 years = 7MB of data; 42
   ## create a gif (11 seconds for 21 images; 8Kbs)
   make_gif(lands, steps = 10, fps = 5)
 
-  #
+  ## plot
+  par(mfrow = c(1, 2))
+  plot_occupancy(lands, years = c(1, 2))

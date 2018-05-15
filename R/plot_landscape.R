@@ -4,24 +4,26 @@
    # - title if needed
   ## Output:
    # - an image()
+  ## Extra function:
+   # - covertState (function to convert state character to numeric)
+
+ # function to convert state letters in values (needed to plot image)
+ convertState <- function(state) {
+   if(state == "B") {
+     state <- 1
+   }else if(state == "T") {
+     state <- 2
+   }else if(state == "M") {
+     state <- 3
+   }else{
+     state <- 4
+   }
+   state <- as.numeric(state)
+   return(state)
+ }
 
 plot_landscape <- function(land, title = NULL)
 {
-  # function to convert state letters in values (needed to plot image)
-  convertState <- function(state) {
-    if(state == "B") {
-      state <- 1
-    }else if(state == "T") {
-      state <- 2
-    }else if(state == "M") {
-      state <- 3
-    }else{
-      state <- 4
-    }
-    state <- as.numeric(state)
-    return(state)
-  }
-
   # define coordinates
   coordx <- seq(0, length(land[['land']]))
   coordy <- seq(0, length(land[['land']][[1]]))
