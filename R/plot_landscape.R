@@ -22,7 +22,7 @@
    return(state)
  }
 
-plot_landscape <- function(land, title = NULL, remBorder = TRUE)
+plot_landscape <- function(land, title = NULL, rmBorder = TRUE)
 {
   # define coordinates
   nc <- length(land[['land']])
@@ -36,19 +36,19 @@ plot_landscape <- function(land, title = NULL, remBorder = TRUE)
   landM <- matrix(landConverted, ncol = length(land[[1]]))
 
   # remove border of landscape that are not updated
-  if(remBorder == TRUE) {
+  if(rmBorder == TRUE) {
     landM <- landM[c(-1, -nr), c(-1, -nc)]
-    coordx <- seq(0, dim(landM)[2])
-    coordy <- seq(0, dim(landM)[1])
+    coordx <- seq(1, dim(landM)[2])
+    coordy <- seq(1, dim(landM)[1])
   }
 
   # plot
-  col <- c("darkcyan","orange","palegreen3","black")
+  col <- c("darkcyan", "orange", "palegreen3", "black")
   main <- paste0(title, '\nClimRange = ', min(land[['env1']]), ' to ', max(land[['env1']]))
 
   par(mar = c(0.5,0.5,3,0.5))
   image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
-      col = col, main = main)
+      col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
   # add north arrow
   north.arrow = function(x, y, h) {
