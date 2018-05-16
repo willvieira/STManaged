@@ -1,20 +1,20 @@
 # function to plot the distribution of state occupancy in the landscape
   ## Input:
-   # - lands
+   # - land
    # - years (vector with time steps desired to be plotted)
   ## Output:
    # - scatterplot
 
-plot_occupancy <- function(lands, years)
+plot_occupancy <- function(land, years)
 {
   # define coordinates
-  nc <- length(lands[[1]][[1]])
-  nr <- length(lands[[1]][[1]][[1]])
+  nc <- length(land[[1]][[1]])
+  nr <- length(land[[1]][[1]][[1]])
 
   for(i in years) {
 
     # list to matrix
-    land <- matrix(unlist(lands[[i]][[1]]), ncol = nc)
+    land <- matrix(unlist(land[[i]][[1]]), ncol = nc)
 
     # summary for each row
     getProp <- function(x) {
@@ -34,7 +34,7 @@ plot_occupancy <- function(lands, years)
     plot(1:nr, prop[1,], type = 'l', lwd = 1.3, xlab = "", ylab = "State occupancy", col = col[1])
     invisible(sapply(2:3, function(x) points(1:nr, prop[x,], type = 'l', lwd = 1.3, col = col[x])))
     legend(nr/2 - nr*.1, 1, legend = c('Boreal', 'Temperate', 'Mixed', 'Regeneration'), lty = 1, col = col, bty = 'n', cex = 0.8)
-    mtext(names(lands)[i], 3, line = 0.5)
+    mtext(names(land)[i], 3, line = 0.5)
 
   }
 }

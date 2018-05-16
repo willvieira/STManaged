@@ -6,8 +6,8 @@
   # - Forest management intensity [0-1]
   # - RCP (three options of climate change: RCP = 2.6, RCP = 4.5, RCP = 6, RCP = 8.5)
  ## Output:
-  # - lands (a list for every step)
-  # - Each step (or list) of lands have a list of state occupancy and the respective env1 vector
+  # - land (a list for every step)
+  # - Each step (or list) of land have a list of state occupancy and the respective env1 vector
  ## Extra functions:
   # - neighbor_prop (calculates the proportion between states for each neigbor area - 9 cells)
   # - cc_diff (get the params difference between env1 before and after climate change)
@@ -69,7 +69,7 @@ run_model <- function(steps, initLand, params,
   pars0Diff[['parsInc']] <- lapply(pars0Diff[['parsDiff']], function(x) x/(20))
 
   # lands
-  lands <- setNames(list(initLand), 'landT0')
+  land <- setNames(list(initLand), 'landT0')
   land0 <- initLand[['land']]
 
   for(i in 1:steps) {
@@ -114,9 +114,9 @@ run_model <- function(steps, initLand, params,
 
   }
   # add steps, management and RCP information
-  lands[['steps']] <- steps
-  lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
-  lands[['RCP']] <- RCP
+  land[['steps']] <- steps
+  land[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
+  land[['RCP']] <- RCP
 
-  return(lands)
+  return(land)
 }
