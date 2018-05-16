@@ -106,5 +106,10 @@ run_model <- function(steps, initLand, params,
     lands[[paste0('landT', i)]] <- landStep # save the land i step
 
   }
+  # add steps, management and RCP information
+  lands[['steps']] <- steps
+  lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
+  lands[['RCP']] <- RCP
+
   return(lands)
 }

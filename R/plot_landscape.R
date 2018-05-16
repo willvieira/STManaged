@@ -44,9 +44,8 @@ plot_landscape <- function(land, title = NULL, rmBorder = TRUE)
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
-  main <- paste0(title, '\nClimRange = ', min(land[['env1']]), ' to ', max(land[['env1']]))
-
-  par(mar = c(0.5,0.5,3,0.5))
+  main <- paste0(title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ',     lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+  par(mar = c(0.5,0.5,3.5,0.5))
   image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
       col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
