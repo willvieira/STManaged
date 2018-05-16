@@ -5,7 +5,7 @@
   ## output:
    # - gif
 
-make_gif <- function(lands, steps = NULL, years = NULL, fps = 6)
+make_gif <- function(lands, steps = NULL, years = NULL, fps = 6, gifName = NULL)
 {
   library(magick)
 
@@ -33,7 +33,8 @@ make_gif <- function(lands, steps = NULL, years = NULL, fps = 6)
 
   # create and save gif (magick must be installed)
   gif <- image_animate(img, fps = fps, dispose = "previous")
-  image_write(gif, "gif.gif")
+  if(is.null(gifName)) gifName <- 'gif'
+  image_write(gif, paste0(gifName, '.gif'))
 
   # clean memory
   rm(list = ls()[ls() %in% paste0('landPlot', lds)])
