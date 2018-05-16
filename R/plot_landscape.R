@@ -22,15 +22,25 @@
    return(state)
  }
 
-plot_landscape <- function(land, title = NULL)
+plot_landscape <- function(land, title = NULL, remBorder = TRUE)
 {
   # define coordinates
-  coordx <- seq(0, length(land[['land']]))
-  coordy <- seq(0, length(land[['land']][[1]]))
+  nc <- length(land[['land']])
+  nr <- length(land[['land']][[1]])
+
+  coordx <- seq(0, nc)
+  coordy <- seq(0, nr)
 
   # convert states in values and then in a matrix
   landConverted <- sapply(unlist(land[['land']], use.names = F), convertState)
   landM <- matrix(landConverted, ncol = length(land[[1]]))
+
+  # remove border of landscape that are not updated
+  if(remBorder == TRUE) {
+    landM <- landM[c(-1, -nr), c(-1, -nc)]
+    coordx <- seq(0, dim(landM)[2])
+    coordy <- seq(0, dim(landM)[1])
+  }
 
   # plot
   col <- c("darkcyan","orange","palegreen3","black")
