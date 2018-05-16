@@ -59,7 +59,8 @@ run_model <- function(steps, initLand, params,
                       harvInt = 0,
                       thinInt = 0,
                       enrichInt = 0,
-                      RCP = 0)
+                      RCP = 0,
+                      stoch = T)
 {
 
   # climate change (define a list of parameters difference between before and after climate change)
@@ -96,8 +97,14 @@ run_model <- function(steps, initLand, params,
         # run the model
         y1 <- model_fm(t = 1, y0, params = pars[[r]], plantInt, harvInt, thinInt, enrichInt)
         y1 <- y0 + unlist(y1) # update cell
-        landStep[[c]][r] <- names(y1)[which(y1 == max(y1))] # update landStep
+        y1['R'] <- 1 - sum(y1)
 
+        if(stoch == T) {
+          state <- names(y1)[which(rmultinom(n = 1, size = 1, prob = y1) == 1)] # get a state depending on the probability `p`
+        }else {
+          state <- names(y1)[which(y1 == max(y1))] # update landStep
+        }
+        landStep[[c]][r] <- state
       }
     }
 
