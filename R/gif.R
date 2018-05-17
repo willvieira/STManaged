@@ -1,11 +1,11 @@
 # function to make a gif of the outputs
   ## input:
-   # - land
+   # - lands
    # - time interval (steps * 5 = year)
   ## output:
    # - gif
 
-make_gif <- function(land, steps = NULL, years = NULL, fps = 6, gifName = NULL)
+make_gif <- function(lands, steps = NULL, years = NULL, fps = 6, gifName = NULL)
 {
   library(magick)
 
@@ -19,8 +19,8 @@ make_gif <- function(land, steps = NULL, years = NULL, fps = 6, gifName = NULL)
   # loop to save each plot in an obj
   for(i in lds) {
     figName <- paste0('landPlot', i)
-    assign(figName, image_graph(res = 70)) # create obj to save `plot_landscape`
-    plot_landscape(land[[i]], title = names(land)[i])
+    assign(figName, image_graph(res = 60, pointsize = 20, clip = TRUE)) # create obj to save `plot_landscape`; clip = FALSE speeds up a lot the process
+    plot_landscape(lands[[i]], Title = names(lands)[i])
     dev.off()
   }
 
@@ -33,7 +33,7 @@ make_gif <- function(land, steps = NULL, years = NULL, fps = 6, gifName = NULL)
 
   # create and save gif (magick must be installed)
   gif <- image_animate(img, fps = fps, dispose = "previous")
-  if(is.null(gifName)) gifName <- past0('RCP', land[['RCP']])
+  if(is.null(gifName)) gifName <- past0('RCP', lands[['RCP']])
   image_write(gif, paste0(gifName, '.gif'))
 
   # clean memory
