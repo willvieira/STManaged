@@ -112,6 +112,8 @@ run_model <- function(steps, initLand, params,
     landStep <- setNames(list(landStep, initLand[['env1']]), c('land', 'env1')) # add temperature info
     lands[[paste0('land_T', i)]] <- landStep # save the land i step
 
+    # print progress
+    cat("====>", format(100*i/steps, digits = 4), "%", "\r")
   }
   # add steps, management and RCP information
   lands[['steps']] <- steps
