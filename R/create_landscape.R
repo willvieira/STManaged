@@ -15,7 +15,7 @@ create_landscape <- function(climRange = c(-1.9, 0.6),
 
   # get grid size
   landDist = 1200 # TODO: rethink about it
-  ncol = 50
+  ncol = 80
   nrow = landDist/cellSize #TODO: define the distance between climRange and real distance
 
   # temperature gradient over the grid

@@ -69,7 +69,7 @@ run_model <- function(steps, initLand, params,
   pars0Diff[['parsInc']] <- lapply(pars0Diff[['parsDiff']], function(x) x/(20))
 
   # lands
-  land <- setNames(list(initLand), 'landT0')
+  lands <- setNames(list(initLand), 'land_T0')
   land0 <- initLand[['land']]
 
   for(i in 1:steps) {
@@ -110,13 +110,13 @@ run_model <- function(steps, initLand, params,
 
     land0 <- landStep # update land0 for next time step
     landStep <- setNames(list(landStep, initLand[['env1']]), c('land', 'env1')) # add temperature info
-    lands[[paste0('landT', i)]] <- landStep # save the land i step
+    lands[[paste0('land_T', i)]] <- landStep # save the land i step
 
   }
   # add steps, management and RCP information
-  land[['steps']] <- steps
-  land[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
-  land[['RCP']] <- RCP
+  lands[['steps']] <- steps
+  lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
+  lands[['RCP']] <- RCP
 
-  return(land)
+  return(lands)
 }

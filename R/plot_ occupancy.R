@@ -5,16 +5,16 @@
   ## Output:
    # - scatterplot
 
-plot_occupancy <- function(land, years)
+plot_occupancy <- function(lands, years)
 {
   # define coordinates
-  nc <- length(land[[1]][[1]])
-  nr <- length(land[[1]][[1]][[1]])
+  nc <- length(lands[[1]][[1]])
+  nr <- length(lands[[1]][[1]][[1]])
 
   for(i in years) {
 
     # list to matrix
-    land <- matrix(unlist(land[[i]][[1]]), ncol = nc)
+    land <- matrix(unlist(lands[[i]][[1]]), ncol = nc)
 
     # summary for each row
     getProp <- function(x) {

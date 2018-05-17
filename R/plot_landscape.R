@@ -22,7 +22,7 @@
    return(state)
  }
 
-plot_landscape <- function(land, title = NULL, rmBorder = TRUE)
+plot_landscape <- function(land, Title = NULL, rmBorder = TRUE)
 {
   # define coordinates
   nc <- length(land[['land']])
@@ -44,8 +44,8 @@ plot_landscape <- function(land, title = NULL, rmBorder = TRUE)
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
-  main <- paste0(title, '\nPlant = ', land[['manag']][[1]], '; Harv = ',     land[['manag']][[2]], '; Thin = ', land[['manag']][[3]], '; Enrich = ', land[['manag']][[4]], '\nsteps = ', land[['steps']], '; RCP = ', land[['RCP']])
-  par(mar = c(0.5,0.5,3.5,0.5))
+  main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ',     lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+  par(mar = c(0.5,0.5,3.5,0.5), cex.main = 1)
   image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
       col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
