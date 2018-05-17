@@ -44,7 +44,13 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE)
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
-  main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ',     lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+  # title
+  if(!exists('lands')) {
+    main <- Title
+  }else {
+    main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ',     lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+  }
+
   par(mar = c(0.5,0.5,3.5,0.5), cex.main = 1)
   image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
       col = col, main = main, breaks = c(0, 1, 2, 3, 4))
