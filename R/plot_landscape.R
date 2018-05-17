@@ -2,6 +2,8 @@
   ## Input:
    # - land (list of 2: - List of landscape occupancy and vector of env1)
    # - title if needed
+   # - rmBorder (remove border of plot)
+   # - rangeLimit (if TRUE will add a line in the plot with the range limit of Boreal and Temperate)
   ## Output:
    # - an image()
   ## Extra function:
@@ -22,7 +24,7 @@
    return(state)
  }
 
-plot_landscape <- function(land, Title = NULL, rmBorder = TRUE)
+plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
   # define coordinates
   nc <- length(land[['land']])
@@ -48,13 +50,22 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE)
   if(!exists('lands')) {
     main <- Title
   }else {
-    main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ',     lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+    main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ', lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
   }
+  if(rangeLimit == T) {
+    par(mar = c(2.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
+  }else par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
 
-  par(mar = c(0.5,0.5,3.5,0.5), cex.main = 1)
   image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
       col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
+  # add rangeLimit line
+  if(rangeLimit == T) {
+    lines(c(rangeLimit[1], rangeLimit[1]), c(78.5, -2), lwd = 2)
+    lines(c(rangeLimit[2], rangeLimit[2]), c(78.5, -2), lwd = 2)
+  }
+
+  par(xpd = TRUE)
   # add north arrow
   north.arrow = function(x, y, h) {
     polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y + h, y), col = "black", border = NA)
