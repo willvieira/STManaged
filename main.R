@@ -2,7 +2,6 @@
 file.sources <- dir('R/')
 invisible(sapply(paste0('R/', file.sources), source))
 
-
 ## get initial lanscape
 initLand <- create_landscape(climRange = c(-1.9, 0.6), cellSize = 5)
 plot_landscape(initLand, Title = 'initial_landscape')
@@ -13,7 +12,7 @@ params = read.table("data/pars.txt", row.names = 1)
 # run the model
   # (Land = 50 x 60; 1000 years = 7MB; ~ 42 seconds)
   # (Land = 80 x 240; 750 years = 25MB; ~ 3.2 minutes)
-lands <- run_model(steps = 150, initLand, params,
+lands <- run_model(steps = 150, initLand,
                    plantInt = 0, # for all management practice: [0-1]
                    harvInt = 0,
                    thinInt = 0,

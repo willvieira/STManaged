@@ -23,7 +23,8 @@ neighbor_prop <- function(neighbor) {
 
 # function to define the temperature increase over the time steps based in RCP scenarios
 cc_diff <- function(env1, # pars as a list for each row of the lanscape
-                    RCP) # RCP either 0, 2.6, 4.5, 6 and 8.5
+                    RCP, # RCP either 0, 2.6, 4.5, 6 and 8.5
+                    params)
 {
   load('data/scale_info.robj')
 
@@ -54,7 +55,7 @@ cc_diff <- function(env1, # pars as a list for each row of the lanscape
 }
 
 # Main function to run the model over time
-run_model <- function(steps, initLand, params,
+run_model <- function(steps, initLand,
                       plantInt = 0,
                       harvInt = 0,
                       thinInt = 0,
@@ -64,7 +65,7 @@ run_model <- function(steps, initLand, params,
 {
 
   # climate change (define a list of parameters difference between before and after climate change)
-  pars0Diff <- cc_diff(initLand[['env1']], RCP = RCP)
+  pars0Diff <- cc_diff(initLand[['env1']], RCP = RCP, params)
   # divide the difference by time steps - 20
   pars0Diff[['parsInc']] <- lapply(pars0Diff[['parsDiff']], function(x) x/(20))
 
