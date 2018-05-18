@@ -25,6 +25,9 @@ make_gif <- function(lands, steps = NULL, years = NULL, fps = 6, gifName = NULL,
     }else rangeLim <- NULL
     plot_landscape(lands[[i]], Title = names(lands)[i], rangeLimit = rangeLim)
     dev.off()
+
+    # print progress
+    cat("==>", format(100*i/length(lds), digits = 4), "%", "\r")
   }
 
   # obj with plot names

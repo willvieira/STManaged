@@ -24,7 +24,7 @@
    return(state)
  }
 
-plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = FALSE)
+plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
   # define coordinates
   nc <- length(land[['land']])
@@ -54,7 +54,7 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = FAL
   }
 
   # change par() if rangeLimit is TRUE
-  if(rangeLimit == TRUE) {
+  if(!is.null(rangeLimit)) {
     par(mar = c(2.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
   }else {
     par(mar = c(.5,0.5,3.5,0.5), cex.main = 1)
@@ -64,7 +64,7 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = FAL
       col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
   # add rangeLimit line
-  if(rangeLimit == TRUE) {
+  if(!is.null(rangeLimit)) {
     lines(c(rangeLimit[1], rangeLimit[1]), c(78.5, -2), lwd = 2)
     lines(c(rangeLimit[2], rangeLimit[2]), c(78.5, -2), lwd = 2)
   }
