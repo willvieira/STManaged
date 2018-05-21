@@ -61,7 +61,8 @@ run_model <- function(steps, initLand,
                       thinInt = 0,
                       enrichInt = 0,
                       RCP = 0,
-                      stoch = T)
+                      stoch = T,
+                      saveOutput = F)
 {
 
   # climate change (define a list of parameters difference between before and after climate change)
@@ -121,5 +122,10 @@ run_model <- function(steps, initLand,
   lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
   lands[['RCP']] <- RCP
 
-  return(lands)
+  if(saveOutput == TRUE) {
+    fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
+    save(lands, file = paste0('output/', fileName, '.Rdata'))
+  }else {
+    return(lands)
+  }
 }

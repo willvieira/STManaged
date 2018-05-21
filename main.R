@@ -18,7 +18,8 @@ lands <- run_model(steps = 150, initLand,
                    thinInt = 0,
                    enrichInt = 0,
                    RCP = 6, # either 0, 2.6, 4.5, 6.0 and 8.5
-                   stoch = T)
+                   stoch = T,
+                   saveOutput = T)
 
 # load option
 load('initLand.Rdata')
