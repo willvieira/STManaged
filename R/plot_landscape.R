@@ -55,7 +55,7 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
 
   # change par() if rangeLimit is TRUE
   if(!is.null(rangeLimit)) {
-    par(mar = c(2.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
+    par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
   }else {
     par(mar = c(.5,0.5,3.5,0.5), cex.main = 1)
   }
@@ -65,15 +65,15 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
 
   # add rangeLimit line
   if(!is.null(rangeLimit)) {
-    lines(c(rangeLimit[1], rangeLimit[1]), c(78.5, -2), lwd = 2)
-    lines(c(rangeLimit[2], rangeLimit[2]), c(78.5, -2), lwd = 2)
+    lines(c(rangeLimit[1], rangeLimit[1]), c(dim(landM)[2], -2), lwd = 2)
+    lines(c(rangeLimit[2], rangeLimit[2]), c(dim(landM)[2], -2), lwd = 2)
   }
 
   # add north arrow
   north.arrow = function(x, y, h) {
-    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y + h, y), col = "black", border = NA)
-    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y - h, y))
+    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y + h/2.4, y), col = "black", border = NA)
+    polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y - h/2.4, y))
     #text(x, y, "N", adj = c(7, 0.4), cex = 2.5)
   }
-  north.arrow(max(coordy) - 1, min(coordx) + 2, 1.5)
+  north.arrow(max(coordy) - 5, min(coordx) + 10, 20)
 }
