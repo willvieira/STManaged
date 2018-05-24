@@ -75,5 +75,5 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
     polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y - h/2.4, y))
     #text(x, y, "N", adj = c(7, 0.4), cex = 2.5)
   }
-  north.arrow(max(coordy) - 5, min(coordx) + 10, 20)
+  north.arrow(par("usr")[1]+0.995*diff(par("usr")[1:2]), par("usr")[3]+0.12*diff(par("usr")[3:4]), diff(par("usr")[1:2]) * 0.013)
 }
