@@ -77,16 +77,3 @@ clim_increase <- function(steps, climDiff, growth = 'linear') {
 
   return(parsCC)
 }
-
-
-ff <- function(x = 1:20, a, b) {
-   ex <- a * ((b/a)^(1/length(x)*x))
-   return(ex)
-}
-
-ff2 <- function(x = 1:20, a, b) {
-   ex <- a * ((b*1.2/a)^(1/length(x)*x))
-   return(ex)
-}
-plot(1:20, ff(1:20, a = 0.2, b = 0.9), type = 'l')
-points(1:20, ff2(1:20, a = 0.2, b = 0.9), type = 'l', col = 2)
