@@ -28,7 +28,9 @@ run_model <- function(steps, initLand,
                       enrichInt = 0,
                       RCP = 0,
                       stoch = T,
-                      saveOutput = F)
+                      saveOutput = F,
+                      fileOutput = NULL, # name of the file
+                      foulderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
 {
 
   # climate change
@@ -73,14 +75,29 @@ run_model <- function(steps, initLand,
     # print progress
     cat("==>", format(100*i/steps, digits = 4), "%", "\r")
   }
+
   # add steps, management and RCP information
   lands[['steps']] <- steps
   lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
   lands[['RCP']] <- RCP
 
+  # save our simply return the output
   if(saveOutput == TRUE) {
-    fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
-    save(lands, file = paste0('output/', fileName, '.Rdata'))
+      # define fileName
+      if(is.null(fileOutput)) {
+        fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
+      }else {
+        fileName = fileOutput
+      }
+      # define directory
+      if(is.null(foulderOutput)) {
+        directoryName <- paste0('output/', fileName, '.Rdata')
+      }else {
+        if(!dir.exists(paste0('output/', foulderOutput))) dir.create(paste0('output/', foulderOutput)) # ckeck if directory exists and if not, create it
+        directoryName <- paste0('output/', foulderOutput, '/', fileName, '.Rdata')
+      }
+
+    save(lands, file = directoryName)
   }else {
     return(lands)
   }
