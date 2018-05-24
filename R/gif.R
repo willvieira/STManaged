@@ -13,7 +13,7 @@ make_gif <- function(lands, steps = NULL, years = NULL, fps = 6, gifName = NULL,
   if(!is.null(years)) {
     lds <- years
   }else {
-    lds <- seq(1, land[['steps']], by = steps)
+    lds <- seq(1, lands[['steps']], by = steps)
   }
 
   # loop to save each plot in an obj
