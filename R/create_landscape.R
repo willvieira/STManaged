@@ -7,7 +7,7 @@
  # - raster with first step landscape
 
 create_landscape <- function(climRange = c(-1.9, 0.6),
-                             cellSize = 20) # in Km
+                             cellSize = 5) # in Km
 {
 
   # probabilty occupancy of each state based on temperature (Env1: -2 to 1.2)
@@ -15,9 +15,9 @@ create_landscape <- function(climRange = c(-1.9, 0.6),
 
   # get grid size
   landDist = 1200 # TODO: rethink about it
-  ncol = 100
   nrow = landDist/cellSize #TODO: define the distance between climRange and real distance
-
+  ncol = nrow/12
+  
   # temperature gradient over the grid
   env1 <- seq(climRange[1], climRange[2], length.out = nrow)
   envList <- rep(list(env1), ncol) # list for each col of the matrix
