@@ -53,20 +53,13 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
     main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ', lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
   }
 
-  # change par() if rangeLimit is TRUE
-  if(!is.null(rangeLimit)) {
-    par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = T)
-  }else {
-    par(mar = c(.5,0.5,3.5,0.5), cex.main = 1)
-  }
-
-  image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "",
-      col = col, main = main, breaks = c(0, 1, 2, 3, 4))
+  par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F))
+  image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
   # add rangeLimit line
   if(!is.null(rangeLimit)) {
-    lines(c(rangeLimit[1], rangeLimit[1]), c(dim(landM)[2], -2), lwd = 2)
-    lines(c(rangeLimit[2], rangeLimit[2]), c(dim(landM)[2], -2), lwd = 2)
+    lines(c(rangeLimit[1], rangeLimit[1]), c(nc, -2), lwd = 2)
+    lines(c(rangeLimit[2], rangeLimit[2]), c(nc, -2), lwd = 2)
   }
 
   # add north arrow
