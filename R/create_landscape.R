@@ -16,8 +16,8 @@ create_landscape <- function(climRange = c(-1.9, 0.6),
   # get grid size
   landDist = 1200 # TODO: rethink about it
   nrow = landDist/cellSize #TODO: define the distance between climRange and real distance
-  ncol = nrow/12
-  
+  ncol = nrow/10
+
   # temperature gradient over the grid
   env1 <- seq(climRange[1], climRange[2], length.out = nrow)
   envList <- rep(list(env1), ncol) # list for each col of the matrix
