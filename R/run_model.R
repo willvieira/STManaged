@@ -28,6 +28,7 @@ run_model <- function(steps, initLand,
                       enrichInt = 0,
                       RCP = 0,
                       stoch = T,
+                      outputLand = NA, # if NA, everything is out, otherwise specify a vector of timeSteps values [1 - steps]
                       saveOutput = F,
                       fileOutput = NULL, # name of the file
                       foulderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
@@ -76,12 +77,18 @@ run_model <- function(steps, initLand,
     cat("==>", format(100*i/steps, digits = 4), "%", "\r")
   }
 
+  # keep all output lands or just a part of it?
+  if(!is.na(outputLand)) {
+    y = paste0('land_T', outputLand)
+    lands <- lands[y]
+  }
+
   # add steps, management and RCP information
   lands[['steps']] <- steps
   lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
   lands[['RCP']] <- RCP
 
-  # save our simply return the output
+  # save or simply return the output
   if(saveOutput == TRUE) {
       # define fileName
       if(is.null(fileOutput)) {
@@ -93,10 +100,9 @@ run_model <- function(steps, initLand,
       if(is.null(foulderOutput)) {
         directoryName <- paste0('output/', fileName, '.Rdata')
       }else {
-        if(!dir.exists(paste0('output/', foulderOutput))) dir.create(paste0('output/', foulderOutput)) # ckeck if directory exists and if not, create it
-        directoryName <- paste0('output/', foulderOutput, '/', fileName, '.Rdata')
+        if(!dir.exists(foulderOutput)) dir.create(foulderOutput) # ckeck if directory exists and if not, create it
+        directoryName <- paste0(foulderOutput, '/', fileName, '.Rdata')
       }
-
     save(lands, file = directoryName)
   }else {
     return(lands)
