@@ -1,13 +1,15 @@
 ## get functions
+library(parallel)
 file.sources <- dir('R/')
 invisible(sapply(paste0('R/', file.sources), source))
 
 ## get initial lanscape
-initLand <- create_landscape(climRange = c(-2.1, 0.45), cellSize = 1)
+initLand <- create_landscape(climRange = c(-2.3, 0.55), cellSize = 0.8)
 plot_landscape(initLand, Title = 'initial_landscape')
 
 # load pars
 params = read.table("data/pars.txt", row.names = 1)
+
 
 # run the model
   # (Land = 50 x 60; 1000 years = 7MB; ~ 42 seconds)
@@ -17,9 +19,10 @@ lands <- run_model(steps = 150, initLand,
                    harvInt = 0,
                    thinInt = 0,
                    enrichInt = 0,
-                   RCP = 6, # either 0, 2.6, 4.5, 6.0 and 8.5
+                   RCP = 4.5, # either 0, 2.6, 4.5, 6.0 and 8.5
                    stoch = T,
-                   saveOutput = T)
+                   saveOutput = F
+)
 
 # load option
 load('initLand.Rdata')
@@ -32,8 +35,8 @@ load('lands.Rdata')
 
   ## create a gif (http://imagemagick.org must be installed)
     # (5 minutes with 9MB file size for a gif with 150 steps)
-  make_gif(lands, steps = 4, years = NULL, fps = 5, gifName = 'RCP4.5')
-  make_gif(lands, steps = NULL, years = 1:100, fps = 5, gifName = 'test', rangeLimit = TRUE, occup = 0.7)
+  make_gif(lands, steps = 4, years = NULL, fps = 5, gifName = 'RCP6')
+  make_gif(lands, steps = NULL, years = 1:100, fps = 5, gifName = 'RCP6', rangeLimit = TRUE, occup = 0.7)
 
   ## State occupancy for each year
   par(mfrow = c(1, 2))

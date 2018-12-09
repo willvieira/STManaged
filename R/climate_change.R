@@ -13,9 +13,9 @@ clim_diff <- function(env1, # pars as a list for each row of the lanscape
 
   # add climate change
   if(RCP == 2.6) tempUn1 <- tempUn0 + 1 # increase of 1 degree
-  if(RCP == 4.5) tempUn1 <- tempUn0 + 1.8 # 1.8 degrees
-  if(RCP == 6) tempUn1 <- tempUn0 + 2.2 # 1.8 degrees
-  if(RCP == 8.5) tempUn1 <- tempUn0 + 3.7 # 1.8 degrees
+  if(RCP == 4.5) tempUn1 <- tempUn0 + 1.8
+  if(RCP == 6) tempUn1 <- tempUn0 + 2.2
+  if(RCP == 8.5) tempUn1 <- tempUn0 + 3.7
   if(RCP == 0) tempUn1 <- tempUn0
 
   # test if RCP was corectly insert
