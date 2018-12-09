@@ -98,12 +98,12 @@ run_model <- function(steps, initLand,
       }
       # define directory
       if(is.null(foulderOutput)) {
-        directoryName <- paste0('output/', fileName, '.Rdata')
+        directoryName <- paste0('output/', fileName, '.RDS')
       }else {
         if(!dir.exists(foulderOutput)) dir.create(foulderOutput) # ckeck if directory exists and if not, create it
-        directoryName <- paste0(foulderOutput, '/', fileName, '.Rdata')
+        directoryName <- paste0(foulderOutput, '/', fileName, '.RDS')
       }
-    save(lands, file = directoryName)
+    saveRDS(lands, file = directoryName)
   }else {
     return(lands)
   }
