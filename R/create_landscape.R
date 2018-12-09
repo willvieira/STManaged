@@ -6,15 +6,15 @@
 ## Ouput
  # - raster with first step landscape
 
-create_landscape <- function(climRange = c(-1.9, 0.6),
-                             cellSize = 5) # in Km
+create_landscape <- function(climRange = c(-2.1, 0.55),
+                             cellSize = 1) # in Km
 {
 
   # probabilty occupancy of each state based on temperature (Env1: -2 to 1.2)
   envProb <- read.table('data/envProb.txt', h = T)
 
   # get grid size
-  landDist = 1200 # TODO: rethink about it
+  landDist = 800 # TODO: rethink about it
   nrow = landDist/cellSize #TODO: define the distance between climRange and real distance
   ncol = nrow/10
 
