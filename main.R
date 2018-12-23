@@ -4,12 +4,11 @@ file.sources <- dir('R/')
 invisible(sapply(paste0('R/', file.sources), source))
 
 ## get initial lanscape
-initLand <- create_landscape(climRange = c(-2.3, 0.55), cellSize = 0.8)
+initLand <- create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
 plot_landscape(initLand, Title = 'initial_landscape')
 
 # load pars
 params = read.table("data/pars.txt", row.names = 1)
-
 
 # run the model
   # (Land = 50 x 60; 1000 years = 7MB; ~ 42 seconds)
