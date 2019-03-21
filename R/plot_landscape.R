@@ -6,23 +6,6 @@
    # - rangeLimit (if TRUE will add a line in the plot with the range limit of Boreal and Temperate)
   ## Output:
    # - an image()
-  ## Extra function:
-   # - covertState (function to convert state character to numeric)
-
- # function to convert state letters in values (needed to plot image)
- convertState <- function(state) {
-   if(state == "B") {
-     state <- 1
-   }else if(state == "T") {
-     state <- 2
-   }else if(state == "M") {
-     state <- 3
-   }else{
-     state <- 4
-   }
-   state <- as.numeric(state)
-   return(state)
- }
 
 plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
@@ -33,9 +16,8 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
   coordx <- seq(0, nc)
   coordy <- seq(0, nr)
 
-  # convert states in values and then in a matrix
-  landConverted <- sapply(unlist(land[['land']], use.names = F), convertState)
-  landM <- matrix(landConverted, ncol = length(land[[1]]))
+  # Transform land from list to matrix
+  landM <- matrix(unlist(land[['land']], use.names = F), ncol = length(land[[1]]))
 
   # remove border of landscape that are not updated
   if(rmBorder == TRUE) {

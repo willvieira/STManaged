@@ -25,7 +25,7 @@ create_landscape <- function(climRange = c(-2.1, 0.55),
   # initial state over the temperature gradient
   getState <- function(env) {
     p <- envProb[which.min(abs(envProb$temp-env)),c(2:5)] # probability for a given temperature
-    state <- names(envProb[,-1])[which(rmultinom(n = 1, size = 1, prob = p) == 1)] # get a state depending on the probability `p`
+    state <- which(rmultinom(n = 1, size = 1, prob = p) == 1) # get a state depending on the probability `p`
     return(state)
   }
 

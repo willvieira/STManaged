@@ -13,9 +13,9 @@
 
 # function to return neighborhood proportion considering the 8 neighbors
 neighbor_prop <- function(neighbor) {
-  B = sum(neighbor == "B")/9
-  T = sum(neighbor == "T")/9
-  M = sum(neighbor == "M")/9
+  B = sum(neighbor == 1)/9
+  T = sum(neighbor == 2)/9
+  M = sum(neighbor == 3)/9
 
   return(setNames(c(B, T, M), c("B", "T", "M")))
 }
@@ -61,11 +61,10 @@ run_model <- function(steps, initLand,
         y1['R'] <- 1 - sum(y1)
 
         if(stoch == T) {
-          state <- names(y1)[which(rmultinom(n = 1, size = 1, prob = y1) == 1)] # get a state depending on the probability `p`
+          landStep[[c]][r] <- which(rmultinom(n = 1, size = 1, prob = y1) == 1) # get a state depending on the probability `p`
         }else {
-          state <- names(y1)[which(y1 == max(y1))] # update landStep
+          landStep[[c]][r] <- which(y1 == max(y1)) # update landStep
         }
-        landStep[[c]][r] <- state
       }
     }
 

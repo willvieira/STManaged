@@ -11,7 +11,7 @@ plot_occ_time <- function(lands) {
 
   # lands
   for(i in 1:lands[['steps']]) {
-    ld <- sapply(unlist(lands[[i]][[1]]), convertState)
+    ld <- unlist(lands[[i]][[1]])
     df[i, ] <- as.vector(table(ld)/length(ld))
   }
 

@@ -18,9 +18,9 @@ plot_occupancy <- function(lands, years)
 
     # summary for each row
     getProp <- function(x) {
-      B <- sum(land[x,] == "B")/nc
-      T <- sum(land[x,] == "T")/nc
-      M <- sum(land[x,] == "M")/nc
+      B <- sum(land[x,] == 1)/nc
+      T <- sum(land[x,] == 2)/nc
+      M <- sum(land[x,] == 3)/nc
       R <- 1 - sum(B, T, M)
       return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
     }

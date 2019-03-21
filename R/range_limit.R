@@ -15,9 +15,9 @@ range_limit <- function(land, occup)
 
   # summary for each row (get proportion for each row of the landscape)
   getProp <- function(x) {
-    B <- sum(landM[x,] == "B")/nc
-    T <- sum(landM[x,] == "T")/nc
-    M <- sum(landM[x,] == "M")/nc
+    B <- sum(landM[x,] == 1)/nc
+    T <- sum(landM[x,] == 2)/nc
+    M <- sum(landM[x,] == 3)/nc
     R <- 1 - sum(B, T, M)
     return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
   }
