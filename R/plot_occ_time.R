@@ -6,12 +6,14 @@
 
 plot_occ_time <- function(lands) {
 
+  cells = seq(lands[['nCol']] + 1, 2 * lands[['nCol']])
+
   # data frame
   df <- setNames(data.frame(matrix(1:4, nrow = 1)), c('B', 'T', 'M', 'R'))
 
   # lands
   for(i in 1:lands[['steps']]) {
-    ld <- unlist(lands[[i]][[1]])
+    ld <- lands[[i]][cells]
     df[i, ] <- as.vector(table(ld)/length(ld))
   }
 

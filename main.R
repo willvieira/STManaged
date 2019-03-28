@@ -1,11 +1,10 @@
 ## get functions
-library(parallel)
 file.sources <- dir('R/')
 invisible(sapply(paste0('R/', file.sources), source))
 
 ## get initial lanscape
-initLand <- create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
-plot_landscape(initLand, Title = 'initial_landscape')
+initLand <- create_landscape(climRange = c(-2.5, 0.35), cellSize = 1.6)
+plot_landscape(initLand[['land']], nRow = initLand[['nRow']], nCol = initLand[['nCol']], Title = 'initial_landscape')
 
 # load pars
 params = read.table("data/pars.txt", row.names = 1)
@@ -20,6 +19,16 @@ lands <- run_model(steps = 150, initLand,
                    enrichInt = 0,
                    RCP = 4.5, # either 0, 2.6, 4.5, 6.0 and 8.5
                    stoch = T,
+                   saveOutput = F
+)
+lands <- run_model_parallel(steps = 50, initLand,
+                   plantInt = 0, # for all management practice: [0-1]
+                   harvInt = 0,
+                   thinInt = 0,
+                   enrichInt = 0,
+                   RCP = 4.5, # either 0, 2.6, 4.5, 6.0 and 8.5
+                   stoch = T,
+                   cores = 1,
                    saveOutput = F
 )
 

@@ -38,39 +38,44 @@ run_model <- function(steps, initLand,
   climDiff <- clim_diff(initLand[['env1']], RCP = RCP, params)
   pars <- clim_increase(steps = steps, climDiff, growth = 'linear')
 
+
+
   # lands
-  lands <- setNames(list(initLand), 'land_T0')
+  lands <- list(land_T0 = initLand[['land']])
   land0 <- initLand[['land']]
+
+  # lands information
+  nRow = initLand[['nRow']]
+  nCol = initLand[['nCol']]
+  position = initLand[['position']]
+  neighbor = initLand[['neighbor']]
+  parCell = (seq(1, (nRow * nCol - 2 * nRow)) - 1) %% (nCol - 2) + 2
+  parCell = parCell[((nCol - 2) * 2 + 1):length(parCell)]
+
 
   for(i in 1:steps) {
 
-    landStep <- land0
+    land1 <- land0
 
-    for(c in 2:(length(land0)-1)) {
-      for(r in 2:(length(land0[[1]])-1)) {
+    for(cell in 1:length(neighbor)) {
 
-        # get neighborhood
-        neighbor <- c(land0[[c - 1]][r - 1], land0[[c - 1]][r], land0[[c - 1]][r + 1],
-                      land0[[c]][r - 1], land0[[c]][r], land0[[c]][r + 1],
-                      land0[[c + 1]][r - 1], land0[[c + 1]][r], land0[[c + 1]][r + 1])
-        y0 <- neighbor_prop(neighbor)
+      # get neighborhood
+      y0 <- neighbor_prop(land0[neighbor[[cell]]])
+      # run the model
+      y1 <- model_fm(t = 1, y0, params = pars[[i]][, parCell[cell]], plantInt, harvInt, thinInt, enrichInt)
+      y1 <- y0 + unlist(y1) # update cell
+      y1['R'] <- 1 - sum(y1)
 
-        # run the model
-        y1 <- model_fm(t = 1, y0, params = pars[[i]][,r], plantInt, harvInt, thinInt, enrichInt)
-        y1 <- y0 + unlist(y1) # update cell
-        y1['R'] <- 1 - sum(y1)
-
-        if(stoch == T) {
-          landStep[[c]][r] <- which(rmultinom(n = 1, size = 1, prob = y1) == 1) # get a state depending on the probability `p`
-        }else {
-          landStep[[c]][r] <- which(y1 == max(y1)) # update landStep
-        }
+      if(stoch == T) {
+        land1[neighbor[[cell]][5]] <- which(rmultinom(n = 1, size = 1, prob = y1) == 1) # get a state depending on the probability `p`
+      }else {
+        land1[neighbor[[cell]][5]] <- which(y1 == max(y1)) # update landStep
       }
     }
 
-    land0 <- landStep # update land0 for next time step
-    landStep <- setNames(list(landStep, initLand[['env1']]), c('land', 'env1')) # add temperature info
-    lands[[paste0('land_T', i)]] <- landStep # save the land i step
+
+    land0 <- land1 # update land0 for next time step
+    lands[[paste0('land_T', i)]] <- land1 # save land time step
 
     # print progress
     cat("==>", format(100*i/steps, digits = 4), "%", "\r")
@@ -83,9 +88,12 @@ run_model <- function(steps, initLand,
   }
 
   # add steps, management and RCP information
+  lands[['env1']] <- initLand[['env1']]
   lands[['steps']] <- steps
   lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
   lands[['RCP']] <- RCP
+  lands[['nCol']] <- nCol
+  lands[['nRow']] <- nRow
 
   # save or simply return the output
   if(saveOutput == TRUE) {

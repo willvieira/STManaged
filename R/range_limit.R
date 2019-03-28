@@ -5,24 +5,21 @@
   ## Output:
    # - nb of the row (nb for both Boreal and Temperate states)
 
-range_limit <- function(land, occup)
+# summary for each row (get proportion for each row of the landscape)
+getProp <- function(x, nRow) {
+ B <- sum(x == 1)/nRow
+ T <- sum(x == 2)/nRow
+ M <- sum(x == 3)/nRow
+ R <- 1 - sum(B, T, M)
+ return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
+}
+
+range_limit <- function(land, nRow, nCol, occup)
 {
-  nc <- length(land[[1]])
-  nr <- length(land[[1]][[1]])
-
   # list to matrix
-  landM <- matrix(unlist(land[[1]]), ncol = nc)
+  landM <- matrix(land, ncol = nRow)
 
-  # summary for each row (get proportion for each row of the landscape)
-  getProp <- function(x) {
-    B <- sum(landM[x,] == 1)/nc
-    T <- sum(landM[x,] == 2)/nc
-    M <- sum(landM[x,] == 3)/nc
-    R <- 1 - sum(B, T, M)
-    return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
-  }
-
-  prop <- sapply(1:nr, getProp)
+  prop <- apply(landM, 1, getProp, nRow = nRow)
 
   # limit Boreal
   limB <- as.numeric(max(which(prop['B',] > occup)))

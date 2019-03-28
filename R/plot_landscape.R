@@ -1,29 +1,26 @@
-# Function to plot the landscape grid
+# FunColtion to plot the landscape grid
   ## Input:
-   # - land (list of 2: - List of landscape occupancy and vector of env1)
+   # - land (model output)
    # - title if needed
    # - rmBorder (remove border of plot)
    # - rangeLimit (if TRUE will add a line in the plot with the range limit of Boreal and Temperate)
   ## Output:
    # - an image()
 
-plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
+plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
   # define coordinates
-  nc <- length(land[['land']])
-  nr <- length(land[['land']][[1]])
-
-  coordx <- seq(0, nc)
-  coordy <- seq(0, nr)
+  coordx <- seq(0, nCol)
+  coordy <- seq(0, nRow)
 
   # Transform land from list to matrix
-  landM <- matrix(unlist(land[['land']], use.names = F), ncol = length(land[[1]]))
+  landM <- matrix(land, nrow = nCol)
 
   # remove border of landscape that are not updated
   if(rmBorder == TRUE) {
-    landM <- landM[c(-1, -nr), c(-1, -nc)]
-    coordx <- seq(1, dim(landM)[2])
-    coordy <- seq(1, dim(landM)[1])
+    landM <- landM[c(-1, -nCol), c(-1, -nRow)]
+    coordx <- seq(1, dim(landM)[1])
+    coordy <- seq(1, dim(landM)[2])
   }
 
   # plot
@@ -36,12 +33,12 @@ plot_landscape <- function(land, Title = NULL, rmBorder = TRUE, rangeLimit = NUL
   }
 
   par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F))
-  image(x = coordy, y = coordx, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = main, breaks = c(0, 1, 2, 3, 4))
+  image(x = coordx, y = coordy, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = main, breaks = c(0, 1, 2, 3, 4))
 
   # add rangeLimit line
   if(!is.null(rangeLimit)) {
-    lines(c(rangeLimit[1], rangeLimit[1]), c(nc, -2), lwd = 2)
-    lines(c(rangeLimit[2], rangeLimit[2]), c(nc, -2), lwd = 2)
+    lines(c(rangeLimit[1], rangeLimit[1]), c(nCol, -2), lwd = 2)
+    lines(c(rangeLimit[2], rangeLimit[2]), c(nCol, -2), lwd = 2)
   }
 
   # add north arrow
