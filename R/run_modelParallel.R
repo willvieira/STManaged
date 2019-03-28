@@ -13,14 +13,11 @@
 
 # function to return neighborhood proportion considering the 8 neighbors
 neighbor_prop <- function(neighbor) {
-  B = sum(neighbor == 1)/9
-  T = sum(neighbor == 2)/9
-  M = sum(neighbor == 3)/9
-
-  return(setNames(c(B, T, M), c("B", "T", "M")))
+  return(c(B = sum(neighbor == 1), T = sum(neighbor == 2), M = sum(neighbor == 3))/9)
 }
 
 # function to be used in the lapply (TODO: figure out how to use ... here)
+states = 1:4
 cellRun <- function(cell, neighbor, land0, pars, parCell, i, plantInt, harvInt, thinInt, enrichInt, stoch, nCol) {
 
   y0 <- neighbor_prop(land0[neighbor[[cell]]])
@@ -28,9 +25,9 @@ cellRun <- function(cell, neighbor, land0, pars, parCell, i, plantInt, harvInt, 
   y1 <- y0 + unlist(y1) # update cell
   y1['R'] <- 1 - sum(y1)
   if(stoch == T) {
-    cell <- which(rmultinom(n = 1, size = 1, prob = y1) == 1) # get a state depending on the probability `p`
+    cell <- states[rmultinom(n = 1, size = 1, prob = y1) == 1] # get a state depending on the probability `p`
   }else {
-    cell <- which(y1 == max(y1)) # update cell
+    cell <- states[y1 == max(y1)] # update cell
   }
 
   return(cell)
