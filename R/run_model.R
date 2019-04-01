@@ -25,6 +25,8 @@ run_model <- function(steps, initLand,
                       RCP = 0,
                       stoch = T,
                       outputLand = NA, # if NA, everything is out, otherwise specify a vector of timeSteps values [1 - steps]
+                      saveRangeLimit = FALSE,
+                      occup = 0.75,
                       saveOutput = F,
                       fileOutput = NULL, # name of the file
                       foulderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
@@ -33,8 +35,6 @@ run_model <- function(steps, initLand,
   # climate change
   climDiff <- clim_diff(initLand[['env1']], RCP = RCP, params)
   pars <- clim_increase(steps = steps, climDiff, growth = 'linear')
-
-
 
   # lands
   lands <- list(land_T0 = initLand[['land']])
@@ -48,6 +48,10 @@ run_model <- function(steps, initLand,
   parCell = (seq(1, (nRow * nCol - 2 * nRow)) - 1) %% (nCol - 2) + 2
   parCell = parCell[((nCol - 2) * 2 + 1):length(parCell)]
   states = 1:4
+
+  # range limit table (divided by nCol so I can compare with different landcape cell size)
+  rangeLimitDF = data.frame(step = 1:(steps + 1), limitB = numeric(steps + 1), limitT = numeric(steps + 1))
+  rangeLimitDF[1, 2:3] = range_limit(land0, nRow = nRow, nCol = nCol, occup = occup)/nCol
 
   for(i in 1:steps) {
 
@@ -69,6 +73,8 @@ run_model <- function(steps, initLand,
       }
     }
 
+    # calculate range limit
+    rangeLimitDF[i + 1, 2:3] = range_limit(land1, nRow = nRow, nCol = nCol, occup = occup)/nCol
 
     land0 <- land1 # update land0 for next time step
     lands[[paste0('land_T', i)]] <- land1 # save land time step
@@ -90,22 +96,24 @@ run_model <- function(steps, initLand,
   lands[['RCP']] <- RCP
   lands[['nCol']] <- nCol
   lands[['nRow']] <- nRow
+  lands[['rangeLimit']] <- rangeLimitDF
 
   # save or simply return the output
   if(saveOutput == TRUE) {
-      # define fileName
-      if(is.null(fileOutput)) {
-        fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
-      }else {
-        fileName = fileOutput
-      }
-      # define directory
-      if(is.null(foulderOutput)) {
-        directoryName <- paste0('output/', fileName, '.RDS')
-      }else {
-        if(!dir.exists(foulderOutput)) dir.create(foulderOutput) # ckeck if directory exists and if not, create it
-        directoryName <- paste0(foulderOutput, '/', fileName, '.RDS')
-      }
+    # define fileName
+    if(is.null(fileOutput)) {
+      fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
+    }else {
+      fileName = fileOutput
+    }
+    # define directory
+    if(is.null(foulderOutput)) {
+      directoryName <- paste0('output/', fileName, '.RDS')
+    }else {
+      fo = paste0('output/', foulderOutput)
+      if(!dir.exists(fo)) dir.create(fo) # ckeck if directory exists and if not, create it
+      directoryName <- paste0(fo, '/', fileName, '.RDS')
+    }
     saveRDS(lands, file = directoryName)
   }else {
     return(lands)
