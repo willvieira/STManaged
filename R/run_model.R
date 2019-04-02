@@ -29,7 +29,7 @@ run_model <- function(steps, initLand,
                       occup = 0.75,
                       saveOutput = F,
                       fileOutput = NULL, # name of the file
-                      foulderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
+                      folderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
 {
 
   # climate change
@@ -107,10 +107,10 @@ run_model <- function(steps, initLand,
       fileName = fileOutput
     }
     # define directory
-    if(is.null(foulderOutput)) {
+    if(is.null(folderOutput)) {
       directoryName <- paste0('output/', fileName, '.RDS')
     }else {
-      fo = paste0('output/', foulderOutput)
+      fo = paste0('output/', folderOutput)
       if(!dir.exists(fo)) dir.create(fo) # ckeck if directory exists and if not, create it
       directoryName <- paste0(fo, '/', fileName, '.RDS')
     }
