@@ -1,0 +1,7 @@
+Package: STManaged
+Title: State and transition model for the eastern North American forest
+Description: Collection of R functions to run the State and transition model for the eastern North American forest with forest management. This package allows you to spatially-explicit model the dynamics of four forest states (Boreal, Temperate, Mixed and Regeneration) over space and time. You will be able to add four management practices (plantation, harvest, thinning and enrichment) to increase the migration rate of forest northward.
+Version: 0.1
+Author: Willian Vieira w.vieiraw@gmail.com
+Maintainer: Willian Vieira w.vieiraw@gmail.com
+License: MIT License
