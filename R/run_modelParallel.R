@@ -18,10 +18,10 @@ neighbor_prop <- function(neighbor) {
 
 # function to be used in the lapply (TODO: figure out how to use ... here)
 states = 1:4
-cellRun <- function(cell, neighbor, land0, pars, parCell, i, plantInt, harvInt, thinInt, enrichInt, stoch, nCol) {
+cellRun <- function(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol) {
 
   y0 <- neighbor_prop(land0[neighbor[[cell]]])
-  y1 <- model_fm(t = 1, y = y0, params = pars[[i]][, parCell[cell]], plantInt, harvInt, thinInt, enrichInt)
+  y1 <- model_fm(t = 1, y = y0, params = pars[[i]][, parCell[cell]], managInt)
   y1 <- y0 + unlist(y1) # update cell
   y1['R'] <- 1 - sum(y1)
   if(stoch == T) {
@@ -35,10 +35,7 @@ cellRun <- function(cell, neighbor, land0, pars, parCell, i, plantInt, harvInt, 
 
 # Main function to run the model over time
 run_model_parallel <- function(steps, initLand,
-                              plantInt = 0,
-                              harvInt = 0,
-                              thinInt = 0,
-                              enrichInt = 0,
+                              managInt = c(0, 0, 0, 0), # for plant, harv, thin and enrich
                               RCP = 0,
                               stoch = T,
                               cores = 2,
@@ -77,7 +74,7 @@ run_model_parallel <- function(steps, initLand,
   for(i in 1:steps) {
 
     # run for all cells
-    land = parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, parCell, i, plantInt, harvInt, thinInt, enrichInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
+    land = parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
 
     land1 = setNames(land, position)
 
@@ -107,7 +104,7 @@ run_model_parallel <- function(steps, initLand,
   # add steps, management and RCP information
   lands[['env1']] <- initLand[['env1']]
   lands[['steps']] <- steps
-  lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
+  lands[['manag']] <- list(managInt = managInt)
   lands[['RCP']] <- RCP
   lands[['nCol']] <- nCol
   lands[['nRow']] <- nRow
@@ -117,7 +114,7 @@ run_model_parallel <- function(steps, initLand,
   if(saveOutput == TRUE) {
     # define fileName
     if(is.null(fileOutput)) {
-      fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
+      fileName <- paste0('RCP', RCP, paste(managInt, collapse = ''))
     }else {
       fileName = fileOutput
     }

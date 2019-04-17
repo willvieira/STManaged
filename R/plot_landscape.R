@@ -25,11 +25,13 @@ plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rang
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
+  manag <- lands[['manag']][[1]]
+
   # title
   if(!exists('lands')) {
     main <- Title
   }else {
-    main <- paste0(Title, '\nPlant = ', lands[['manag']][[1]], '; Harv = ', lands[['manag']][[2]], '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
+    main <- paste0(Title, '\nPlant = ', manag[1], '; Harv = ', manag[2], '; Thin = ', manag[3], '; Enrich = ', manag[4], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
   }
 
   par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F))

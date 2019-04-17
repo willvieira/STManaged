@@ -19,8 +19,10 @@ plot_occ_time <- function(lands) {
 
   # plot
   col <- c("darkcyan","orange","palegreen3","black")
-  main <- paste0('Plant = ', lands[['manag']][[1]], '; Harv = ', lands[['manag']][[2]],
-                 '; Thin = ', lands[['manag']][[3]], '; Enrich = ', lands[['manag']][[4]],
+  manag <- lands[['manag']][[1]]
+
+  main <- paste0('Plant = ', manag[1], '; Harv = ', manag[2],
+                 '; Thin = ', manag[3], '; Enrich = ', manag[4],
                  '\nsteps =', lands[['steps']], '; RCP = ', lands[['RCP']])
 
   par(mar = c(3,2.5,3,0.5), mgp = c(1.5, 0.3, 0), tck = -.008)

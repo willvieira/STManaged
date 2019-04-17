@@ -18,10 +18,7 @@ neighbor_prop <- function(neighbor) {
 
 # Main function to run the model over time
 run_model <- function(steps, initLand,
-                      plantInt = 0,
-                      harvInt = 0,
-                      thinInt = 0,
-                      enrichInt = 0,
+                      managInt = c(0, 0, 0, 0), # for plant, harv, thin and enrich
                       RCP = 0,
                       stoch = T,
                       outputLand = NA, # if NA, everything is out, otherwise specify a vector of timeSteps values [1 - steps]
@@ -62,7 +59,7 @@ run_model <- function(steps, initLand,
       # get neighborhood
       y0 <- neighbor_prop(land0[neighbor[[cell]]])
       # run the model
-      y1 <- model_fm(t = 1, y0, params = pars[[i]][, parCell[cell]], plantInt, harvInt, thinInt, enrichInt)
+      y1 <- model_fm(t = 1, y0, params = pars[[i]][, parCell[cell]], managInt)
       y1 <- y0 + unlist(y1) # update cell
       y1['R'] <- 1 - sum(y1)
 
@@ -92,7 +89,7 @@ run_model <- function(steps, initLand,
   # add steps, management and RCP information
   lands[['env1']] <- initLand[['env1']]
   lands[['steps']] <- steps
-  lands[['manag']] <- list(plantInt = plantInt, harvInt = harvInt, thinInt = thinInt, enrichInt = enrichInt)
+  lands[['manag']] <- list(managInt = managInt)
   lands[['RCP']] <- RCP
   lands[['nCol']] <- nCol
   lands[['nRow']] <- nRow
@@ -102,7 +99,7 @@ run_model <- function(steps, initLand,
   if(saveOutput == TRUE) {
     # define fileName
     if(is.null(fileOutput)) {
-      fileName <- paste0('RCP', RCP, paste(c(plantInt, harvInt, thinInt, enrichInt), collapse = ''))
+      fileName <- paste0('RCP', RCP, paste(managInt, collapse = ''))
     }else {
       fileName = fileOutput
     }

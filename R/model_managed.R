@@ -6,12 +6,13 @@
 ## Ouput
  # - dominant state
 
- model_fm = function(t, y, params, plantInt, harvInt, thinInt, enrichInt) {
- 	with(as.list(c(t, y, params, plantInt, harvInt, thinInt, enrichInt)), {
+ model_fm = function(t, y, params, managInt) {
+ 	with(as.list(c(t, y, params, managInt)), {
 
- 		# management
- 		naturalSuccession <- 1 - plantInt # plantation
- 		naturalColonization <- 1 - enrichInt # enrichement planting
+    # managInt (1. plantation, 2. harvest, 3. thinning, 4. enrichement)
+		naturalSuccession <- 1 - managInt[1] # plantation
+		naturalColonization <- 1 - managInt[4] # enrichement planting
+		naturalHarvest <- 1 - managInt[2]
 
  		# Fraction of empty patches converted into the different states following a disturbance
  		pB = alphab * (B + M)
@@ -24,9 +25,9 @@
  		R = 1 - B - T - M
 
  		# Differential equations describing the dynamics of the state variables
- 		dBdt = pB_ * naturalSuccession * R + theta * (1 - thetat) * M - ((betat * (T + M) * naturalColonization) + enrichInt) * B - (epsB + epsB * harvInt) * B
- 		dTdt = ((pT_ * naturalSuccession) + plantInt) * R + (theta * thetat + thinInt * (1 - theta)) * M - betab * (B + M) * T - epsT * T
- 		dMdt = pM  * naturalSuccession * R + betab * (B + M) * T + ((betat * (T + M) * naturalColonization) + enrichInt) * B - (theta * (1 - thetat) + (theta * thetat + thinInt * (1 - theta))) * M - epsM * M
+    dBdt = pB_ * naturalSuccession * R + theta * (1 - thetat) * M - ((betat * (T + M) * naturalColonization) + managInt[4]) * B - ((epsB * naturalHarvest) + managInt[2]) * B
+		dTdt = ((pT_ * naturalSuccession) + managInt[1]) * R + (theta * thetat + managInt[3] * (1 - theta)) * M - betab * (B + M) * T - epsT * T
+		dMdt = pM  * naturalSuccession * R + betab * (B + M) * T + ((betat * (T + M) * naturalColonization) + managInt[4]) * B - (theta * (1 - thetat) + (theta * thetat + managInt[3] * (1 - theta))) * M - epsM * M
  		list(c(dBdt, dTdt, dMdt))
  		})
  	}

@@ -13,10 +13,7 @@ params = read.table("data/pars.txt", row.names = 1)
   # (Land = 50 x 60; 1000 years = 7MB; ~ 42 seconds)
   # (Land = 80 x 240; 750 years = 25MB; ~ 3.2 minutes)
 lands <- run_model(steps = 150, initLand,
-                   plantInt = 0, # for all management practice: [0-1]
-                   harvInt = 0,
-                   thinInt = 0,
-                   enrichInt = 0,
+                   managInt = c(0, 0, 0, 0), # [0-1]
                    RCP = 4.5, # either 0, 2.6, 4.5, 6.0 and 8.5
                    stoch = T,
                    saveRangeLimit = FALSE,
@@ -25,10 +22,7 @@ lands <- run_model(steps = 150, initLand,
 )
 
 lands <- run_model_parallel(steps = 150, initLand,
-                   plantInt = 0, # for all management practice: [0-1]
-                   harvInt = 0,
-                   thinInt = 0,
-                   enrichInt = 0,
+                   managInt = c(0, 0, 0, 0),
                    RCP = 4.5, # either 0, 2.6, 4.5, 6.0 and 8.5
                    stoch = T,
                    cores = 4,
