@@ -1,13 +1,36 @@
-# Function to initiate landscape
-## input
- # - Climate range
- # - Cell size
- # - Initial state of landsape
-## Ouput
- # - raster with first step landscape
+#' Create initial landscape
+#'
+#' This function creates an initial landsdcape to run the simulations
+#' @param climRange vector, mean (scaled) temperature with the respective North and South limits
+#' @param cellSize numeric, size of the cell of the landsdcape in Km. I recommend not setting a value less than 0.3 or higher than 5
+#' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
+#' @export
+#' @examples
+#' create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
 
- # probabilty occupancy of each state based on temperature (Env1: -2 to 1.2)
- envProb <- read.table('data/envProb.txt', h = T)
+create_landscape <- function(climRange = c(-2.5, 0.35),
+                             cellSize = 0.8)
+{
+
+  # get grid size
+  landDist = 800 # TODO: rethink about it
+  nCol = round(landDist/cellSize, 0) #TODO: define the distance between climRange and real distance
+  nRow = round(nCol/10, 0)
+
+  # temperature gradient over the grid
+  env1 <- seq(climRange[1], climRange[2], length.out = nCol)
+  landscape <- setNames(rep(env1, nRow), 1:(nRow * nCol)) # list for each col of the matrix
+
+  land <- sapply(landscape, getState)
+
+  # get position to be calculate (i.e. ignore border)
+  position = getPosition(nRow = nRow, nCol = nCol)
+
+  # get neighbors for each position cell
+  neighbor = getNeighbor(nRow = nRow, nCol = nCol)
+
+  return(list(land = land, env1 = env1, nCol = nCol, nRow = nRow, position = position, neighbor = neighbor))
+}
 
 # initial state over the temperature gradient
 getState <- function(env) {
@@ -49,28 +72,4 @@ getNeighbor <- function(nRow, nCol) {
     }
   }
   return(neighList)
-}
-
-create_landscape <- function(climRange = c(-2.1, 0.55),
-                             cellSize = 1.2) # in Km
-{
-
-  # get grid size
-  landDist = 800 # TODO: rethink about it
-  nCol = round(landDist/cellSize, 0) #TODO: define the distance between climRange and real distance
-  nRow = round(nCol/10, 0)
-
-  # temperature gradient over the grid
-  env1 <- seq(climRange[1], climRange[2], length.out = nCol)
-  landscape <- setNames(rep(env1, nRow), 1:(nRow * nCol)) # list for each col of the matrix
-
-  land <- sapply(landscape, getState)
-
-  # get position to be calculate (i.e. ignore border)
-  position = getPosition(nRow = nRow, nCol = nCol)
-
-  # get neighbors for each position cell
-  neighbor = getNeighbor(nRow = nRow, nCol = nCol)
-
-  return(list(land = land, env1 = env1, nCol = nCol, nRow = nRow, position = position, neighbor = neighbor))
 }
