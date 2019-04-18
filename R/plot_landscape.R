@@ -7,7 +7,7 @@
   ## Output:
    # - an image()
 
-plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
+plot_landscape <- function(land, nRow, nCol, managInt = NULL, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
   # define coordinates
   coordx <- seq(0, nCol)
@@ -25,12 +25,12 @@ plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rang
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
-  manag <- lands[['manag']][[1]]
 
   # title
   if(!exists('lands')) {
     main <- Title
   }else {
+    manag <- managInt
     main <- paste0(Title, '\nPlant = ', manag[1], '; Harv = ', manag[2], '; Thin = ', manag[3], '; Enrich = ', manag[4], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
   }
 
