@@ -14,7 +14,7 @@ getProp <- function(land, nRow) {
  return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
 }
 
-plot_occupancy <- function(lands, years)
+plot_occupancy <- function(lands, years, spar)
 {
   # define coordinates
   nCol <- lands[['nCol']]
@@ -32,21 +32,13 @@ plot_occupancy <- function(lands, years)
     prop <- apply(land, 1, getProp, nRow = nRow)
 
     # plot
-    col <- c("darkcyan","orange","palegreen3","black")
+    cols <- c("darkcyan", "orange", "palegreen3", "black")
 
-    par(mar = c(1.5,2.5,3,0.5), mgp = c(1.5, 0.3, 0), tck = -.008)
-    plot(1:nCol, prop[1,], type = 'l', lwd = 1.3, xlab = "", ylim = c(0, 1), ylab = "State occupancy", col = col[1])
-    invisible(sapply(2:3, function(x) points(1:nCol, prop[x,], type = 'l', lwd = 1.3, col = col[x])))
-    legend(nRow/2 - nRow*.1, 1, legend = c('Boreal', 'Temperate', 'Mixed', 'Regeneration'), lty = 1, col = col, bty = 'n', cex = 0.8)
+    par(mar = c(2.5, 2.5, 3, 0.5), mgp = c(1.5, 0.3, 0), tck = -.008)
+    plot(1:nCol, prop[1,], pch = '', lwd = 1.3, xlab = "Latitudinal gradient", ylim = c(0, 1), ylab = "State occupancy", col = cols[1])
+    invisible(sapply(1:3, function(x) points(1:nCol, if(spar == 0) {prop[x, ]} else {smooth.spline(prop[x, ], spar = spar)$y}, type = 'l', lwd = 1.3, col = cols[x])))
+    legend(nRow/2 - nRow*.1, 0.8, legend = c('Boreal', 'Temperate', 'Mixed'), lty = 1, col = cols[1:3], bty = 'n', cex = 0.8)
     mtext(names(lands)[i], 3, line = 0.5)
 
   }
 }
-
-plot_occupancy_gif <- function()
-{
-  # TODO
-}
-# sooth lines
-#smoothingSpline = smooth.spline(1:nRow, prop[1,], spar=0.4)
-#lines(smoothingSpline, col = 'red')
