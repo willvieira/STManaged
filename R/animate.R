@@ -38,7 +38,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, o
     dev.off()
 
     # print progress
-    cat("==>", format(100*i/length(lds), digits = 4), "%", "\r")
+    cat("==>", format(100 * seq_len(length(lds))[lds %in% i]/length(lds), digits = 2), "%", "\r")
   }
 
   # obj with plot names
