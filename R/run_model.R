@@ -1,17 +1,23 @@
-# Function to run the model over time
- ## Input:
-  # - steps (nb of steps; step * 5 = years)
-  # - initLand (output of the `create_landscape` function)
-  # - params (parameters)
-  # - Forest management intensity [0-1]
-  # - RCP (three options of climate change: RCP = 2.6, RCP = 4.5, RCP = 6, RCP = 8.5)
- ## Output:
-  # - land (a list for every step)
-  # - Each step (or list) of land have a list of state occupancy and the respective env1 vector
- ## Extra functions:
-  # - neighbor_prop (calculates the proportion between states for each neigbor area - 9 cells)
+#' Run the model over time
+#'
+#' This function generates the spatio-temporal dynamics based in the initial landscape, climate change and forest management
+#' @param steps numeric, the maximum time to run the dynamic. The model is parametrized with a 5 years time interval, it means 1 step is equal 5 years.
+#' @param initLand output object from the \code{\link{create_landscape}} function
+#' @param managInt vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.
+#' @param RCP Numeric, [Representative Concentration Pathway](https://en.wikipedia.org/wiki/Representative_Concentration_Pathway). Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}
+#' @param stoch logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.
+#' @param cores numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
+#' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.
+#' @param rangeLimitOccup Numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. It returns a data frame.
+#' @param saveOutput logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation
+#' @param fileOutput, character, if not \code{NULL}, define the name of the file output
+#' @param folderOutput, character, if not \code{NULL}, define the name of the folder other than the default 'output'
+#' @return a list with the (i) landscape configuration for each step, (ii) scaled temperature gradient, (iii) steps, (iv) management intensity, (v) RCP scenario, (vi) landscape dimensions and (vii) range limit data frame
+#' @importFrom parallel mcmapply
+#' @export
+#' @examples
+#' lands <- run_model(steps = 150, initLand, managInt = c(0.15, 0, 0, 0), RCP = 4.5, rangeLimitOccup = 0.75)
 
-# Main function to run the model over time
 run_model <- function(steps,
                       initLand,
                       managInt = c(0, 0, 0, 0), # for plant, harv, thin and enrich
