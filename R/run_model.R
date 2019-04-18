@@ -8,7 +8,7 @@
 #' @param stoch logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.
 #' @param cores numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
 #' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.
-#' @param rangeLimitOccup Numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. It returns a data frame.
+#' @param rangeLimitOccup numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. The defined value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. It returns a data frame.
 #' @param saveOutput logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation
 #' @param fileOutput, character, if not \code{NULL}, define the name of the file output
 #' @param folderOutput, character, if not \code{NULL}, define the name of the folder other than the default 'output'
