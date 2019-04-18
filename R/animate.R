@@ -14,7 +14,7 @@
 #' @importFrom magick image_write
 #' @export
 #' @examples
-#' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', rangeLimit = TRUE, occup = 0.75)
+#' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
 
 animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, occup = 0.75)
 {
@@ -34,7 +34,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, o
     if(!is.null(occup)) {
       rangeLim <- range_limit(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = occup)
     }else rangeLim <- NULL
-    plot_landscape(lands[[i]], nRow = lands[['nRow']], managInt = lands[['manag']], nCol = lands[['nCol']], Title = names(lands)[i], rangeLimit = rangeLim)
+    plot_landscape(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], Title = names(lands)[i], rangeLimit = rangeLim)
     dev.off()
 
     # print progress
@@ -55,5 +55,5 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, o
 
   # clean memory
   rm(list = ls()[ls() %in% paste0('landPlot', lds)])
-
+  graphics.off()
 }
