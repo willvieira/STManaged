@@ -1,11 +1,15 @@
-# FunColtion to plot the landscape grid
-  ## Input:
-   # - land (model output)
-   # - title if needed
-   # - rmBorder (remove border of plot)
-   # - rangeLimit (if TRUE will add a line in the plot with the range limit of Boreal and Temperate)
-  ## Output:
-   # - an image()
+#' Plot landscape
+#'
+#' This function plots a specific time step landscape
+#' @param land a vector with the distribution of the four forest states in the landscape. This is found in the output list from the \code{\link{run_model}} function named 'land_TX', where X is the time step
+#' @param nRow numeric, number of rows of the landscape. Value is found in the output list from the \code{\link{run_model}} function
+#' @param nCow numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function
+#' @param Title character, title of the landscape plot
+#' @param rmBorder logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.
+#' @param rangeLimit, vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}
+#' @export
+#' @examples
+#' plot_landscape(land = output[[100]], nRow = output[['nRow']], nCol = output[['nCol']], Title = 'land at step 100')
 
 plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
