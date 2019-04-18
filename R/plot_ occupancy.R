@@ -1,18 +1,13 @@
-# function to plot the distribution of state occupancy in the landscape
-  ## Input:
-   # - land
-   # - years (vector with time steps desired to be plotted)
-  ## Output:
-   # - scatterplot
-
-# summary for each row
-getProp <- function(land, nRow) {
- B <- sum(land == 1)/nRow
- T <- sum(land == 2)/nRow
- M <- sum(land == 3)/nRow
- R <- 1 - sum(B, T, M)
- return(setNames(c(B, T, M, R), c('B', 'T', 'M', 'R')))
-}
+#' Plot landscape occupancy
+#'
+#' This function plots the distribution of state occupancy over the Latitudinal grandient of the landscape
+#' @param lands the object output of the \code{\link{run_model}} function
+#' @param years vector, time steps to be plotted. Remember that mfrow set must be setted before the function in case years has more than one step
+#' @param spar numeric, value between 0 and 1 to sooth the state occupancy
+#' @export
+#' @examples
+#' par(mfrorw = c(1, 2))
+#' plot_occupancy(lands, years = c(1, 100), spar = 0.2)
 
 plot_occupancy <- function(lands, years, spar)
 {
@@ -20,9 +15,8 @@ plot_occupancy <- function(lands, years, spar)
   nCol <- lands[['nCol']]
   nRow <- lands[['nRow']]
 
-  # Test if years has the good size and values
-  if(length(years) > lands[['steps']]) stop('Years is larger than the time steps from `lands`')
-  if(max(years) > lands[['steps']]) stop(paste('year', max(year), 'is larger than the time steps from `lands`'))
+  # checks
+  if(!all(years %in% seq_len(lands[['steps']]))) stop('years vector must be included in 1:steps')
 
   for(i in years) {
 
