@@ -45,24 +45,24 @@ run_model <- function(steps,
   land0 <- initLand[['land']]
 
   # lands information
-  nRow = initLand[['nRow']]
-  nCol = initLand[['nCol']]
-  position = initLand[['position']]
-  neighbor = initLand[['neighbor']]
-  parCell = (seq(1, (nRow * nCol - 2 * nRow)) - 1) %% (nCol - 2) + 2
-  parCell = parCell[((nCol - 2) * 2 + 1):length(parCell)]
-  states = 1:4
+  nRow <- initLand[['nRow']]
+  nCol <- initLand[['nCol']]
+  position <- initLand[['position']]
+  neighbor <- initLand[['neighbor']]
+  parCell <- (seq(1, (nRow * nCol - 2 * nRow)) - 1) %% (nCol - 2) + 2
+  parCell <- parCell[((nCol - 2) * 2 + 1):length(parCell)]
+  states <- 1:4
 
   if(cores > 1) {
     # create a border vector with states from land0 to be added at each time step (the border will not be updated
-    indexToAdd = which(!(1:(nCol * nRow) %in% position))
-    border = land0[indexToAdd]
+    indexToAdd <- which(!(1:(nCol * nRow) %in% position))
+    border <- land0[indexToAdd]
   }
 
   if(!is.null(rangeLimitOccup)) {
     # range limit table (divided by nCol so I can compare with different landcape cell size)
-    rangeLimitDF = data.frame(step = 1:(steps + 1), limitB = numeric(steps + 1), limitT = numeric(steps + 1))
-    rangeLimitDF[1, 2:3] = range_limit(land0, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
+    rangeLimitDF <- data.frame(step = 1:(steps + 1), limitB = numeric(steps + 1), limitT = numeric(steps + 1))
+    rangeLimitDF[1, 2:3] <- range_limit(land0, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
   }
 
   if(cores == 1) land1 <- land0
@@ -71,7 +71,7 @@ run_model <- function(steps,
 
     # two run options (non-parallel and parallel)
     if(cores == 1) {
-      for(cell in 1:length(neighbor)) {
+      for(cell in seq_len(length(neighbor))) {
         # get neighborhood
         y0 <- neighbor_prop(land0[neighbor[[cell]]])
         # run the model
@@ -87,13 +87,13 @@ run_model <- function(steps,
       }
     }else if(cores > 1) {
       # run for all cells
-      land = parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
+      land <- parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
 
-      land1 = setNames(land, position)
+      land1 <- setNames(land, position)
 
       # add border to keep same size at each time step
-      land1 = c(land1, border)
-      land1 = land1[match(1:length(land1), as.numeric(names(land1)))] # sort to keep same order
+      land1 <- c(land1, border)
+      land1 <- land1[match(seq_len(length(land1)), as.numeric(names(land1)))] # sort to keep same order
     }else{
       stop("cores must be a numeric greater than zero")
     }
@@ -110,7 +110,7 @@ run_model <- function(steps,
 
   # keep all output lands or just a part of it?
   if(!is.na(outputLand)) {
-    y = paste0('land_T', outputLand)
+    y <- paste0('land_T', outputLand)
     lands <- lands[y]
   }
 

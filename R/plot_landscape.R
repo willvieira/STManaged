@@ -3,7 +3,7 @@
 #' This function plots a specific time step landscape
 #' @param land a vector with the distribution of the four forest states in the landscape. This is found in the output list from the \code{\link{run_model}} function named 'land_TX', where X is the time step
 #' @param nRow numeric, number of rows of the landscape. Value is found in the output list from the \code{\link{run_model}} function
-#' @param nCow numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function
+#' @param nCol numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function
 #' @param Title character, title of the landscape plot
 #' @param rmBorder logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.
 #' @param rangeLimit, vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}

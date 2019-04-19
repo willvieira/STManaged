@@ -20,16 +20,13 @@
 
 animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, occup = 0.75)
 {
-
-  ld = lands
-
   # define land to be ploted
   if(!is.null(steps)) {
     # check if steps exists
     if(all(steps %in% 1:100) == FALSE) stop("'steps' values do not match with available steps from 'lands'")
     lds <- steps
   }else {
-    lds <- seq(1, ld[['steps']], by = stepsBy)
+    lds <- seq(1, lands[['steps']], by = stepsBy)
   }
 
   # loop to save each plot in an obj
@@ -37,9 +34,9 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, o
     figName <- paste0('landPlot', i)
     assign(figName, magick::image_graph(width = 800, height = 230, res = 60, pointsize = 20, clip = TRUE)) # create obj to save `plot_landscape`; clip = FALSE speeds up a lot the process
     if(!is.null(occup)) {
-      rangeLim <- range_limit(ld[[i]], nRow = ld[['nRow']], nCol = ld[['nCol']], occup = occup)
+      rangeLim <- range_limit(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = occup)
     }else rangeLim <- NULL
-    plot_landscape(ld[[i]], nRow = ld[['nRow']], nCol = ld[['nCol']], Title = names(ld)[i], rangeLimit = rangeLim)
+    plot_landscape(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], Title = names(lands)[i], rangeLimit = rangeLim)
     dev.off()
 
     # print progress
@@ -55,7 +52,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, o
 
   # create and save gif
   gif <- magick::image_animate(img, fps = fps, dispose = "previous")
-  if(is.null(gifName)) gifName <- paste0('RCP', ld[['RCP']])
+  if(is.null(gifName)) gifName <- paste0('RCP', lands[['RCP']])
   magick::image_write(gif, paste0(gifName, '.gif'))
 
   # clean memory

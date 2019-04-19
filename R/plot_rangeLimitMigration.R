@@ -19,11 +19,11 @@ plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
     rg = data.frame(step = 1:(lands[['steps']] + 1), limitB = numeric(lands[['steps']] + 1), limitT = numeric(lands[['steps']] + 1))
 
     for(timeStep in seq_len(lands[['steps']] + 1)) {
-      rg[timeStep, 2:3] = range_limit(lands[[timeStep]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = rangeLimitOccup)/lands[['nCol']]
+      rg[timeStep, 2:3] <- range_limit(lands[[timeStep]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = rangeLimitOccup)/lands[['nCol']]
     }
 
   }else{
-    rg = lands[['rangeLimit']]
+    rg <- lands[['rangeLimit']]
     # check
     if(!is.null(rangeLimitOccup)) warning(cat('We are using the range limit information from the run_model output. The argument "rangeLimitOccup = ', rangeLimitOccup, '" is ignored'))
   }

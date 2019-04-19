@@ -25,8 +25,8 @@ clim_diff <- function(env1, # pars as a list for each row of the lanscape
   pars1 <- lapply(as.list(tempSc1), function(x) get_pars(ENV1 = x, ENV2 = 0, params, int = 5))
 
   # tansform to matrix
-  pars0M <- matrix(unlist(pars0), nr = 9)
-  pars1M <- matrix(unlist(pars1), nr = 9)
+  pars0M <- matrix(unlist(pars0), nrow = 9)
+  pars1M <- matrix(unlist(pars1), nrow = 9)
 
   # names
   row.names(pars0M) <- names(pars0[[1]])

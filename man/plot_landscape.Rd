@@ -12,13 +12,13 @@ plot_landscape(land, nRow, nCol, Title = NULL, rmBorder = TRUE,
 
 \item{nRow}{numeric, number of rows of the landscape. Value is found in the output list from the \code{\link{run_model}} function}
 
+\item{nCol}{numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function}
+
 \item{Title}{character, title of the landscape plot}
 
 \item{rmBorder}{logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.}
 
 \item{rangeLimit, }{vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}}
-
-\item{nCow}{numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function}
 }
 \description{
 This function plots a specific time step landscape
