@@ -3,11 +3,7 @@ os:
 - linux
 - osx
 
-r:
-- release
-- oldrelease
-- devel
-
+language: R
 sudo: false
 cache: packages
 
