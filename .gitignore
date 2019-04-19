@@ -3,3 +3,4 @@
 *.Rdata
 *.RDS
 simulation/
+docs/*
