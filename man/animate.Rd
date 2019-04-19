@@ -27,5 +27,9 @@ an animated gif file
 This function creates an animated gif with every landscape year configuration
 }
 \examples{
+initLand = create_landscape(cellSize = 5)
+
+lands = run_model(steps = 5, initLand)
+
 animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
 }

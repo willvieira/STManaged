@@ -15,7 +15,7 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 
 \item{managInt}{vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.}
 
-\item{RCP}{Numeric, \href{https://en.wikipedia.org/wiki/Representative_Concentration_Pathway}{Representative Concentration Pathway}. Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}}
+\item{RCP}{Numeric, [Representative Concentration Pathway](https://en.wikipedia.org/wiki/Representative_Concentration_Pathway). Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}}
 
 \item{stoch}{logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.}
 

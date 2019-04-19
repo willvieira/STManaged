@@ -10,10 +10,4 @@ BugReports: https://github.com/willvieira/STM-managed/issues
 Imports:
     magick,
     parallel
-Suggests:
-    knitr,
-    rmarkdown,
-    pkgdown
-VignetteBuilder: knitr
 RoxygenNote: 6.1.1
-Roxygen: list(markdown = TRUE)
