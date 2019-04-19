@@ -6,7 +6,7 @@
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples
-#' create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
+#' initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 5)
 
 create_landscape <- function(climRange = c(-2.5, 0.35),
                              cellSize = 0.8)

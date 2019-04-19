@@ -24,5 +24,8 @@ plot_landscape(land, nRow, nCol, Title = NULL, rmBorder = TRUE,
 This function plots a specific time step landscape
 }
 \examples{
-plot_landscape(land = output[[100]], nRow = output[['nRow']], nCol = output[['nCol']], Title = 'land at step 100')
+\dontrun{
+plot_landscape(land = output[[100]], nRow = output[['nRow']],
+               nCol = output[['nCol']], Title = 'land at step 100')
+}
 }

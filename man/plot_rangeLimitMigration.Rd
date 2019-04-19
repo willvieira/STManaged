@@ -15,5 +15,7 @@ plot_rangeLimitMigration(lands, rangeLimitOccup = NULL)
 This function plots the how the range limit of boreal and temperate states varies over time
 }
 \examples{
+\dontrun{
 plot_rangeLimitMigration(lands)
+}
 }

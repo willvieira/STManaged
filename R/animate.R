@@ -16,7 +16,7 @@
 #' @examples
 #' initLand = create_landscape(cellSize = 5)
 #'
-#' lands = run_model(steps = 5, initLand)
+#' lands = run_model(steps = 10, initLand)
 #'
 #' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
 

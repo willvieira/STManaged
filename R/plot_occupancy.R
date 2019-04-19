@@ -6,8 +6,10 @@
 #' @param spar numeric, value between 0 and 1 to sooth the state occupancy
 #' @export
 #' @examples
+#' \dontrun{
 #' par(mfrorw = c(1, 2))
 #' plot_occupancy(lands, years = c(1, 100), spar = 0.2)
+#' }
 
 plot_occupancy <- function(lands, years, spar)
 {

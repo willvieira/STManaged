@@ -9,7 +9,10 @@
 #' @param rangeLimit, vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}
 #' @export
 #' @examples
-#' plot_landscape(land = output[[100]], nRow = output[['nRow']], nCol = output[['nCol']], Title = 'land at step 100')
+#' \dontrun{
+#' plot_landscape(land = output[[100]], nRow = output[['nRow']],
+#'                nCol = output[['nCol']], Title = 'land at step 100')
+#' }
 
 plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {

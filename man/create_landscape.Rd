@@ -18,5 +18,5 @@ a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) l
 This function creates an initial landsdcape to run the simulations
 }
 \examples{
-create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
+initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 5)
 }

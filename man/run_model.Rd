@@ -38,5 +38,10 @@ a list with the (i) landscape configuration for each step, (ii) scaled temperatu
 This function generates the spatio-temporal dynamics based in the initial landscape, climate change and forest management
 }
 \examples{
-lands <- run_model(steps = 150, initLand, managInt = c(0.15, 0, 0, 0), RCP = 4.5, rangeLimitOccup = 0.75)
+initLand = create_landscape(cellSize = 5)
+
+lands <- run_model(steps = 10, initLand,
+                   managInt = c(0.15, 0, 0, 0),
+                   RCP = 4.5,
+                   rangeLimitOccup = 0.75)
 }

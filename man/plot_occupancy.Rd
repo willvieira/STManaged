@@ -17,6 +17,8 @@ plot_occupancy(lands, years, spar)
 This function plots the distribution of state occupancy over the Latitudinal grandient of the landscape
 }
 \examples{
+\dontrun{
 par(mfrorw = c(1, 2))
 plot_occupancy(lands, years = c(1, 100), spar = 0.2)
+}
 }

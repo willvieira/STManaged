@@ -5,7 +5,9 @@
 #' @param rangeLimitOccup numeric between 0 and 1 to define the mininum row occupancy of a state in the landscape. See \code{\link{run_model}} for more details
 #' @export
 #' @examples
+#' \dontrun{
 #' plot_rangeLimitMigration(lands)
+#' }
 
 plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
 
