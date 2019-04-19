@@ -4,7 +4,7 @@
 \alias{animate}
 \title{Make an animated gif of lanscape over time}
 \usage{
-animate(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL,
+animate(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL,
   occup = 0.75)
 }
 \arguments{
@@ -27,9 +27,7 @@ an animated gif file
 This function creates an animated gif with every landscape year configuration
 }
 \examples{
-initLand = create_landscape(cellSize = 5)
-
-lands = run_model(steps = 10, initLand)
-
+\dontrun{
 animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
+}
 }

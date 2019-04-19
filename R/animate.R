@@ -14,13 +14,11 @@
 #' @importFrom magick image_write
 #' @export
 #' @examples
-#' initLand = create_landscape(cellSize = 5)
-#'
-#' lands = run_model(steps = 10, initLand)
-#'
+#' \dontrun{
 #' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
+#' }
 
-animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, occup = 0.75)
+animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, occup = 0.75)
 {
 
   ld = lands
