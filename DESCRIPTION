@@ -13,5 +13,5 @@ Imports:
     parallel
 RoxygenNote: 6.1.1
 Suggests:
-    covr
+    covr,
     pkgdown
