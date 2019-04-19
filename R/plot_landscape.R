@@ -1,11 +1,18 @@
-# FunColtion to plot the landscape grid
-  ## Input:
-   # - land (model output)
-   # - title if needed
-   # - rmBorder (remove border of plot)
-   # - rangeLimit (if TRUE will add a line in the plot with the range limit of Boreal and Temperate)
-  ## Output:
-   # - an image()
+#' Plot landscape
+#'
+#' This function plots a specific time step landscape
+#' @param land a vector with the distribution of the four forest states in the landscape. This is found in the output list from the \code{\link{run_model}} function named 'land_TX', where X is the time step
+#' @param nRow numeric, number of rows of the landscape. Value is found in the output list from the \code{\link{run_model}} function
+#' @param nCol numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function
+#' @param Title character, title of the landscape plot
+#' @param rmBorder logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.
+#' @param rangeLimit, vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}
+#' @export
+#' @examples
+#' \dontrun{
+#' plot_landscape(land = output[[100]], nRow = output[['nRow']],
+#'                nCol = output[['nCol']], Title = 'land at step 100')
+#' }
 
 plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rangeLimit = NULL)
 {
@@ -25,17 +32,9 @@ plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rang
 
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
-  manag <- lands[['manag']][[1]]
-
-  # title
-  if(!exists('lands')) {
-    main <- Title
-  }else {
-    main <- paste0(Title, '\nPlant = ', manag[1], '; Harv = ', manag[2], '; Thin = ', manag[3], '; Enrich = ', manag[4], '\nsteps = ', lands[['steps']], '; RCP = ', lands[['RCP']])
-  }
 
   par(mar = c(.5,0.5,3.5,0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F))
-  image(x = coordx, y = coordy, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = main, breaks = c(0, 1, 2, 3, 4))
+  image(x = coordx, y = coordy, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = Title, breaks = c(0, 1, 2, 3, 4))
 
   # add rangeLimit line
   if(!is.null(rangeLimit)) {
