@@ -14,6 +14,9 @@
 #' @importFrom magick image_write
 #' @export
 #' @examples
+#' # run the model
+#' lands <- run_model(steps = 3, initLand, managInt = c(0.15, 0, 0, 0), RCP = 4.5, rangeLimitOccup = 0.75)
+#'
 #' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
 
 animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, occup = 0.75)
@@ -50,7 +53,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 6, gifName = NULL, o
 
   # create and save gif
   gif <- magick::image_animate(img, fps = fps, dispose = "previous")
-  if(is.null(gifName)) gifName <- past0('RCP', lands[['RCP']])
+  if(is.null(gifName)) gifName <- paste0('RCP', lands[['RCP']])
   magick::image_write(gif, paste0(gifName, '.gif'))
 
   # clean memory
