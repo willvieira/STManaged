@@ -11,3 +11,6 @@ addons:
  apt:
    packages:
      - libmagick++-dev # imageMagick for linux
+
+after_success:
+  - Rscript -e 'covr::codecov()'
