@@ -12,6 +12,13 @@ create_landscape <- function(climRange = c(-2.5, 0.35),
                              cellSize = 0.8)
 {
 
+  # checks
+  if(any(climRange < -3.6 | climRange > 3.1)) stop("climRange is out of parametrization. Please specify a climate gradient inside the range [-3.5 to 3]")
+
+  if(cellSize < 0.3) warning("Cells smaller than 0.3 km2 will be time consuming and consume too much memory... Consider increasing the cell size")
+
+  if(cellSize > 4) warning("Cells larger than 4 km2 may overestimate dispersion... Consider reducing the cell size")
+
   # get grid size
   landDist <- 800 # TODO: rethink about it
   nCol <- round(landDist/cellSize, 0) #TODO: define the distance between climRange and real distance
