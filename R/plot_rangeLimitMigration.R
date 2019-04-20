@@ -40,10 +40,10 @@ plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
     # ylab
     mtext('Latitudinal gradient', side = 2, line = 1.2)
     # boreal
-    mtext('Boreal', side = 2, at = rg[1, 'limitB'])
+    mtext('Boreal south limit', side = 2, at = rg[1, 'limitB'])
     abline(h = rg[1, 'limitB'], col = 'gray', lty = 2, lwd = 0.8)
     # temperate
-    mtext('Temperate', side = 2, at = rg[1, 'limitT'])
+    mtext('Temperate north limit', side = 2, at = rg[1, 'limitT'])
     abline(h = rg[1, 'limitT'], col = 'gray', lty = 2, lwd = 0.8)
     # the limit of climate change increase
     mtext('End of temp increase', side = 3, line = 0.1, at = 20)

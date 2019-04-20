@@ -4,7 +4,7 @@
 #' @param steps numeric, the maximum time to run the dynamic. The model is parametrized with a 5 years time interval, it means 1 step is equal 5 years.
 #' @param initLand output object from the \code{\link{create_landscape}} function
 #' @param managInt vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.
-#' @param RCP Numeric, [Representative Concentration Pathway](https://en.wikipedia.org/wiki/Representative_Concentration_Pathway). Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}
+#' @param RCP Numeric, \href{https://en.wikipedia.org/wiki/Representative_Concentration_Pathway}{Representative Concentration Pathway}. Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}
 #' @param stoch logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.
 #' @param cores numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
 #' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.
