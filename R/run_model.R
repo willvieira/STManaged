@@ -99,7 +99,7 @@ run_model <- function(steps,
     }
 
     # calculate range limit
-    if(!is.null(rangeLimitOccup)) rangeLimitDF[i + 1, 2:3] = range_limit(land1, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
+    if(!is.null(rangeLimitOccup)) rangeLimitDF[i + 1, 2:3] <- range_limit(land1, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
 
     land0 <- land1 # update land0 for next time step
     lands[[paste0('land_T', i)]] <- land1 # save land time step
@@ -129,13 +129,13 @@ run_model <- function(steps,
     if(is.null(fileOutput)) {
       fileName <- paste0('RCP', RCP, paste(managInt, collapse = ''))
     }else {
-      fileName = fileOutput
+      fileName <- fileOutput
     }
     # define directory
     if(is.null(folderOutput)) {
       directoryName <- paste0('output/', fileName, '.RDS')
     }else {
-      fo = paste0('output/', folderOutput)
+      fo <- paste0('output/', folderOutput)
       if(!dir.exists(fo)) dir.create(fo) # ckeck if directory exists and if not, create it
       directoryName <- paste0(fo, '/', fileName, '.RDS')
     }
@@ -151,7 +151,7 @@ neighbor_prop <- function(neighbor) {
 }
 
 cellRun <- function(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol) {
-  states = 1:4
+  states <- 1:4
   y0 <- neighbor_prop(land0[neighbor[[cell]]])
   y1 <- model_fm(t = 1, y = y0, params = pars[[i]][, parCell[cell]], managInt)
   y1 <- y0 + unlist(y1) # update cell

@@ -16,7 +16,7 @@ plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
     # ask for the rangeLimitOccup information
     if(is.null(rangeLimitOccup)) stop('Aparently range limit was not calculated in "run_model", so I will have to calculate here. Please specify a "rangeLimitOccup" value')
 
-    rg = data.frame(step = 1:(lands[['steps']] + 1), limitB = numeric(lands[['steps']] + 1), limitT = numeric(lands[['steps']] + 1))
+    rg <- data.frame(step = 1:(lands[['steps']] + 1), limitB = numeric(lands[['steps']] + 1), limitT = numeric(lands[['steps']] + 1))
 
     for(timeStep in seq_len(lands[['steps']] + 1)) {
       rg[timeStep, 2:3] <- range_limit(lands[[timeStep]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = rangeLimitOccup)/lands[['nCol']]

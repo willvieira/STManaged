@@ -6,7 +6,7 @@
 ## Ouput
  # - dominant state
 
- model_fm = function(t, y, params, managInt) {
+ model_fm <- function(t, y, params, managInt) {
  	with(as.list(c(t, y, params, managInt)), {
 
     # managInt (1. plantation, 2. harvest, 3. thinning, 4. enrichement)
@@ -22,7 +22,7 @@
  		pT_ <- pT * (1 - pB)
 
  		# Regeneration state
- 		R = 1 - B - T - M
+ 		R <- 1 - B - T - M
 
  		# Differential equations describing the dynamics of the state variables
     dBdt <- pB_ * naturalSuccession * R + theta * (1 - thetat) * M - ((betat * (T + M) * naturalColonization) + managInt[4]) * B - ((epsB * naturalHarvest) + managInt[2]) * B
@@ -37,7 +37,7 @@
   #################################
   logit_reverse <- function(x) exp(x) / (1 + exp(x))
 
-  get_pars = function(ENV1, ENV2, params, int) {
+  get_pars <- function(ENV1, ENV2, params, int) {
 
   	logit_alphab 	<- params["ab0", 1] + params["ab1", 1] * ENV1 + params["ab2", 1] * ENV2 + params["ab3", 1] * ENV1^2 + params["ab4",1]*ENV2^2 + params["ab5",1]*ENV1^3 + params["ab6",1]*ENV2^3
   	logit_alphat 	<- params["at0", 1] + params["at1", 1] * ENV1 + params["at2", 1] * ENV2 + params["at3", 1] * ENV1^2 + params["at4",1]*ENV2^2 + params["at5",1]*ENV1^3 + params["at6",1]*ENV2^3

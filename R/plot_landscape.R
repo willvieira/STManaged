@@ -43,7 +43,7 @@ plot_landscape <- function(land, nRow, nCol, Title = NULL, rmBorder = TRUE, rang
   }
 
   # add north arrow
-  north.arrow = function(x, y, h) {
+  north.arrow <- function(x, y, h) {
     polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y + h/2.4, y), col = "black", border = NA)
     polygon(c(x - h, x, x - (1 + sqrt(3)/2) * h), c(y, y - h/2.4, y))
     #text(x, y, "N", adj = c(7, 0.4), cex = 2.5)
