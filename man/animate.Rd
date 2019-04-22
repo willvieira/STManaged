@@ -2,7 +2,7 @@
 % Please edit documentation in R/animate.R
 \name{animate}
 \alias{animate}
-\title{Make an animated gif of lanscape over time}
+\title{Make an animated gif of landscape over time}
 \usage{
 animate(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL,
   occup = 0.75)

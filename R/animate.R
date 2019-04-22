@@ -1,4 +1,4 @@
-#' Make an animated gif of lanscape over time
+#' Make an animated gif of landscape over time
 #'
 #' This function creates an animated gif with every landscape year configuration
 #' @param lands the object output of the \code{\link{run_model}} function

@@ -9,7 +9,7 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
   saveOutput = F, fileOutput = NULL, folderOutput = NULL)
 }
 \arguments{
-\item{steps}{numeric, the maximum time to run the dynamic. The model is parametrized with a 5 years time interval, it means 1 step is equal 5 years.}
+\item{steps}{numeric, the maximum time to run the dynamic. The model is parameterized with a 5 years time interval, it means 1 step is equal 5 years.}
 
 \item{initLand}{output object from the \code{\link{create_landscape}} function}
 
@@ -35,7 +35,7 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 a list with the (i) landscape configuration for each step, (ii) scaled temperature gradient, (iii) steps, (iv) management intensity, (v) RCP scenario, (vi) landscape dimensions and (vii) range limit data frame
 }
 \description{
-This function generates the spatio-temporal dynamics based in the initial landscape, climate change and forest management
+This function generates the spatiotemporal dynamics based in the initial landscape, climate change and forest management
 }
 \examples{
 initLand = create_landscape(cellSize = 5)

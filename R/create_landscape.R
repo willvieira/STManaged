@@ -1,8 +1,8 @@
 #' Create initial landscape
 #'
-#' This function creates an initial landsdcape to run the simulations
+#' This function creates an initial landscape to run the simulations
 #' @param climRange vector, mean (scaled) temperature with the respective North and South limits
-#' @param cellSize numeric, size of the cell of the landsdcape in Km. I recommend not setting a value less than 0.3 or higher than 5
+#' @param cellSize numeric, size of the cell of the landscape in Km. I recommend not setting a value less than 0.3 or higher than 5
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples

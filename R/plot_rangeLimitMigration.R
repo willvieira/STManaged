@@ -2,7 +2,7 @@
 #'
 #' This function plots the how the range limit of boreal and temperate states varies over time
 #' @param lands the object output of the \code{\link{run_model}} function
-#' @param rangeLimitOccup numeric between 0 and 1 to define the mininum row occupancy of a state in the landscape. See \code{\link{run_model}} for more details
+#' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. See \code{\link{run_model}} for more details
 #' @export
 #' @examples
 #' \dontrun{

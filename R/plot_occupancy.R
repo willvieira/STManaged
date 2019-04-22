@@ -1,8 +1,8 @@
 #' Plot landscape occupancy
 #'
-#' This function plots the distribution of state occupancy over the Latitudinal grandient of the landscape
+#' This function plots the distribution of state occupancy over the Latitudinal gradient of the landscape
 #' @param lands the object output of the \code{\link{run_model}} function
-#' @param years vector, time steps to be plotted. Remember that mfrow set must be setted before the function in case years has more than one step
+#' @param years vector, time steps to be plotted. Remember to set \code{mfrow} before the function in case years has more than one step
 #' @param spar numeric, value between 0 and 1 to sooth the state occupancy
 #' @export
 #' @examples

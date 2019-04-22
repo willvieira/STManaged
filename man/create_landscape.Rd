@@ -9,13 +9,13 @@ create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
 \arguments{
 \item{climRange}{vector, mean (scaled) temperature with the respective North and South limits}
 
-\item{cellSize}{numeric, size of the cell of the landsdcape in Km. I recommend not setting a value less than 0.3 or higher than 5}
+\item{cellSize}{numeric, size of the cell of the landscape in Km. I recommend not setting a value less than 0.3 or higher than 5}
 }
 \value{
 a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 }
 \description{
-This function creates an initial landsdcape to run the simulations
+This function creates an initial landscape to run the simulations
 }
 \examples{
 initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 5)

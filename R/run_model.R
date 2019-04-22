@@ -1,7 +1,7 @@
 #' Run the model over time
 #'
-#' This function generates the spatio-temporal dynamics based in the initial landscape, climate change and forest management
-#' @param steps numeric, the maximum time to run the dynamic. The model is parametrized with a 5 years time interval, it means 1 step is equal 5 years.
+#' This function generates the spatiotemporal dynamics based in the initial landscape, climate change and forest management
+#' @param steps numeric, the maximum time to run the dynamic. The model is parameterized with a 5 years time interval, it means 1 step is equal 5 years.
 #' @param initLand output object from the \code{\link{create_landscape}} function
 #' @param managInt vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.
 #' @param RCP Numeric, \href{https://en.wikipedia.org/wiki/Representative_Concentration_Pathway}{Representative Concentration Pathway}. Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}

@@ -7,7 +7,7 @@
 #' @param occup numeric between 0 and 1. The value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range
 #' @export
 #' @examples
-#' \dontrun{[
+#' \dontrun{
 #' lands <- run_model(steps = 10, initLand)
 #' range_limit(lands[['land_TX']], lands[['nRow']], lands[['nCol']], occup = .7)
 
