@@ -18,3 +18,9 @@ range_limit(land, nRow, nCol, occup)
 \description{
 This function calculates the south range limit of boreal and the north range limit of temperate states in a specific landscape configuration
 }
+\examples{
+\dontrun{
+lands <- run_model(steps = 10, initLand)
+range_limit(lands[['land_TX']], lands[['nRow']], lands[['nCol']], occup = .7)
+}
+}

@@ -30,7 +30,7 @@ lands <- run_model(steps = 40, initLand,
 # Some functions are already built in to easily check the model output
 ## Forest state occupancy for first and last year
 par(mfrow = c(2, 1))
-plot_occupancy(lands, years = c(1, 40), spar = 0.4)
+plot_occupancy(lands, steps = c(0, 40), spar = 0.4)
 
 ## range Limit migration over time
 plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)

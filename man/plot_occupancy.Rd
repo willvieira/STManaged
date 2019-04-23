@@ -4,12 +4,12 @@
 \alias{plot_occupancy}
 \title{Plot landscape occupancy}
 \usage{
-plot_occupancy(lands, years, spar)
+plot_occupancy(lands, steps, spar)
 }
 \arguments{
 \item{lands}{the object output of the \code{\link{run_model}} function}
 
-\item{years}{vector, time steps to be plotted. Remember to set \code{mfrow} before the function in case years has more than one step}
+\item{steps}{vector, time steps to be plotted. Remember to set \code{mfrow} before the function in case steps has more than one step}
 
 \item{spar}{numeric, value between 0 and 1 to sooth the state occupancy}
 }
@@ -19,6 +19,6 @@ This function plots the distribution of state occupancy over the Latitudinal gra
 \examples{
 \dontrun{
 par(mfrorw = c(1, 2))
-plot_occupancy(lands, years = c(1, 100), spar = 0.2)
+plot_occupancy(lands, steps = c(1, 100), spar = 0.2)
 }
 }

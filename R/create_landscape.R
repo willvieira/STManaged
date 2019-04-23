@@ -1,19 +1,19 @@
 #' Create initial landscape
 #'
 #' This function creates an initial landscape to run the simulations
-#' @param climRange vector, mean (scaled) temperature with the respective North and South limits
+#' @param climRange vector, mean (scaled) temperature with the respective North and South limits. Values must be between -3.5 and 3 to respect the parameterization boundary.
 #' @param cellSize numeric, size of the cell of the landscape in Km. I recommend not setting a value less than 0.3 or higher than 5
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples
-#' initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 5)
+#' initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 4)
 
 create_landscape <- function(climRange = c(-2.5, 0.35),
                              cellSize = 0.8)
 {
 
   # checks
-  if(any(climRange < -3.6 | climRange > 3.1)) stop("climRange is out of parametrization. Please specify a climate gradient inside the range [-3.5 to 3]")
+  if(any(climRange < -3.6 | climRange > 3.1)) stop("climRange is out of parameterization. Please specify a climate gradient inside the range [-3.5 to 3]")
 
   if(cellSize < 0.3) warning("Cells smaller than 0.3 km2 will be time consuming and consume too much memory... Consider increasing the cell size")
 

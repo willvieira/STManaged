@@ -10,6 +10,7 @@
 #' \dontrun{
 #' lands <- run_model(steps = 10, initLand)
 #' range_limit(lands[['land_TX']], lands[['nRow']], lands[['nCol']], occup = .7)
+#' }
 
 range_limit <- function(land, nRow, nCol, occup)
 {
