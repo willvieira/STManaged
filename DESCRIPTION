@@ -13,6 +13,10 @@ Imports:
     parallel
 RoxygenNote: 6.1.1
 Suggests:
+    knitr,
+    rmarkdown,
     covr,
     pkgdown,
     testthat
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
