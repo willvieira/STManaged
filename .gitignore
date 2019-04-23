@@ -1,6 +1,5 @@
 *.gif
 .DS_Store
-*.Rdata
 *.RDS
 simulation/
 docs/*
