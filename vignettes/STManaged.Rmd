@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r init, echo = FALSE, message = FALSE}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("willvieira/STManaged")
 library(STManaged)
 ```
 
