@@ -1,5 +1,7 @@
 ---
 title: "Introduction to STManaged"
+resource_files:
+  - data/lands.Rdata
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to STManaged}
@@ -76,10 +78,6 @@ lands <- run_model(steps = steps,
                    initLand = initLand,
                    managInt = managInt,
                    RCP = RCP)
-```
-
-```{r,echo=F}
-load('data/lands.Rdata')
 ```
 
 The model output `lands` is a list of all individual `land` steps and other useful information such as (i) scaled temperature gradient, (ii) steps, (iii) management intensity, (iv) RCP scenario and (v) landscape dimensions.
