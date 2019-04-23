@@ -92,7 +92,8 @@ First we can plot the occupancy of the forest states over the temperature gradie
 
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
-plot_occupancy(lands, steps = 70, spar = 0.4, add = T)
+plot_occupancy(lands, step = 0, spar = 0.4)
+plot_occupancy(lands, step = 150, spar = 0.4)
 ```
 
 Now let's see how the occupancy of each forest state varies over time. We will see the time dynamic using by varying the intensity of the state color. First we define a transparency color (`alpha`) for each time step:

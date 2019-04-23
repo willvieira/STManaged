@@ -4,21 +4,24 @@
 \alias{plot_occupancy}
 \title{Plot landscape occupancy}
 \usage{
-plot_occupancy(lands, steps, spar)
+plot_occupancy(lands, step, spar, states = 1:3, add = FALSE)
 }
 \arguments{
 \item{lands}{the object output of the \code{\link{run_model}} function}
 
-\item{steps}{vector, time steps to be plotted. Remember to set \code{mfrow} before the function in case steps has more than one step}
+\item{step}{vector, time step to be plotted}
 
 \item{spar}{numeric, value between 0 and 1 to sooth the state occupancy}
+
+\item{states}{vector, the forest states to be ploted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration}
+
+\item{add}{logical, if \code{TRUE} the lines will be added to an existent plot}
 }
 \description{
 This function plots the distribution of state occupancy over the Latitudinal gradient of the landscape
 }
 \examples{
 \dontrun{
-par(mfrorw = c(1, 2))
-plot_occupancy(lands, steps = c(1, 100), spar = 0.2)
+plot_occupancy(lands, step = 1, spar = 0.2, states = 1:4)
 }
 }
