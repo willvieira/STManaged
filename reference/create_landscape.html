@@ -76,6 +76,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/STManaged.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -117,7 +120,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>climRange</th>
-      <td><p>vector, mean (scaled) temperature with the respective North and South limits</p></td>
+      <td><p>vector, mean (scaled) temperature with the respective North and South limits. Values must be between -3.5 and 3 to respect the parameterization boundary.</p></td>
     </tr>
     <tr>
       <th>cellSize</th>
@@ -131,7 +134,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>initLand</span> <span class='kw'>=</span> <span class='fu'>create_landscape</span>(<span class='kw'>climRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.5</span>, <span class='fl'>0.35</span>), <span class='kw'>cellSize</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Cells larger than 4 km2 may overestimate dispersion... Consider reducing the cell size</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>initLand</span> <span class='kw'>=</span> <span class='fu'>create_landscape</span>(<span class='kw'>climRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>2.5</span>, <span class='fl'>0.35</span>), <span class='kw'>cellSize</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -76,6 +76,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/STManaged.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -110,7 +113,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_occupancy</span>(<span class='no'>lands</span>, <span class='no'>years</span>, <span class='no'>spar</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_occupancy</span>(<span class='no'>lands</span>, <span class='no'>step</span>, <span class='no'>spar</span>, <span class='kw'>states</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -120,20 +123,27 @@
       <td><p>the object output of the <code>run_model</code> function</p></td>
     </tr>
     <tr>
-      <th>years</th>
-      <td><p>vector, time steps to be plotted. Remember to set <code>mfrow</code> before the function in case years has more than one step</p></td>
+      <th>step</th>
+      <td><p>vector, time step to be plotted</p></td>
     </tr>
     <tr>
       <th>spar</th>
       <td><p>numeric, value between 0 and 1 to sooth the state occupancy</p></td>
+    </tr>
+    <tr>
+      <th>states</th>
+      <td><p>vector, the forest states to be ploted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration</p></td>
+    </tr>
+    <tr>
+      <th>add</th>
+      <td><p>logical, if <code>TRUE</code> the lines will be added to an existent plot</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrorw</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'>plot_occupancy</span>(<span class='no'>lands</span>, <span class='kw'>years</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>100</span>), <span class='kw'>spar</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)
+<span class='fu'>plot_occupancy</span>(<span class='no'>lands</span>, <span class='kw'>step</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spar</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>states</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

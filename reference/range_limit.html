@@ -76,6 +76,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/STManaged.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -134,12 +137,19 @@
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>lands</span> <span class='kw'>&lt;-</span> <span class='fu'>run_model</span>(<span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>initLand</span>)
+<span class='fu'>range_limit</span>(<span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'land_TX'</span>]], <span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'nRow'</span>]], <span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'nCol'</span>]], <span class='kw'>occup</span> <span class='kw'>=</span> <span class='fl'>.7</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
