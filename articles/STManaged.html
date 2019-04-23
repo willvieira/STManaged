@@ -85,33 +85,6 @@
 
     
     
-<pre><code>#&gt; 
-#&gt;   
-   checking for file ‘/private/var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/RtmpXKfIvT/remotes151014ce4d3e6/willvieira-STManaged-a4a772d/DESCRIPTION’ ...
-  
-✔  checking for file ‘/private/var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/RtmpXKfIvT/remotes151014ce4d3e6/willvieira-STManaged-a4a772d/DESCRIPTION’
-#&gt; 
-  
-─  preparing ‘STManaged’:
-#&gt; 
-  
-   checking DESCRIPTION meta-information ...
-  
-✔  checking DESCRIPTION meta-information
-#&gt; 
-  
-─  checking for LF line-endings in source and make files and shell scripts
-#&gt; 
-  
-─  checking for empty or unneeded directories
-#&gt; ─  looking to see if a ‘data/datalist’ file should be added
-#&gt; 
-  
-─  building ‘STManaged_0.1.tar.gz’
-#&gt; 
-  
-   
-#&gt; </code></pre>
 <p>The goal of the <code>STManaged</code> package is to wrap the State and transition model for the eastern North American forest extended with forest management practices. I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.</p>
 <p>There will be four steps:</p>
 <ol style="list-style-type: decimal">
@@ -120,42 +93,42 @@
 <li>plot the output dynamic</li>
 <li>animate the output dynamic</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(STManaged)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(STManaged)</a></code></pre></div>
 <div id="initiate-the-landscape" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initiate-the-landscape" class="anchor"></a>Initiate the landscape</h2>
 <p>To initiate the landscape let’s first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Scaled annual mean temperature must be between <code>-3.5</code> and <code>3</code> to respect the parameterization boundary (unscaled values are -5.3<span class="math inline">\(^\circ\)</span>C and 12.2<span class="math inline">\(^\circ\)</span>C, respectively).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">temp_gradient &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">0.35</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">temp_gradient &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">0.35</span>)</a></code></pre></div>
 <p>The second argument to define is the size of cells of the landscape. its unit is in Km<span class="math inline">\(^2\)</span> and we recommend not to exceed the limits of <code>0.3</code> to <code>4</code> km<span class="math inline">\(^2\)</span>. Cells smaller than <code>0.3</code> km<span class="math inline">\(^2\)</span> will be time consuming and consume too much memory, and cells larger than <code>4</code> km<span class="math inline">\(^2\)</span> may overestimate dispersion.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">initLand &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/STManaged/topics/create_landscape">create_landscape</a></span>(<span class="dt">climRange =</span> temp_gradient, <span class="dt">cellSize =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">initLand &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_landscape.html">create_landscape</a></span>(<span class="dt">climRange =</span> temp_gradient, <span class="dt">cellSize =</span> <span class="fl">0.8</span>)</a></code></pre></div>
 <p><code>initLand</code> is a list of 6 objects with information about the landscape. <code>land</code> informing which forest states is present in each cell, <code>env1</code> storing the temperature gradient and <code>nCol</code> and <code>nRow</code> to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(initLand[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:100000] "1" "2" "3" "4" ...</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  $ env1: num [1:1000] -2.5 -2.5 -2.49 -2.49 -2.49 ...</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  $ nCol: num 1000</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  $ nRow: num 100</span></a></code></pre></div>
-<p>Let’s take a look in the <code>initLand</code> using the function <code><a href="https://www.rdocumentation.org/packages/STManaged/topics/plot_landscape">plot_landscape()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/STManaged/topics/plot_landscape">plot_landscape</a></span>(initLand[[<span class="st">'land'</span>]], <span class="dt">nRow =</span> initLand[[<span class="st">'nRow'</span>]],</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">               <span class="dt">nCol =</span> initLand[[<span class="st">'nCol'</span>]], <span class="dt">Title =</span> <span class="st">'initial_landscape'</span>)</a></code></pre></div>
-<p><img src="STManaged_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(initLand[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 1 1 1 1 1 4 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:100000] "1" "2" "3" "4" ...</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  $ env1: num [1:1000] -2.5 -2.5 -2.49 -2.49 -2.49 ...</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  $ nCol: num 1000</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  $ nRow: num 100</span></a></code></pre></div>
+<p>Let’s take a look in the <code>initLand</code> using the function <code><a href="../reference/plot_landscape.html">plot_landscape()</a></code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/plot_landscape.html">plot_landscape</a></span>(initLand[[<span class="st">'land'</span>]], <span class="dt">nRow =</span> initLand[[<span class="st">'nRow'</span>]],</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">               <span class="dt">nCol =</span> initLand[[<span class="st">'nCol'</span>]], <span class="dt">Title =</span> <span class="st">'initial_landscape'</span>)</a></code></pre></div>
+<p><img src="STManaged_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;"></p>
 </div>
 <div id="run-the-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-the-model" class="anchor"></a>Run the model</h2>
-<p>With the initial landscape set, we can now run the model using the function <code><a href="https://www.rdocumentation.org/packages/STManaged/topics/run_model">run_model()</a></code>. This function has many arguments and I will discuss the important ones here. First we need to define the the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let’s set the model to run for 500 years:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">steps =<span class="st"> </span><span class="dv">150</span></a></code></pre></div>
+<p>With the initial landscape set, we can now run the model using the function <code><a href="../reference/run_model.html">run_model()</a></code>. This function has many arguments and I will discuss the important ones here. First we need to define the the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let’s set the model to run for 500 years:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">steps =<span class="st"> </span><span class="dv">150</span></a></code></pre></div>
 <p>Now we have to set the forest management practices. There are four management practices implemented that aim to favor temperate forest, and therefore increase the forest migration rate northward. (i) Plantation of temperate forest in empty plots present in the boreal region; (ii) harvest of boreal plots; (iii) selective thinning of boreal species present in mixed plots and (iv) enrichment planting of temperate species in boreal plots. The intensity of each management practice varies from <code>0</code> to <code>1</code>. Here we define an intensity of <code>0.15</code> for plantation, which means that 15% of empty plots (regeneration state) will become temperate plots:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># order: plantation, harvest, thinning and enrichment</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">managInt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.15</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># order: plantation, harvest, thinning and enrichment</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">managInt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.15</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</a></code></pre></div>
 <p>The next argument is <code>RCP</code>. Here we define the warming temperature scenario for <code>4.5</code> which means an increase of 1.8<span class="math inline">\(^\circ\)</span>C for the next 100 years:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">RCP =<span class="st"> </span><span class="fl">4.5</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">RCP =<span class="st"> </span><span class="fl">4.5</span></a></code></pre></div>
 <p>By default, the model is stochastic (<code>stoch = TRUE</code>) and it will run in only one processor (no parallel: <code>cores = 1</code>):</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">lands &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/STManaged/topics/run_model">run_model</a></span>(<span class="dt">steps =</span> steps,</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">                   <span class="dt">initLand =</span> initLand,</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">                   <span class="dt">managInt =</span> managInt,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">                   <span class="dt">RCP =</span> RCP)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">lands &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_model.html">run_model</a></span>(<span class="dt">steps =</span> steps,</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">                   <span class="dt">initLand =</span> initLand,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">                   <span class="dt">managInt =</span> managInt,</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">                   <span class="dt">RCP =</span> RCP)</a></code></pre></div>
 <p>The model output <code>lands</code> is a list of all individual <code>land</code> steps and other useful information such as (i) scaled temperature gradient, (ii) steps, (iii) management intensity, (iv) RCP scenario and (v) landscape dimensions.</p>
 </div>
 <div id="plot-output" class="section level2">
@@ -164,13 +137,13 @@
 <div id="forest-state-occupancy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#forest-state-occupancy" class="anchor"></a>Forest state occupancy</h3>
-<p>First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function <code><a href="https://www.rdocumentation.org/packages/STManaged/topics/plot_occupancy">plot_occupancy()</a></code>. This function takes the output <code>lands</code>, the steps we want to plot (note if we plot more than one step, we need to set <code>mfrow</code> accordingly) and a smoothing value (<code>spar</code>) from <code>0</code> (no smooth) to <code>1</code>. So let’s plot the first and last time step:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">cex =</span> <span class="fl">0.9</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/STManaged/topics/plot_occupancy">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">0</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/STManaged/topics/plot_occupancy">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">150</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a></code></pre></div>
-<p><img src="STManaged_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;"></p>
+<p>First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function <code><a href="../reference/plot_occupancy.html">plot_occupancy()</a></code>. This function takes the output <code>lands</code>, the steps we want to plot (note if we plot more than one step, we need to set <code>mfrow</code> accordingly) and a smoothing value (<code>spar</code>) from <code>0</code> (no smooth) to <code>1</code>. So let’s plot the first and last time step:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">cex =</span> <span class="fl">0.9</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">0</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">150</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a></code></pre></div>
+<p><img src="STManaged_files/figure-html/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Now let’s see how the occupancy of each forest state varies over time. We will see the time dynamic using by varying the intensity of the state color. First we define a transparency color (<code>alpha</code>) for each time step:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">alphas &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.9</span><span class="op">/</span>steps)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">alphas &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.9</span><span class="op">/</span>steps)</a></code></pre></div>
 <p>TODO: make 3 plots (one for each state) with all year occupancy and a gradient of color intensity</p>
 </div>
 </div>

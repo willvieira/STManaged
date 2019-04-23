@@ -89,28 +89,28 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(STManaged)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># Create an initial landscape defining the climate range and the cell size:</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">initLand &lt;-<span class="st"> </span><span class="kw">create_landscape</span>(<span class="dt">climRange =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">0.35</span>), <span class="dt">cellSize =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">initLand &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_landscape.html">create_landscape</a></span>(<span class="dt">climRange =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">0.35</span>), <span class="dt">cellSize =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co"># Print the initial landscape</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">plot_landscape</span>(initLand[[<span class="st">'land'</span>]], <span class="dt">nRow =</span> initLand[[<span class="st">'nRow'</span>]],</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw"><a href="reference/plot_landscape.html">plot_landscape</a></span>(initLand[[<span class="st">'land'</span>]], <span class="dt">nRow =</span> initLand[[<span class="st">'nRow'</span>]],</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">               <span class="dt">nCol =</span> initLand[[<span class="st">'nCol'</span>]], <span class="dt">Title =</span> <span class="st">'initial_landscape'</span>)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co"># Run the model for 200 years with temperature increase of 1.8 degrees</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">lands &lt;-<span class="st"> </span><span class="kw">run_model</span>(<span class="dt">steps =</span> <span class="dv">40</span>, initLand,</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">lands &lt;-<span class="st"> </span><span class="kw"><a href="reference/run_model.html">run_model</a></span>(<span class="dt">steps =</span> <span class="dv">40</span>, initLand,</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">                   <span class="dt">managInt =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">                   <span class="dt">RCP =</span> <span class="fl">4.5</span>)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co"># Some functions are already built in to easily check the model output</span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">## Forest state occupancy for first and last year</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw">plot_occupancy</span>(lands, <span class="dt">step =</span> <span class="dv">0</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw">plot_occupancy</span>(lands, <span class="dt">step =</span> <span class="dv">40</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">0</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw"><a href="reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">40</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
 <a class="sourceLine" id="cb2-20" data-line-number="20"></a>
 <a class="sourceLine" id="cb2-21" data-line-number="21">## range Limit migration over time</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw">plot_rangeLimitMigration</span>(lands, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw"><a href="reference/plot_rangeLimitMigration.html">plot_rangeLimitMigration</a></span>(lands, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a>
 <a class="sourceLine" id="cb2-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24">## animated gif of the dynamics</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="kw">animate</span>(lands, <span class="dt">stepsBy =</span> <span class="dv">2</span>, <span class="dt">fps =</span> <span class="dv">5</span>, <span class="dt">gifName =</span> <span class="st">'RCP4.5'</span>, <span class="dt">occup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="kw"><a href="reference/animate.html">animate</a></span>(lands, <span class="dt">stepsBy =</span> <span class="dv">2</span>, <span class="dt">fps =</span> <span class="dv">5</span>, <span class="dt">gifName =</span> <span class="st">'RCP4.5'</span>, <span class="dt">occup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
 </div>
 </div>
   </div>

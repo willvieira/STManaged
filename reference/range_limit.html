@@ -130,15 +130,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>land</th>
-      <td><p>vector, one element of the <code>run_model</code> output</p></td>
+      <td><p>vector, one element of the <code><a href='run_model.html'>run_model</a></code> output</p></td>
     </tr>
     <tr>
       <th>nRow</th>
-      <td><p>numeric, number of rows of the landscape. Value is found in the output list from the <code>run_model</code> function</p></td>
+      <td><p>numeric, number of rows of the landscape. Value is found in the output list from the <code><a href='run_model.html'>run_model</a></code> function</p></td>
     </tr>
     <tr>
       <th>nCol</th>
-      <td><p>numeric, number of columns of the landscape. Value is found in the output list from the <code>run_model</code> function</p></td>
+      <td><p>numeric, number of columns of the landscape. Value is found in the output list from the <code><a href='run_model.html'>run_model</a></code> function</p></td>
     </tr>
     <tr>
       <th>occup</th>
@@ -149,7 +149,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>lands</span> <span class='kw'>&lt;-</span> <span class='fu'>run_model</span>(<span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>initLand</span>)
+<span class='no'>lands</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_model.html'>run_model</a></span>(<span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>initLand</span>)
 <span class='fu'>range_limit</span>(<span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'land_TX'</span>]], <span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'nRow'</span>]], <span class='no'>lands</span><span class='kw'>[[</span><span class='st'>'nCol'</span>]], <span class='kw'>occup</span> <span class='kw'>=</span> <span class='fl'>.7</span>)
 <span class='co'># }</span></pre>
   </div>
