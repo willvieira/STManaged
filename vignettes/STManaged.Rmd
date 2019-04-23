@@ -19,12 +19,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r init, echo = FALSE, message = FALSE}
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("willvieira/STManaged")
-library(STManaged)
-```
-
 The goal of the `STManaged` package is to wrap the State and transition model for the eastern North American forest extended with forest management practices.
 I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.
 
@@ -35,7 +29,7 @@ There will be four steps:
 3. plot the output dynamic
 4. animate the output dynamic
 
-```{r syntax_demo, message = FALSE}
+```{r, message = FALSE}
 library(STManaged)
 ```
 
