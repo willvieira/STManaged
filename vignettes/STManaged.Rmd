@@ -1,11 +1,27 @@
 ---
 title: "Introduction to STManaged"
-output: rmarkdown::html_vignette
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Introduction to STManaged}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+
+```{r init, echo = FALSE, message = FALSE}
+library(STManaged)
+```
 
 The goal of the `STManaged` package is to wrap the State and transition model for the eastern North American forest extended with forest management practices.
 I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.
@@ -17,7 +33,7 @@ There will be four steps:
 3. plot the output dynamic
 4. animate the output dynamic
 
-```{r}
+```{r syntax_demo, message = FALSE}
 library(STManaged)
 ```
 
