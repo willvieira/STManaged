@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://willvieira.github.io/STManaged//index.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/animate.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/create_landscape.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/plot_landscape.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/plot_occupancy.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/plot_rangeLimitMigration.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/range_limit.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//reference/run_model.html</loc>
+  </url>
+  <url>
+    <loc>https://willvieira.github.io/STManaged//articles/STManaged.html</loc>
+  </url>
+</urlset>
