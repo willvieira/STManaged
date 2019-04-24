@@ -100,7 +100,7 @@ The model output `lands` is a list of all individual `land` steps and other usef
 
 ### Forest state occupancy
 
-First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. This function takes the output `lands`, the steps we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
+First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output `lands`, the steps we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
 
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
@@ -108,23 +108,20 @@ plot_occupancy(lands, step = 0, spar = 0.4)
 plot_occupancy(lands, step = 150, spar = 0.4)
 ```
 
-Now let's see how the occupancy of each forest state varies over time. We will see the time dynamic using by varying the intensity of the state color. First we define a transparency color (`alpha`) for each time step:
+### range Limit migration over time
+
+Another possibility is to evaluate how the range limit of forest states varies over time. For that we will use the `range_limit()` function better explained [here](#TODO), that is integrated in the `plot_rangeLimitMigration()` function. The latter needs only the `lands` object and a threshold `rangeLimitOccup` defining the minimum occupancy a row of the landscape that must be occupied by the state to be considered part of the state distribution. This function calculates the range limit of the boreal and temperate states only. The red dotted line shows the moment when the temperature increase due to climate change ends.
 
 ```{r}
-alphas <- seq(0.1, 1, by = 0.9/steps)
+plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
 ```
 
-
-TODO: make 3 plots (one for each state) with all year occupancy and a gradient of color intensity
-
-
-
-
-## Forest state occupancy for first and last year
-par(mfrow = c(2, 1))
-plot_occupancy(lands, years = c(1, 40), spar = 0.4)
-
-### range Limit migration over time
-plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
-
 ## Animation
+
+Finally we can animate the spatiotemporal dynamic of the model using the `animate()` function. This function needs the output `lands`, the increment value `stepsBy`, the frames per second `fps` and also the `rangeLimitOccup` argument in case we want to print a line with the both boreal and temperate range limits.
+
+```{r,eval=F}
+animate(lands, stepsBy = 2, fps = 5, gifName = 'plant0.15_RCP4.5', rangeLimitOccup = 0.7)
+```
+
+![](img/plant0.15_RCP4.5.gif)
