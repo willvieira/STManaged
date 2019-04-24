@@ -5,7 +5,7 @@
 \title{Make an animated gif of landscape over time}
 \usage{
 animate(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL,
-  occup = 0.75)
+  rangeLimitOccup = 0.75)
 }
 \arguments{
 \item{lands}{the object output of the \code{\link{run_model}} function}
@@ -18,7 +18,7 @@ animate(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL,
 
 \item{gifName}{string with name of the file output}
 
-\item{occup}{numeric between 0 and 1, if \code{occup} is not \code{NULL}, the animation will include two lines to define the south range limit of boreal and the north range limit of temperate. \code{occup} define the amount of occupancy a forest state must not occupy to determine the limit of its range distribution}
+\item{rangeLimitOccup}{numeric between 0 and 1, if \code{rangeLimitOccup} is not \code{NULL}, the animation will include two lines to define the south range limit of boreal and the north range limit of temperate. \code{rangeLimitOccup} define the amount of occupancy a forest state must not occupy to determine the limit of its range distribution}
 }
 \value{
 an animated gif file
@@ -28,6 +28,6 @@ This function creates an animated gif with every landscape year configuration
 }
 \examples{
 \dontrun{
-animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', occup = 0.75)
+animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', rangeLimitOccup = 0.75)
 }
 }
