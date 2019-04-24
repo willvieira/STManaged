@@ -34,7 +34,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, r
     figName <- paste0('landPlot', i)
     assign(figName, magick::image_graph(width = 800, height = 230, res = 60, pointsize = 20, clip = TRUE)) # create obj to save `plot_landscape`; clip = FALSE speeds up a lot the process
     if(!is.null(rangeLimitOccup)) {
-      rangeLim <- range_limit(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], rangeLimitOccup = rangeLimitOccup)
+      rangeLim <- range_limit(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = rangeLimitOccup)
     }else rangeLim <- NULL
     plot_landscape(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], Title = names(lands)[i], rangeLimit = rangeLim)
     dev.off()
