@@ -104,7 +104,7 @@
 <p><code>initLand</code> is a list of 6 objects with information about the landscape. <code>land</code> informing which forest states is present in each cell, <code>env1</code> storing the temperature gradient and <code>nCol</code> and <code>nRow</code> to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(initLand[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 1 1 1 1 1 1 1 4 1 ...</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:100000] "1" "2" "3" "4" ...</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  $ env1: num [1:1000] -2.5 -2.5 -2.49 -2.49 -2.49 ...</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  $ nCol: num 1000</span></a>
@@ -137,7 +137,7 @@
 <div id="forest-state-occupancy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#forest-state-occupancy" class="anchor"></a>Forest state occupancy</h3>
-<p>First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function <code><a href="../reference/plot_occupancy.html">plot_occupancy()</a></code>. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output <code>lands</code>, the steps we want to plot (note if we plot more than one step, we need to set <code>mfrow</code> accordingly) and a smoothing value (<code>spar</code>) from <code>0</code> (no smooth) to <code>1</code>. So let’s plot the first and last time step:</p>
+<p>First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function <code><a href="../reference/plot_occupancy.html">plot_occupancy()</a></code>. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output <code>lands</code>, the step we want to plot (note if we plot more than one step, we need to set <code>mfrow</code> accordingly) and a smoothing value (<code>spar</code>) from <code>0</code> (no smooth) to <code>1</code>. So let’s plot the first and last time step:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">cex =</span> <span class="fl">0.9</span>)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">0</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/plot_occupancy.html">plot_occupancy</a></span>(lands, <span class="dt">step =</span> <span class="dv">150</span>, <span class="dt">spar =</span> <span class="fl">0.4</span>)</a></code></pre></div>
@@ -145,10 +145,10 @@
 </div>
 <div id="range-limit-migration-over-time" class="section level3">
 <h3 class="hasAnchor">
-<a href="#range-limit-migration-over-time" class="anchor"></a>range Limit migration over time</h3>
+<a href="#range-limit-migration-over-time" class="anchor"></a>Range Limit migration over time</h3>
 <p>Another possibility is to evaluate how the range limit of forest states varies over time. For that we will use the <code><a href="../reference/range_limit.html">range_limit()</a></code> function better explained <a href="#TODO">here</a>, that is integrated in the <code><a href="../reference/plot_rangeLimitMigration.html">plot_rangeLimitMigration()</a></code> function. The latter needs only the <code>lands</code> object and a threshold <code>rangeLimitOccup</code> defining the minimum occupancy a row of the landscape that must be occupied by the state to be considered part of the state distribution. This function calculates the range limit of the boreal and temperate states only. The red dotted line shows the moment when the temperature increase due to climate change ends.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/plot_rangeLimitMigration.html">plot_rangeLimitMigration</a></span>(lands, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
-<p><img src="STManaged_files/figure-html/unnamed-chunk-12-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="STManaged_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="animation" class="section level2">
