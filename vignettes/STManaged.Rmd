@@ -100,7 +100,7 @@ The model output `lands` is a list of all individual `land` steps and other usef
 
 ### Forest state occupancy
 
-First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output `lands`, the steps we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
+First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output `lands`, the step we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
 
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
@@ -108,11 +108,12 @@ plot_occupancy(lands, step = 0, spar = 0.4)
 plot_occupancy(lands, step = 150, spar = 0.4)
 ```
 
-### range Limit migration over time
+### Range Limit migration over time
 
 Another possibility is to evaluate how the range limit of forest states varies over time. For that we will use the `range_limit()` function better explained [here](#TODO), that is integrated in the `plot_rangeLimitMigration()` function. The latter needs only the `lands` object and a threshold `rangeLimitOccup` defining the minimum occupancy a row of the landscape that must be occupied by the state to be considered part of the state distribution. This function calculates the range limit of the boreal and temperate states only. The red dotted line shows the moment when the temperature increase due to climate change ends.
 
-```{r}
+```{r,echo=-1,fig.width=5,fig.height=4.5,fig.align='center'}
+par(cex = 0.9)
 plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
 ```
 
