@@ -76,7 +76,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to STManaged</h1>
             
-            <h4 class="date">2019-04-24</h4>
+            <h4 class="date">2019-04-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/willvieira/STM-managed/blob/master/vignettes/STManaged.Rmd"><code>vignettes/STManaged.Rmd</code></a></small>
       <div class="hidden name"><code>STManaged.Rmd</code></div>
@@ -104,7 +104,7 @@
 <p><code>initLand</code> is a list of 6 objects with information about the landscape. <code>land</code> informing which forest states is present in each cell, <code>env1</code> storing the temperature gradient and <code>nCol</code> and <code>nRow</code> to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(initLand[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 4 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;  $ land: Named int [1:100000] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:100000] "1" "2" "3" "4" ...</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  $ env1: num [1:1000] -2.5 -2.5 -2.49 -2.49 -2.49 ...</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  $ nCol: num 1000</span></a>
