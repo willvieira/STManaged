@@ -109,7 +109,7 @@ run_model <- function(steps,
   }
 
   # keep all output lands or just a part of it?
-  if(!is.na(outputLand)) {
+  if(!any(is.na(outputLand))) {
     y <- paste0('land_T', outputLand)
     lands <- lands[y]
   }
