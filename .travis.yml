@@ -25,3 +25,4 @@ deploy:
   local-dir: docs
   on:
     branch: master
+    condition: $TRAVIS_OS_NAME = linux
