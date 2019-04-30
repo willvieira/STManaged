@@ -35,7 +35,3 @@ plot_occupancy(lands, step = 40, spar = 0.4)
 
 ## range Limit migration over time
 plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
-
-## animated gif of the dynamics
-animate(lands, stepsBy = 2, fps = 5, gifName = 'RCP4.5', rangeLimitOccup = 0.7)
-```

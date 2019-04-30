@@ -116,13 +116,3 @@ Another possibility is to evaluate how the range limit of forest states varies o
 par(cex = 0.9)
 plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
 ```
-
-## Animation
-
-Finally we can animate the spatiotemporal dynamic of the model using the `animate()` function. This function needs the output `lands`, the increment value `stepsBy`, the frames per second `fps` and also the `rangeLimitOccup` argument in case we want to print a line with the both boreal and temperate range limits.
-
-```{r,eval=F}
-animate(lands, stepsBy = 2, fps = 5, gifName = 'plant0.15_RCP4.5', rangeLimitOccup = 0.7)
-```
-
-![](img/plant0.15_RCP4.5.gif)
