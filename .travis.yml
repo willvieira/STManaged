@@ -12,6 +12,9 @@ addons:
    packages:
      - libmagick++-dev # imageMagick for linux
 
+before_install:
+    - tlmgr install inconsolata # mac latex missing font
+
 after_success:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'devtools::install()'
