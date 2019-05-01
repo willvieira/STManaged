@@ -13,7 +13,7 @@ plot_occupancy(lands, step, spar, states = 1:3, add = FALSE)
 
 \item{spar}{numeric, value between 0 and 1 to sooth the state occupancy}
 
-\item{states}{vector, the forest states to be ploted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration}
+\item{states}{vector, the forest states to be plotted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration}
 
 \item{add}{logical, if \code{TRUE} the lines will be added to an existent plot}
 }
