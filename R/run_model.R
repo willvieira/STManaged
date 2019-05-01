@@ -102,16 +102,16 @@ run_model <- function(steps,
     if(!is.null(rangeLimitOccup)) rangeLimitDF[i + 1, 2:3] <- range_limit(land1, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
 
     land0 <- land1 # update land0 for next time step
-    lands[[paste0('land_T', i)]] <- land1 # save land time step
+
+    # keep all output lands or just a part of it?
+    if(!any(is.na(outputLand))) {
+      if(i %in% outputLand) lands[[paste0('land_T', i)]] <- land1 # save land time step
+    }else{
+      lands[[paste0('land_T', i)]] <- land1 # save land time step
+    }
 
     # print progress
     cat("==>", format(100*i/steps, digits = 2), "%", "\r")
-  }
-
-  # keep all output lands or just a part of it?
-  if(!any(is.na(outputLand))) {
-    y <- paste0('land_T', outputLand)
-    lands <- lands[y]
   }
 
   # add steps, management and RCP information
