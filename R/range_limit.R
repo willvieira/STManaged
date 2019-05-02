@@ -19,10 +19,23 @@ range_limit <- function(land, nRow, nCol, occup)
 
   prop <- apply(landM, 1, getProp, nRow = nRow)
 
+  # get range limit
+  lastB <- which(prop['B',] > occup)
+  lastT <- which(prop['T',] > occup)
+
+  # the `length(lastB/T) == 0` is to define extreme limit in case there is no row larger than `occup`
   # limit Boreal
-  limB <- as.numeric(max(which(prop['B',] > occup)))
+  if(length(lastB) == 0) {
+    limB <- 1
+  }else{
+    limB <- as.numeric(max(which(prop['B',] > occup)))
+  }
   # limit Temperate
-  limT <- as.numeric(min(which(prop['T',] > occup)))
+  if(length(lastT) == 0) {
+    limT <- nCol
+  }else{
+    limT <- as.numeric(min(which(prop['T',] > occup)))
+  }
 
   rtrn <- setNames(c(limB, limT), c('limitB', 'limitT'))
 
