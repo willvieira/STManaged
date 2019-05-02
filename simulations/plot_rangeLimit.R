@@ -45,8 +45,8 @@ library(STManaged)
   ci = function(x) qt(0.975, df=length(x)-1)*sd(x)/sqrt(length(x))
 
   # get 24 summary data frames (4 cellSizes * 6 occupancy values)
-  csCount = 0
-  ocCount = 0
+
+  count = 1
   for(cs in cellSize) {
 
     # list to store all different managements results (each list is for one plot)
@@ -87,7 +87,8 @@ library(STManaged)
         distB[, rp] = dfDist[, 1]
         distT[, rp] = dfDist[, 2]
 
-        cat('   calculating range limit ->', round((rp + ocCount + csCount)/(length(reps) * length(occupancy) * length(cellSize)) * 100, 0), '%\r')
+        cat('   calculating range limit ->', round(count/(length(cellSize) * length(occupancy) * length(reps)) * 100, 0), '%\r')
+        count <- count + 1
       }
 
       # calculate mean and sd
@@ -117,7 +118,6 @@ library(STManaged)
     assign(paste0('listCellSizeDist', cs), listCellSizeDist)
     assign(paste0('listCellSizetotalDist', cs), listCellSizetotalDist)
 
-    csCount = csCount + length(occupancy)
   }
 
 #
