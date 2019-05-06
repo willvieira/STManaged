@@ -1,15 +1,15 @@
 ###############################
 # Automate the creation of R script and bash files to run simulation
-# Simulation to test for cell size
+# Simulation to test for managament intensity
 # Will Vieira
-# March 30, 2019
-# Last update: May 2, 2019
+# May 4, 2019
+# Last update: May 4, 2019
 ##############################
 
 ##############################
 # Steps:
   # define simulation variants
-  # create initial landscapes (30 for each cell size)
+  # create initial landscapes
   # create all subfolders for the simulation output
   # for each sim, create a bash + Rscript file and submit it
 ##############################
@@ -19,12 +19,10 @@ set.seed(42)
 
 # define simulation variants
 
-  # 6 different sizes interacting with 5 management scenarios = 30 simulations
-  # Each simulation will be repeated 30 times following a different initial landscape
-  cellSize = c(0.3, 0.5, 0.8, 1, 2.5, 5)
+  cellSize = 0.5
   managPractice <- 0:4
-  managInt <- 0.15
-  reps = 1:30
+  managInt <- c(0.05, 0.1, 0.2, 0.4, 0.8)
+  reps = 1:15
 
 #
 
@@ -33,7 +31,7 @@ set.seed(42)
 # create initial landscapes (30 for each cell size)
 
   # create folder to store all landscapes
-  initLandFoder = 'initLandscape'
+  initLandFoder = '../initLandscape'
   if(!dir.exists(initLandFoder)) dir.create(initLandFoder)
 
   # file names
@@ -64,50 +62,49 @@ set.seed(42)
 
   mainFolder = 'output'
   if(!dir.exists(mainFolder)) dir.create(mainFolder)
-  cs <- paste0('cellSize_', cellSize)
-  mg <- paste0('pract_', managPractice)
-  folders <- do.call(paste, c(expand.grid(cs, mg), sep = "_"))
+  manag <- paste0('mg_', managPractice)
+  mangInt <- paste0('mgInt_', managInt)
+  folders <- do.call(paste, c(expand.grid(manag, mangInt), sep = "_"))
   invisible(sapply(paste0(mainFolder, '/', folders), dir.create))
 
 #
 
 
 
-# create bash with Rscript and run it
-  job = 1
-  for(cellSz in cellSize) {
-    for(mg in managPractice) {
-      for(mgInt in managInt) {
-        for(rp in reps) {
+# create bash with Rscript
+  cellSz = cellSize
+  for(mg in managPractice) {
+    for(mgInt in managInt) {
+      for(rp in reps) {
 
-          # define simulation name
-          simName = paste0(cellSz, '_', mg, '_', rp)
-          # define initLand file
-          initFile = paste0(initLandFoder, '/initLand_cellSize_', cellSz, '_rep_', rp, '.RDS')
-          # define fileOutput
-          fOutput = paste0('cellSize_', cellSz, '_pract', '_', mg, '_rep_', rp)
-          # define folderOutput
-          fdOutput = paste0('cellSize_', cellSz, '_pract', '_', mg)
+        # define simulation name
+        simName = paste0('mg', mg, 'mgInt', mgInt, 'rep', rp)
+        # define initLand file
+        initFile = paste0(initLandFoder, '/initLand_cellSize_', cellSz, '_rep_', rp, '.RDS')
+        # define fileOutput
+        fOutput = paste0('mg_', mg, '_mgInt', '_', mgInt, '_rep_', rp)
+        # define folderOutput
+        fdOutput = paste0('mg_', mg, '_mgInt', '_', mgInt)
 
-          # define management practice and intensity
-          management <- c(0, 0, 0, 0)
-          if(mg != 0) {
-            management[mg] <- mgInt
-          }
+        # define management practice and intensity
+        management <- c(0, 0, 0, 0)
+        if(mg != 0) {
+          management[mg] <- mgInt
+        }
 
-          # define running time
-          if(cellSz == 0.3 | cellSz == 0.5) {
-            runTime <- '2-12:00:00'
-          }else{
-            runTime <- '1-00:00:00'
-          }
+        # memory usage
+        if(cellSz == 0.5) {
+          mem = 3000
+        }else{
+          mem = 1500
+        }
 
 # Bash + Rscript
 bash <- paste0('#!/bin/bash
 
 #SBATCH --account=def-dgravel
-#SBATCH -t ', runTime, '
-#SBATCH --mem=1500
+#SBATCH -t 1-00:00:00
+#SBATCH --mem=', mem, '
 #SBATCH --job-name=', simName, '
 #SBATCH --mail-user=willian.vieira@usherbrooke.ca
 #SBATCH --mail-type=FAIL
@@ -129,18 +126,14 @@ run_model(steps = 200, initLand = initLand,
     folderOutput = "', fdOutput, '")
 code')
 
-          # save sh file
-          system(paste0("echo ", "'", bash, "' > sub.sh"))
+        # save sh file
+        system(paste0("echo ", "'", bash, "' > sub.sh"))
 
-          # run sh
-          system('sbatch sub.sh')
+        # run sh
+        system('sbatch sub.sh')
 
-          # remove sh file
-          system('rm sub.sh')
-
-          cat('                   submitting job ', job, 'of', length(cellSize) * length(managPractice) * length(managInt) * length(reps), '\r')
-          job <- job + 1
-        }
+        # remove sh file
+        system('rm sub.sh')
       }
     }
   }
