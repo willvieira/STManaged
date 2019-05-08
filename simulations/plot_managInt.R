@@ -98,7 +98,7 @@ library(STManaged)
 
         #migration rate
         rg[, 2:3] <- rg[, 2:3] * nCol
-        mig[rp, ] <- (rg[1, 2:3] - rg[steps + 1, 2:3]) * mg/(steps * 5)
+        mig[rp, ] <- (rg[1, 2:3] - rg[steps + 1, 2:3]) * cs/(steps * 5)
 
         cat('   calculating ->', round(count/(length(managPractice) * length(managInt) * length(reps)) * 100, 0), '%\r')
         count <- count + 1
@@ -227,7 +227,7 @@ library(STManaged)
   par(mfrow = c(2, 2), mar = c(2.5, 2.5, 1, 0.5), mgp = c(1, 0.2, 0), tck = -.01, cex = 0.8)
 
   for(mg in managPractice) {
-    plot(1:(totalMgInt * 2), 1:(totalMgInt * 2), pch = '', ylim = c(0.2, 3), xlab = '', ylab = '', xaxt = 'n')
+    plot(1:(totalMgInt * 2), 1:(totalMgInt * 2), pch = '', ylim = c(0.05, 0.5), xlab = '', ylab = '', xaxt = 'n')
     countB = 0
     countT = 1
     for(mgInt in 1:length(managInt)) {
@@ -251,7 +251,7 @@ library(STManaged)
     mtext(mgTitles[mg], 3, cex = 0.9)
     # labs
     if(mg == 3 | mg == 4) mtext('Management intensity', 1, line = 1.2, cex = 0.9)
-    if(mg == 2) mtext('Mean migration rate of sim. (Km/year)', 2, line = 1.2, cex = 0.9)
+    if(mg == 1 | mg == 3) mtext('Mean migration rate of sim. (Km/year)', 2, line = 1.2, cex = 0.9)
 
   }
   dev.off()
