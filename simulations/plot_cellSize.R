@@ -10,30 +10,18 @@
   # calculate col proportion, range limit and migration rate
   # plot landscape proportion
   # plot range limit in function of time
-  # plot migration rate in function TODO
+  # plot migration rate in function of cell size
 ##############################
 
 
 
-# getting data (it takes about 2 minutes to load all 900 simulations)
-  cellSize = c(0.3, 0.5, 0.8, 1, 2.5, 5)
+# getting data (it takes about 10 minutes to load all 900 simulations)
+  cellSize = c(0.1, 0.3, 0.5, 0.8, 1, 2.5, 5)
   managPractice <- 0:4
   managInt <- 0.15
   reps = 1:30
   steps = 200
-
-  mainFolder = 'output/cellSize/'
-  for(cs in cellSize) {
-    for(mg in managPractice) {
-      folderName = paste0('cellSize_', cs, '_pract_', mg)
-      for(rp in reps) {
-        fileName = paste0('cellSize_', cs, '_pract_', mg, '_rep_', rp, '.RDS')
-        assign(sub('\\.RDS$', '', fileName), readRDS(paste0(mainFolder, folderName, '/', fileName)))
-      }
-    }
-    cat('   loading ouput files ', round(which(cs == cellSize)/length(cellSize) * 100, 1), '%\r')
-  }
-#
+  nCols <- setNames(round(800/cellSize, 0), cellSize)
 
 # calculate col proportion, range limit and migration rate
 
@@ -51,6 +39,7 @@
 
 
   # get 30 summary data frames (6 cellSizes * 5 managements)
+  mainFolder = 'output/cellSize/'
   count = 1
   for(cs in cellSize) {
     # list to store all different managements results
@@ -60,11 +49,11 @@
 
     # for each management practice, save the mean and sd of all 30 replications
     for(mg in managPractice) {
-      # name of files for each replication
-      fileNames = paste0('cellSize_', cs, '_pract_', mg, '_rep_', reps)
+      # folder name to look for simulation file
+      folderName = paste0('cellSize_', cs, '_pract_', mg)
 
       # data frames to store nCol's proportion for each forest state (to be used latter for mean and IC)
-      propB = propT = data.frame(matrix(rep(NA, length(reps) * (get(fileNames[[1]])[['nCol']])), ncol = reps[length(reps)]))
+        propB = propT = data.frame(matrix(rep(NA, length(reps) * nCols[cs == cellSize]), ncol = reps[length(reps)]))
       # data frames to store km distance of migration
       rangeB = rangeT = data.frame(matrix(rep(NA, length(reps) * (steps + 1)), ncol = reps[length(reps)]))
       # data frame to store the total migration rate
@@ -76,7 +65,8 @@
       # (iii) migration rate
       for(rp in reps) {
         # get simulation
-        sim <- get(fileNames[rp])
+        fileName = paste0('cellSize_', cs, '_pract_', mg, '_rep_', rp, '.RDS')
+        sim <- readRDS(paste0(mainFolder, folderName, '/', fileName))
         rg <- sim[['rangeLimit']]
         nCol <- sim[['nCol']]
         nRow <- sim[['nRow']]
@@ -221,7 +211,7 @@
   par(mfrow = c(3, 2), mar = c(2.5, 2.5, 1, 0.5), mgp = c(1, 0.2, 0), tck = -.01, cex = 0.8)
 
   for(mg in managPractice) {
-    plot(1:(totalCs * 2), 1:(totalCs * 2), pch = '', ylim = c(0.04, 0.38), xlab = '', ylab = '', xaxt = 'n')
+    plot(1:(totalCs * 2), 1:(totalCs * 2), pch = '', ylim = c(0.03, 0.38), xlab = '', ylab = '', xaxt = 'n')
     countB = 0
     countT = 1
     for(cs in 1:length(cellSize)) {
