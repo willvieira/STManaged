@@ -23,9 +23,10 @@ plot_landscape(initLand[['land']], nRow = initLand[['nRow']],
                nCol = initLand[['nCol']], Title = 'initial_landscape')
 
 # Run the model for 200 years with temperature increase of 1.8 degrees
-lands <- run_model(steps = 40, initLand,
+lands <- run_model(steps = 400, initLand,
                    managInt = c(0, 0, 0, 0),
-                   RCP = 4.5)
+                   RCP = 4.5,
+                   stateOccup = T)
 
 # Some functions are already built in to easily check the model output
 ## Forest state occupancy for first and last year
@@ -39,3 +40,16 @@ plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
 ## animated gif of the dynamics
 animate(lands, stepsBy = 2, fps = 5, gifName = 'RCP4.5', rangeLimitOccup = 0.7)
 ```
+x = lands$stateOccup
+
+
+# landscape over time
+state = 1
+plot(x[[1]][state, ], type = 'l', ylim = c(0, 1))
+for(i in 2:lands[['steps']]) {Sys.sleep(.05);lines(x[[i]][state, ], col = rgb(0, 0, 0, .1), lwd = 0.5);cat(i, '\r')}
+
+# cell over time
+cell = 80
+plot(1:(lands[['steps']] + 1), sapply(x, function(x) x[1, cell]), type = 'l', xlab = 'Steps', col = 'darkcyan', ylim = c(0, 1))
+lines(sapply(x, function(x) x[2, cell]), col = 'orange')
+lines(sapply(x, function(x) x[3, cell]), col = 'palegreen3')

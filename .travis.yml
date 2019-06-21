@@ -10,8 +10,10 @@ cache: packages
 addons:
  apt:
    update: true
+   sources:
+     - sourceline: 'ppa:opencpu/imagemagick'
    packages:
-     - libmagick++-dev # imageMagick for linux
+     - libmagick++-dev
 
 after_success:
   - Rscript -e 'covr::codecov()'
