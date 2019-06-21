@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 os:
 - linux
-- osx
+#- osx
 
 language: R
 sudo: false
@@ -9,8 +9,11 @@ cache: packages
 
 addons:
  apt:
+   update: true
+   sources:
+     - sourceline: 'ppa:cran/imagemagick'
    packages:
-     - libmagick++-dev # imageMagick for linux
+     - libmagick++-dev
 
 after_success:
   - Rscript -e 'covr::codecov()'

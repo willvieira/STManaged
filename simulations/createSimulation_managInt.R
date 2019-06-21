@@ -1,15 +1,15 @@
 ###############################
 # Automate the creation of R script and bash files to run simulation
-# Simulation to test for cell size
+# Simulation to test for managament intensity
 # Will Vieira
-# March 30, 2019
-# Last update: May 2, 2019
+# May 4, 2019
+# Last update: May 4, 2019
 ##############################
 
 ##############################
 # Steps:
   # define simulation variants
-  # create initial landscapes (30 for each cell size)
+  # create initial landscapes
   # create all subfolders for the simulation output
   # for each sim, create a bash + Rscript file and submit it
 ##############################
@@ -19,12 +19,10 @@ set.seed(42)
 
 # define simulation variants
 
-  # 7 different sizes interacting with 5 management scenarios = 30 simulations
-  # Each simulation will be repeated 30 times following a different initial landscape
-  cellSize = c(0.1, 0.3, 0.5, 0.8, 1, 2.5, 5)
+  cellSize = 0.5
   managPractice <- 0:4
-  managInt <- c(0.0025, 0.001, 0.0025, 0.0025)
-  reps = 1:30
+  managInt <- c(0.05, 0.1, 0.2, 0.4, 0.8)
+  reps = 1:15
 
 #
 
@@ -64,62 +62,52 @@ set.seed(42)
 
   mainFolder = 'output'
   if(!dir.exists(mainFolder)) dir.create(mainFolder)
-  cs <- paste0('cellSize_', cellSize)
-  mg <- paste0('pract_', managPractice)
-  folders <- do.call(paste, c(expand.grid(cs, mg), sep = "_"))
+  manag <- paste0('mg_', managPractice)
+  mangInt <- paste0('mgInt_', managInt)
+  folders <- do.call(paste, c(expand.grid(manag, mangInt), sep = "_"))
   invisible(sapply(paste0(mainFolder, '/', folders), dir.create))
 
 #
 
 
 
-# create bash with Rscript and run it
-  job = 1
-  for(cellSz in cellSize) {
-    for(mg in managPractice) {
+# create bash with Rscript
+  cellSz = cellSize
+  for(mg in managPractice) {
+    for(mgInt in managInt) {
       for(rp in reps) {
 
         # define simulation name
-        simName = paste0(cellSz, '_', mg, '_', rp)
+        simName = paste0('mg', mg, 'mgInt', mgInt, 'rep', rp)
         # define initLand file
         initFile = paste0(initLandFoder, '/initLand_cellSize_', cellSz, '_rep_', rp, '.RDS')
         # define fileOutput
-        fOutput = paste0('cellSize_', cellSz, '_pract', '_', mg, '_rep_', rp)
+        fOutput = paste0('mg_', mg, '_mgInt', '_', mgInt, '_rep_', rp)
         # define folderOutput
-        fdOutput = paste0('cellSize_', cellSz, '_pract', '_', mg)
+        fdOutput = paste0('mg_', mg, '_mgInt', '_', mgInt)
 
         # define management practice and intensity
         management <- c(0, 0, 0, 0)
         if(mg != 0) {
-          management[mg] <- managInt[mg]
+          management[mg] <- mgInt
         }
 
-        # define running time and memory depending on cell size
-        if(cellSz == 0.1 | cellSz == 0.3 | cellSz == 0.5) {
-          runTime <- '3-12:00:00'
-          memory <- 3000
+        # memory usage
+        if(cellSz == 0.5) {
+          mem = 3000
         }else{
-          runTime <- '1-00:00:00'
-          memory <- 1500
+          mem = 1500
         }
-
-        # send me an email when the longest simulation is over
-        if(cellSz == 0.1 & mg == managPractice[length(managPractice)] & rp == reps[length(reps)]) {
-          mail <- 'ALL'
-        }else {
-          mail <- 'FAIL'
-        }
-
 
 # Bash + Rscript
 bash <- paste0('#!/bin/bash
 
 #SBATCH --account=def-dgravel
-#SBATCH -t ', runTime, '
-#SBATCH --mem=', memory, '
+#SBATCH -t 1-00:00:00
+#SBATCH --mem=', mem, '
 #SBATCH --job-name=', simName, '
 #SBATCH --mail-user=willian.vieira@usherbrooke.ca
-#SBATCH --mail-type=', mail, '
+#SBATCH --mail-type=FAIL
 
 R --vanilla <<code', '\n',
 'library(STManaged)
@@ -146,9 +134,6 @@ code')
 
         # remove sh file
         system('rm sub.sh')
-
-        cat('                           - job ', job, 'of', length(cellSize) * length(managPractice) * length(reps), '\r')
-        job <- job + 1
       }
     }
   }

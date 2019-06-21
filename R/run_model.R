@@ -9,6 +9,7 @@
 #' @param cores numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
 #' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.
 #' @param rangeLimitOccup numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. The defined value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. It returns a data frame.
+#' @param stateOccup logical, calculate state proportion for each row of the landscape for all time steps. Returns a list with a data frame for each time step
 #' @param saveOutput logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation
 #' @param fileOutput, character, if not \code{NULL}, define the name of the file output
 #' @param folderOutput, character, if not \code{NULL}, define the name of the folder other than the default 'output'
@@ -27,11 +28,12 @@ run_model <- function(steps,
                       initLand,
                       managInt = c(0, 0, 0, 0), # for plant, harv, thin and enrich
                       RCP = 0,
-                      stoch = T,
+                      stoch = TRUE,
                       cores = 1,
                       outputLand = NA, # if NA, everything is out, otherwise specify a vector of timeSteps values [1 - steps]
                       rangeLimitOccup = NULL,
-                      saveOutput = F,
+                      stateOccup = FALSE, # get state occupancy proportion for each col of the landscape at every time step
+                      saveOutput = FALSE,
                       fileOutput = NULL, # name of the file
                       folderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
 {
@@ -59,10 +61,17 @@ run_model <- function(steps,
     border <- land0[indexToAdd]
   }
 
+  # rangeLimit occup dataframe
   if(!is.null(rangeLimitOccup)) {
     # range limit table (divided by nCol so I can compare with different landcape cell size)
     rangeLimitDF <- data.frame(step = 1:(steps + 1), limitB = numeric(steps + 1), limitT = numeric(steps + 1))
     rangeLimitDF[1, 2:3] <- range_limit(land0, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
+  }
+
+  # stateOccup dataframe
+  if(stateOccup == TRUE) {
+    stateOccupDF <- apply(matrix(land0, ncol = nRow), 1, getProp, nRow = nRow)
+    stateOccupList <- list(stateOccupDF)
   }
 
   if(cores == 1) land1 <- land0
@@ -102,6 +111,9 @@ run_model <- function(steps,
     # calculate range limit
     if(!is.null(rangeLimitOccup)) rangeLimitDF[i + 1, 2:3] <- range_limit(land1, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
 
+    # calculate state occupancy of each col of the landscape
+    if(stateOccup == TRUE) stateOccupList[[i + 1]] <- apply(matrix(land0, ncol = nRow), 1, getProp, nRow = nRow)
+
     land0 <- land1 # update land0 for next time step
 
     # keep all output lands or just a part of it?
@@ -123,6 +135,7 @@ run_model <- function(steps,
   lands[['nCol']] <- nCol
   lands[['nRow']] <- nRow
   if(!is.null(rangeLimitOccup)) lands[['rangeLimit']] <- rangeLimitDF
+  if(stateOccup == TRUE) lands[['stateOccup']] <- stateOccupList
 
   # save or simply return the output
   if(saveOutput == TRUE) {
