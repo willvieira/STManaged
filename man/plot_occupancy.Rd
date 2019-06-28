@@ -11,7 +11,7 @@ plot_occupancy(lands, step, spar, states = 1:3, add = FALSE)
 
 \item{step}{vector, time step to be plotted}
 
-\item{spar}{numeric, value between 0 and 1 to sooth the state occupancy}
+\item{spar}{numeric, value between 0 and 1 to smooth the state occupancy}
 
 \item{states}{vector, the forest states to be plotted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration}
 

@@ -5,8 +5,9 @@
 \title{Run the model over time}
 \usage{
 run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
-  stoch = T, cores = 1, outputLand = NA, rangeLimitOccup = NULL,
-  saveOutput = F, fileOutput = NULL, folderOutput = NULL)
+  stoch = TRUE, cores = 1, outputLand = NA, rangeLimitOccup = NULL,
+  stateOccup = FALSE, saveOutput = FALSE, fileOutput = NULL,
+  folderOutput = NULL)
 }
 \arguments{
 \item{steps}{numeric, the maximum time to run the dynamic. The model is parameterized with a 5 years time interval, it means 1 step is equal 5 years.}
@@ -24,6 +25,8 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 \item{outputLand}{vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.}
 
 \item{rangeLimitOccup}{numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. The defined value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. It returns a data frame.}
+
+\item{stateOccup}{logical, calculate state proportion for each row of the landscape for all time steps. Returns a list with a data frame for each time step}
 
 \item{saveOutput}{logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation}
 

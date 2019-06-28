@@ -3,7 +3,7 @@
 #' This function plots the distribution of state occupancy over the Latitudinal gradient of the landscape
 #' @param lands the object output of the \code{\link{run_model}} function
 #' @param step vector, time step to be plotted
-#' @param spar numeric, value between 0 and 1 to sooth the state occupancy
+#' @param spar numeric, value between 0 and 1 to smooth the state occupancy
 #' @param states vector, the forest states to be plotted. 1 for Boreal, 2 for Temperate, 3 for Mixed and 4 for regeneration
 #' @param add logical, if \code{TRUE} the lines will be added to an existent plot
 #' @export
