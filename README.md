@@ -15,8 +15,8 @@ devtools::install_github("willvieira/STManaged")
 ```r
 library(STManaged)
 
-# Create an initial landscape defining the climate range and the cell size:
-initLand <- create_landscape(climRange = c(-2.5, 0.35), cellSize = 3)
+# Create an initial landscape defining the annual mean temperature range and the cell size:
+initLand <- create_landscape(climRange = c(-2.61, 5.07), cellSize = 2)
 
 # Print the initial landscape
 plot_landscape(initLand[['land']], nRow = initLand[['nRow']],
