@@ -4,17 +4,17 @@
 \alias{plot_landscape}
 \title{Plot landscape}
 \usage{
-plot_landscape(land, nRow, nCol, Title = NULL, rmBorder = TRUE,
-  rangeLimit = NULL)
+plot_landscape(lands, step = NULL, Title = NULL, xaxis = FALSE,
+  rmBorder = TRUE, rangeLimit = NULL)
 }
 \arguments{
-\item{land}{a vector with the distribution of the four forest states in the landscape. This is found in the output list from the \code{\link{run_model}} function named 'land_TX', where X is the time step}
+\item{lands, }{the object output from either the \code{\link{run_model}} or \code{\link{create_landscape}} functions}
 
-\item{nRow}{numeric, number of rows of the landscape. Value is found in the output list from the \code{\link{run_model}} function}
-
-\item{nCol}{numeric, number of columns of the landscape. Value is found in the output list from the \code{\link{run_model}} function}
+\item{step}{numeric, time step to be ploted. If \code{NULL} it will plot the initial landscape for a \code{create_landscape} object, and the last time step for a \code{run_model} object.}
 
 \item{Title}{character, title of the landscape plot}
+
+\item{xaxis}{logical, if \code{TRUE} it will add the x axis with the annual mean temperate values.}
 
 \item{rmBorder}{logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.}
 
@@ -25,7 +25,6 @@ This function plots a specific time step landscape
 }
 \examples{
 \dontrun{
-plot_landscape(land = output[[100]], nRow = output[['nRow']],
-               nCol = output[['nCol']], Title = 'land at step 100')
+plot_landscape(lands = output, step = 100,  Title = 'land at step 100')
 }
 }

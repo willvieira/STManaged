@@ -55,8 +55,7 @@ str(initLand[1:4])
 Let's take a look in the `initLand` using the function `plot_landscape()`:
 
 ```{r,fig.width=10,fig.height=2.5}
-plot_landscape(initLand[['land']], nRow = initLand[['nRow']],
-               nCol = initLand[['nCol']], Title = 'initial_landscape')
+plot_landscape(initLand, Title = 'initial_landscape')
 ```
 
 ## Run the model

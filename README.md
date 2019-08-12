@@ -19,8 +19,7 @@ library(STManaged)
 initLand <- create_landscape(climRange = c(-2.61, 5.07), cellSize = 2)
 
 # Print the initial landscape
-plot_landscape(initLand[['land']], nRow = initLand[['nRow']],
-               nCol = initLand[['nCol']], Title = 'initial_landscape')
+plot_landscape(initLand, Title = 'initial_landscape')
 
 # Run the model for 200 years with temperature increase of 1.8 degrees
 lands <- run_model(steps = 40, initLand,

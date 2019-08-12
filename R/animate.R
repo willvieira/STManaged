@@ -36,7 +36,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, r
     if(!is.null(rangeLimitOccup)) {
       rangeLim <- range_limit(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], occup = rangeLimitOccup)
     }else rangeLim <- NULL
-    plot_landscape(lands[[i]], nRow = lands[['nRow']], nCol = lands[['nCol']], Title = names(lands)[i], rangeLimit = rangeLim)
+    plot_landscape(lands, step = i, Title = paste0('land_T', i), rangeLimit = rangeLim)
     dev.off()
 
     # print progress
