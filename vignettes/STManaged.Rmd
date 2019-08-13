@@ -113,7 +113,7 @@ Another possibility is to evaluate how the range limit of forest states varies o
 
 ```{r,echo=-1,fig.width=5,fig.height=4.5,fig.align='center'}
 par(cex = 0.9)
-plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
+plot_rangeShift(lands, rangeLimitOccup = 0.7)
 ```
 
 ## Animation
