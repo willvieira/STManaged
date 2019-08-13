@@ -52,7 +52,7 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
 
   par(mar = c(ifelse(xaxis, 2, 0.5), 0.5, ifelse(is.null(Title), 0.5, 3), 0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F), mgp = c(1, 0.2, 0), tck = -.01)
   image(x = coordx, y = coordy, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = Title, breaks = c(0, 1, 2, 3, 4))
-  if(!is.null(env1)) {
+  if(xaxis) {
     par(new = T)
     plot(env1 * vars.sd['annual_mean_temp'] + vars.means['annual_mean_temp'], 1:length(env1), pch = '', yaxt = 'n', xlab = 'Latitude (annual mean temperature)')
   }
