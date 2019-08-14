@@ -38,7 +38,7 @@ library(STManaged)
 To initiate the landscape let's first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Annual mean temperature must be between `-5.3` and `12.2` $^\circ$C to respect the parameterization boundary.
 
 ```{r}
-temp_gradient <- c(-2.61, 5.07)
+temp_gradient <- c(-2.5, 0.35)
 ```
 
 The second argument is the size of cells of the landscape, in Km$^2$. We recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time and memory consuming, and cells larger than `4` km$^2$ may overestimate dispersion (*there's a sensitivity analysis for cell size [here](https://github.com/willvieira/STManaged/issues/1)*).
@@ -116,3 +116,13 @@ Another possibility is to evaluate how the range limit of forest states changes 
 par(cex = 0.9)
 plot_rangeShift(lands, rangeLimitOccup = 0.7)
 ```
+
+## Animation
+
+Finally we can animate the spatiotemporal dynamic of the model using the `animate()` function. This function needs the output `lands`, the increment value `stepsBy`, the frames per second `fps` and also the `rangeLimitOccup` argument in case we want to print a line with the both boreal and temperate range limits.
+
+```{r,eval=F}
+animate(lands, stepsBy = 2, fps = 5, gifName = 'plant0.15_RCP4.5', rangeLimitOccup = 0.7)
+```
+
+![](img/plant0.15_RCP4.5.gif)
