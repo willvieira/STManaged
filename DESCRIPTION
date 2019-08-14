@@ -9,7 +9,6 @@ Encoding: UTF-8
 URL: https://github.com/willvieira/STM-managed
 BugReports: https://github.com/willvieira/STM-managed/issues
 Imports:
-    magick,
     parallel
 RoxygenNote: 6.1.1
 Suggests:
