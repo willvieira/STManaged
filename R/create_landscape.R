@@ -1,19 +1,19 @@
 #' Create initial landscape
 #'
 #' This function creates an initial landscape to run the simulations
-#' @param climRange vector, mean (scaled) temperature with the respective North and South limits. Values must be between -3.5 and 3 to respect the parameterization boundary.
-#' @param cellSize numeric, size of the cell of the landscape in Km. I recommend not setting a value less than 0.3 or higher than 5
+#' @param climRange vector, annual mean temperature with the respective North and South limits. Values must be between -5.3 and 12.2 to respect the parameterization boundary.
+#' @param cellSize numeric, size of the cell of the landscape in Km. Recommended boundary is between 0.3 and 5 km.
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples
-#' initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 4)
+#' initLand = create_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
 
-create_landscape <- function(climRange = c(-2.5, 0.35),
+create_landscape <- function(climRange = c(-2.61, 5.07),
                              cellSize = 0.8)
 {
 
   # checks
-  if(any(climRange < -3.6 | climRange > 3.1)) stop("climRange is out of parameterization. Please specify a climate gradient inside the range [-3.5 to 3]")
+  if(any(climRange < -5.3 | climRange > 12.3)) stop("climRange is out of parameterization. Please specify values inside the range [-5.3 to 12.2]")
 
   if(cellSize < 0.3) warning("Cells smaller than 0.3 km2 will be time consuming and consume too much memory... Consider increasing the cell size")
 
@@ -24,16 +24,19 @@ create_landscape <- function(climRange = c(-2.5, 0.35),
   nCol <- round(landDist/cellSize, 0) #TODO: define the distance between climRange and real distance
   nRow <- round(nCol/10, 0)
 
+  # Scale temperature ranges
+  climR <- setNames((climRange - vars.means['annual_mean_temp'])/vars.sd['annual_mean_temp'], c(NULL, NULL))
+
   # temperature gradient over the grid
-  env1 <- seq(climRange[1], climRange[2], length.out = nCol)
+  env1 <- seq(climR[1], climR[2], length.out = nCol)
   landscape <- setNames(rep(env1, nRow), 1:(nRow * nCol)) # list for each col of the matrix
 
   land <- sapply(landscape, getState)
 
-  # get position to be calculate (i.e. ignore border)
+  # get cell positions to be calculated (i.e. ignore border)
   position <- getPosition(nRow = nRow, nCol = nCol)
 
-  # get neighbors for each position cell
+  # get neighbors for each cell position
   neighbor <- getNeighbor(nRow = nRow, nCol = nCol)
 
   return(list(land = land, env1 = env1, nCol = nCol, nRow = nRow, position = position, neighbor = neighbor))

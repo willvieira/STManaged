@@ -6,10 +6,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' plot_rangeLimitMigration(lands)
+#' plot_rangeShift(lands)
 #' }
 
-plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
+plot_rangeShift <- function(lands, rangeLimitOccup = NULL) {
 
   # if range limit is not present, calculate it
   if(!'rangeLimit' %in% names(lands)) {
@@ -30,22 +30,27 @@ plot_rangeLimitMigration <- function(lands, rangeLimitOccup = NULL) {
 
   cols <- c("darkcyan", "orange", "palegreen3", "black")
   par(mar = c(2.5, 2.2, 1.5, 0.5), mgp = c(1.3, 0.3, 0), tck = -.008)
-  plot(0, pch = '', xlim = c(0, lands[['steps']]), ylim = c(1, 0), xlab = 'Time steps (steps * 5 = years)', ylab = '', yaxt = 'n')
+  plot(0, pch = '', xlim = c(0, lands[['steps']]), ylim = c(1, 0), xlab = '', ylab = '', yaxt = 'n')
   # boreal
   lines(rg[, 'limitB'], col = cols[1])
   # temperate
   lines(rg[, 'limitT'], col = cols[2])
 
   # legends
-    # ylab
-    mtext('Latitudinal gradient', side = 2, line = 1.2)
+    # xylab
+    mtext('Latitude (annual mean temperature)', side = 2, line = 1.2)
+    mtext('Time steps (step * 5 = year)', side = 1, line = 1.2)
     # boreal
-    mtext('Boreal south limit', side = 2, at = rg[1, 'limitB'])
+    mtext('Boreal trailing edge', line = -0.9, side = 2, at = rg[1, 'limitB'], cex = 0.85, col = cols[1])
     abline(h = rg[1, 'limitB'], col = 'gray', lty = 2, lwd = 0.8)
     # temperate
-    mtext('Temperate north limit', side = 2, at = rg[1, 'limitT'])
+    mtext('Temperate leading edge', line = -0.9, side = 2, at = rg[1, 'limitT'], cex = 0.85, col = cols[2])
     abline(h = rg[1, 'limitT'], col = 'gray', lty = 2, lwd = 0.8)
     # the limit of climate change increase
     mtext('End of temp increase', side = 3, line = 0.1, at = 20)
     abline(v = 20, lty = 3, col = 2, lwd = 0.8)
+
+    # add ylab with unscaled env1
+    par(new = TRUE)
+    plot(1:length(lands[['env1']]), lands[['env1']] * vars.sd['annual_mean_temp'] + vars.means['annual_mean_temp'], pch = '', xlim = c(0, lands[['steps']]), xaxt = 'n', xlab = '', ylab = '')
 }

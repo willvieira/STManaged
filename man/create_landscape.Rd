@@ -4,12 +4,12 @@
 \alias{create_landscape}
 \title{Create initial landscape}
 \usage{
-create_landscape(climRange = c(-2.5, 0.35), cellSize = 0.8)
+create_landscape(climRange = c(-2.61, 5.07), cellSize = 0.8)
 }
 \arguments{
-\item{climRange}{vector, mean (scaled) temperature with the respective North and South limits. Values must be between -3.5 and 3 to respect the parameterization boundary.}
+\item{climRange}{vector, annual mean temperature with the respective North and South limits. Values must be between -5.3 and 12.2 to respect the parameterization boundary.}
 
-\item{cellSize}{numeric, size of the cell of the landscape in Km. I recommend not setting a value less than 0.3 or higher than 5}
+\item{cellSize}{numeric, size of the cell of the landscape in Km. Recommended boundary is between 0.3 and 5 km.}
 }
 \value{
 a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
@@ -18,5 +18,5 @@ a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) l
 This function creates an initial landscape to run the simulations
 }
 \examples{
-initLand = create_landscape(climRange = c(-2.5, 0.35), cellSize = 4)
+initLand = create_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
 }

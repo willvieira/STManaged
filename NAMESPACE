@@ -3,7 +3,7 @@
 export(create_landscape)
 export(plot_landscape)
 export(plot_occupancy)
-export(plot_rangeLimitMigration)
+export(plot_rangeShift)
 export(range_limit)
 export(run_model)
 importFrom(parallel,mcmapply)

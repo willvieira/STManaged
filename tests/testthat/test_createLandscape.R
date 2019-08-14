@@ -17,16 +17,6 @@ test_that("create_landscape returns an integer vector with four forest states", 
   expect_match(class(land), "integer")
 })
 
-test_that("create_landscape returns a proper env1 vector", {
-
-  cr <- c(-3, 0.5)
-  initLand <- create_landscape(climRange = cr, cellSize = 4)
-  env1 <- initLand[['env1']]
-
-  expect_equal(length(env1), 800/4)
-  expect_equal(c(env1[1], env1[length(env1)]), cr)
-})
-
 test_that("create_landscape returns good dimensions", {
 
   initLand <- create_landscape(cellSize = 4)

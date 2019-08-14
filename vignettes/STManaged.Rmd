@@ -35,19 +35,19 @@ library(STManaged)
 
 ## Initiate the landscape
 
-To initiate the landscape let's first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Scaled annual mean temperature must be between `-3.5` and `3` to respect the parameterization boundary (unscaled values are -5.3$^\circ$C and 12.2$^\circ$C, respectively).
+To initiate the landscape let's first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Annual mean temperature must be between `-5.3` and `12.2` $^\circ$C to respect the parameterization boundary.
 
 ```{r}
-temp_gradient <- c(-2.5, 0.35)
+temp_gradient <- c(-2.61, 5.07)
 ```
 
-The second argument to define is the size of cells of the landscape. its unit is in Km$^2$ and we recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time consuming and consume too much memory, and cells larger than `4` km$^2$ may overestimate dispersion.
+The second argument is the size of cells of the landscape, in Km$^2$. We recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time and memory consuming, and cells larger than `4` km$^2$ may overestimate dispersion (*there's a sensitivity analysis for cell size [here](https://github.com/willvieira/STManaged/issues/1)*).
 
 ```{r}
 initLand <- create_landscape(climRange = temp_gradient, cellSize = 0.8)
 ```
 
-`initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` informing which forest states is present in each cell, `env1` storing the temperature gradient and `nCol` and `nRow` to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.
+`initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` informing which forest states is present in each cell, `env1` storing the (scaled) temperature gradient and `nCol` and `nRow` to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.
 
 ```{r}
 str(initLand[1:4])
@@ -55,33 +55,33 @@ str(initLand[1:4])
 Let's take a look in the `initLand` using the function `plot_landscape()`:
 
 ```{r,fig.width=10,fig.height=2.5}
-plot_landscape(initLand[['land']], nRow = initLand[['nRow']],
-               nCol = initLand[['nCol']], Title = 'initial_landscape')
+plot_landscape(initLand, Title = 'initial_landscape')
 ```
 
 ## Run the model
 
 With the initial landscape set, we can now run the model using the function `run_model()`. This function has many arguments and I will discuss the important ones here.
-First we need to define the the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let's set the model to run for 500 years:
+First we need to define the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let's set the model to run for 500 years:
 
 ```{r}
-steps = 150
+# 500 years
+steps = 100
 ```
 
-Now we have to set the forest management practices. There are four management practices implemented that aim to favor temperate forest, and therefore increase the forest migration rate northward. (i) Plantation of temperate forest in empty plots present in the boreal region; (ii) harvest of boreal plots; (iii) selective thinning of boreal species present in mixed plots and (iv) enrichment planting of temperate species in boreal plots. The intensity of each management practice varies from `0` to `1`. Here we define an intensity of `0.15` for plantation, which means that 15% of empty plots (regeneration state) will become temperate plots:
+Now we have to set the forest management practices. We implemented four management practices that aim to favor temperate forest, and therefore increase forest range limits shift northward. (i) Plantation of temperate forest in empty plots present in the boreal region; (ii) harvest of boreal plots; (iii) selective thinning of boreal species present in mixed plots and (iv) enrichment planting of temperate species in boreal plots. The intensity of each management practice varies from `0` to `1`. Here we define an intensity of `0.15` for plantation, which means that 15% of empty plots (regeneration state) will become temperate plots:
 
 ```{r}
 # order: plantation, harvest, thinning and enrichment
 managInt <- c(0.15, 0.0, 0.0, 0.0)
 ```
 
-The next argument is `RCP`. Here we define the warming temperature scenario for `4.5` which means an increase of 1.8$^\circ$C for the next 100 years:
+The next argument is `RCP`. We define the warming temperature scenario for `4.5` which means an increase of 1.8$^\circ$C for the next 100 years:
 
 ```{r}
 RCP = 4.5
 ```
 
-By default, the model is stochastic (`stoch = TRUE`) and it will run in only one processor (no parallel: `cores = 1`):
+By default, the model is stochastic (`stoch = TRUE`) and it will run in only one core (no parallel: `cores = 1`):
 
 ```{r,eval=F}
 lands <- run_model(steps = steps,
@@ -100,7 +100,7 @@ The model output `lands` is a list of all individual `land` steps and other usef
 
 ### Forest state occupancy
 
-First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. With this function we can see how the state occupancy changed over two different steps and then have an idea of its migrated. This function takes the output `lands`, the step we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
+First we can plot the occupancy of the forest states over the temperature gradient for one specific time step using the function `plot_occupancy()`. With this function we can see how the state occupancy changed over two or more steps, and an idea of the range limits shift. This function takes the output `lands`, the step we want to plot (note if we plot more than one step, we need to set `mfrow` accordingly) and a smoothing value (`spar`) from `0` (no smooth) to `1`. So let's plot the first and last time step:
 
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
@@ -108,11 +108,11 @@ plot_occupancy(lands, step = 0, spar = 0.4)
 plot_occupancy(lands, step = 150, spar = 0.4)
 ```
 
-### Range Limit migration over time
+### Range Limit shift
 
-Another possibility is to evaluate how the range limit of forest states varies over time. For that we will use the `range_limit()` function better explained [here](#TODO), that is integrated in the `plot_rangeLimitMigration()` function. The latter needs only the `lands` object and a threshold `rangeLimitOccup` defining the minimum occupancy a row of the landscape that must be occupied by the state to be considered part of the state distribution. This function calculates the range limit of the boreal and temperate states only. The red dotted line shows the moment when the temperature increase due to climate change ends.
+Another possibility is to evaluate how the range limit of forest states changes over time. For that we will use the `range_limit()` function that is integrated in the `plot_rangeShift()` function. The latter needs only the `lands` object and a threshold `rangeLimitOccup` defining the minimum occupancy a row of the landscape that must be occupied by the state to be considered part of the state distribution. This argument calculates the boreal trailing edge and temperate leading edge. The red dotted line shows the moment when the temperature increase due to climate change ends.
 
-```{r,echo=-1,fig.width=5,fig.height=4.5,fig.align='center'}
+```{r,echo=-1,fig.width=5,fig.height=4.8,fig.align='center'}
 par(cex = 0.9)
-plot_rangeLimitMigration(lands, rangeLimitOccup = 0.7)
+plot_rangeShift(lands, rangeLimitOccup = 0.7)
 ```

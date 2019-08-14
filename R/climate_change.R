@@ -18,7 +18,7 @@ clim_diff <- function(env1, # pars as a list for each row of the lanscape
   if(!exists('tempUn1')) stop("'RCP' must be either '0', '2.6', '4.5', '6' or '8.5'")
 
   # scale future temperature
-  tempSc1 <- setNames((tempUn1 - vars.means['annual_mean_temp'])/vars.sd['annual_mean_temp'], '')
+  tempSc1 <- setNames((tempUn1 - vars.means['annual_mean_temp'])/vars.sd['annual_mean_temp'], NULL)
 
   # list of parameters for each row cell before and after climate change (temperature gradient)
   pars0 <- lapply(as.list(tempSc0), function(x) get_pars(ENV1 = x, ENV2 = 0, params, int = 5))
