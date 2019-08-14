@@ -2,7 +2,7 @@
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis build status](https://travis-ci.org/willvieira/STManaged.svg?branch=master)](https://travis-ci.org/willvieira/STManaged) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/mypax31p5fr0uf44/branch/master?svg=true)](https://ci.appveyor.com/project/WillianVieira/stmanaged/branch/master) [![codecov](https://codecov.io/gh/willvieira/STManaged/branch/master/graph/badge.svg)](https://codecov.io/gh/willvieira/STManaged)
 
-The `{STManaged}` R package runs the State and transition model for the eastern North American forest, with integrated forest management practices. This package allows you to spatially-explicit model the dynamics of four forest states (Boreal, Temperate, Mixed and Regeneration) over space and time. You will be able to set the intensity of four management practices (plantation, harvest, thinning and enrichment) that aim to increase the northward range shift of forest.
+The `{STManaged}` R package runs the State and transition model for the eastern North American forest, with integrated forest management practices. This package allows you to model the spatially explicit dynamics of four forest states (Boreal, Temperate, Mixed and Regeneration) over space and time. You will be able to set the intensity of four management practices (plantation, harvest, thinning and enrichment) that aim to increase the northward range shift of forest.
 
 ## Installation
 

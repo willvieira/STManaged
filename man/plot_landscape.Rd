@@ -18,7 +18,7 @@ plot_landscape(lands, step = NULL, Title = NULL, xaxis = FALSE,
 
 \item{rmBorder}{logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.}
 
-\item{rangeLimitOccup}{numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details#' @export}
+\item{rangeLimitOccup}{numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details.}
 }
 \description{
 This function plots a specific time step landscape

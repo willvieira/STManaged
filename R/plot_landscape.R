@@ -6,7 +6,8 @@
 #' @param Title character, title of the landscape plot
 #' @param xaxis logical, if \code{TRUE} it will add the x axis with the annual mean temperate values.
 #' @param rmBorder logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.
-#' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details#' @export
+#' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details.
+#' @export
 #' @examples
 #' \dontrun{
 #' plot_landscape(lands = output, step = 100,  Title = 'land at step 100')
