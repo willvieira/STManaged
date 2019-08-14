@@ -124,7 +124,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_landscape</span>(<span class='no'>lands</span>, <span class='kw'>step</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>Title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xaxis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>rmBorder</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rangeLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>rmBorder</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rangeLimitOccup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,8 +150,8 @@
       <td><p>logical, if <code>TRUE</code> the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.</p></td>
     </tr>
     <tr>
-      <th>rangeLimit, </th>
-      <td><p>vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function <code><a href='range_limit.html'>range_limit</a></code></p></td>
+      <th>rangeLimitOccup</th>
+      <td><p>numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See <code><a href='run_model.html'>run_model</a></code> for more details#' @export</p></td>
     </tr>
     </table>
     
