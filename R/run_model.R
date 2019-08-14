@@ -6,10 +6,10 @@
 #' @param managInt vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.
 #' @param RCP Numeric, \href{https://en.wikipedia.org/wiki/Representative_Concentration_Pathway}{Representative Concentration Pathway}. Five scenarios of RCP are available: \code{0}, \code{2.6}, \code{4.5}, \code{6} and \code{8.5}
 #' @param stoch logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.
-#' @param cores numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
-#' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.
-#' @param rangeLimitOccup numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. The defined value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. It returns a data frame.
-#' @param stateOccup logical, calculate state proportion for each row of the landscape for all time steps. Returns a list with a data frame for each time step
+#' @param cores numeric, the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.
+#' @param outputLand vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we need to reduce memory usage.
+#' @param rangeLimitOccup numeric between 0 and 1. If not \code{NULL}, the function will calculate the landscape position of the boreal trailing edge and the temperate leading edge for each time step. The defined value betwen 0 and 1 determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. E.g. if \code{rangeLimitOccup = 0.8}, the furthest row of the landscape with a proportion less than 0.8 will be considered the range limit of the state. Default is \code{0.85}, but values ranging from \code{0.7} to \code{0.95} does not have much effect on migration rate (see \href{https://github.com/willvieira/STManaged/issues/3}{figure 3} of sensitivity analysis). It returns a data frame.
+#' @param stateOccup logical, calculate the proportion of the four forest states for each row of the landscape for all time steps. This argument is useful when you need the information from each time step but cannot save all landscapes because of memory limitation. Returns a list with a data frame for each time step
 #' @param saveOutput logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation
 #' @param fileOutput, character, if not \code{NULL}, define the name of the file output
 #' @param folderOutput, character, if not \code{NULL}, define the name of the folder other than the default 'output'
@@ -17,12 +17,14 @@
 #' @importFrom parallel mcmapply
 #' @export
 #' @examples
+#' \dontrun{
 #' initLand = create_landscape(cellSize = 5)
 #'
 #' lands <- run_model(steps = 10, initLand,
 #'                    managInt = c(0.15, 0, 0, 0),
 #'                    RCP = 4.5,
 #'                    rangeLimitOccup = 0.75)
+#' }
 
 run_model <- function(steps,
                       initLand,

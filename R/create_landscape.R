@@ -2,7 +2,7 @@
 #'
 #' This function creates an initial landscape to run the simulations
 #' @param climRange vector, annual mean temperature with the respective North and South limits. Values must be between -5.3 and 12.2 to respect the parameterization boundary.
-#' @param cellSize numeric, size of the cell of the landscape in Km. Recommended boundary is between 0.3 and 5 km.
+#' @param cellSize numeric, size of the cell of the landscape in Km. Recommended cell size is between 0.3 and 5 km.
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples

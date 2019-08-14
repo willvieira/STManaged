@@ -6,7 +6,7 @@
 #' @param steps vector, specific steps to be animated
 #' @param fps frames per second
 #' @param gifName string with name of the file output
-#' @param rangeLimitOccup numeric between 0 and 1, if \code{rangeLimitOccup} is not \code{NULL}, the animation will include two lines to define the south range limit of boreal and the north range limit of temperate. \code{rangeLimitOccup} define the amount of occupancy a forest state must not occupy to determine the limit of its range distribution
+#' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details
 #' @return an animated gif file
 #' @importFrom magick image_graph
 #' @importFrom magick image_join
