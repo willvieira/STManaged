@@ -85,7 +85,7 @@
 
     
     
-<p>The goal of the <code>STManaged</code> package is to wrap the State and transition model for the eastern North American forest extended with forest management practices. I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.</p>
+<p>The goal of the <code>STManaged</code> package is to wrap the <strong>S</strong>tate and <strong>T</strong>ransition <strong>M</strong>odel for the eastern North American forest extended with forest management practices. I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.</p>
 <p>There will be four steps:</p>
 <ol style="list-style-type: decimal">
 <li>initiate the landscape</li>
@@ -116,7 +116,7 @@
 <div id="run-the-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-the-model" class="anchor"></a>Run the model</h2>
-<p>With the initial landscape set, we can now run the model using the function <code><a href="../reference/run_model.html">run_model()</a></code>. This function has many arguments and I will discuss the important ones here. First we need to define the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let’s set the model to run for 500 years:</p>
+<p>With the initial landscape set, we can now run the model using the function <code><a href="../reference/run_model.html">run_model()</a></code>. This function has many arguments, and I will discuss the important ones here. First we need to define the number of steps we want the model to run. Note that one step in the model means 5 years of forest dynamics. So let’s set the model running for 500 years:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># 500 years</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">steps =<span class="st"> </span><span class="dv">100</span></a></code></pre></div>
 <p>Now we have to set the forest management practices. We implemented four management practices that aim to favor temperate forest, and therefore increase forest range limits shift northward. (i) Plantation of temperate forest in empty plots present in the boreal region; (ii) harvest of boreal plots; (iii) selective thinning of boreal species present in mixed plots and (iv) enrichment planting of temperate species in boreal plots. The intensity of each management practice varies from <code>0</code> to <code>1</code>. Here we define an intensity of <code>0.15</code> for plantation, which means that 15% of empty plots (regeneration state) will become temperate plots:</p>
@@ -154,7 +154,7 @@
 <div id="animation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#animation" class="anchor"></a>Animation</h2>
-<p>Finally we can animate the spatiotemporal dynamic of the model using the <code><a href="../reference/animate.html">animate()</a></code> function. This function needs the output <code>lands</code>, the increment value <code>stepsBy</code>, the frames per second <code>fps</code> and also the <code>rangeLimitOccup</code> argument in case we want to print a line with the both boreal and temperate range limits.</p>
+<p>Finally, we can animate the spatiotemporal dynamic of the model using the <code><a href="../reference/animate.html">animate()</a></code> function. This function needs the output <code>lands</code>, the increment value <code>stepsBy</code>, the frames per second <code>fps</code> and also the <code>rangeLimitOccup</code> argument in case we want to print a line with both the boreal and temperate range limits.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/animate.html">animate</a></span>(lands, <span class="dt">stepsBy =</span> <span class="dv">2</span>, <span class="dt">fps =</span> <span class="dv">5</span>, <span class="dt">gifName =</span> <span class="st">'plant0.15_RCP4.5'</span>, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
 <p><img src="img/plant0.15_RCP4.5.gif"></p>
 </div>
