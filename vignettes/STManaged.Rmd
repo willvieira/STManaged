@@ -38,7 +38,7 @@ library(STManaged)
 To initiate the landscape let's first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Annual mean temperature must be between `-5.3` and `12.2` $^\circ$C to respect the parameterization boundary.
 
 ```{r}
-temp_gradient <- c(-2.5, 0.35)
+temp_gradient <- c(-2.61, 5.07)
 ```
 
 The second argument is the size of cells of the landscape, in Km$^2$. We recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time and memory consuming, and cells larger than `4` km$^2$ may overestimate dispersion (*there's a sensitivity analysis for cell size [here](https://github.com/willvieira/STManaged/issues/1)*).
