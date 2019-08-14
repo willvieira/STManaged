@@ -86,6 +86,7 @@ run_model <- function(steps,
         # run the model
         y1 <- model_fm(t = 1, y0, params = pars[[i]][, parCell[cell]], managInt)
         y1 <- y0 + unlist(y1) # update cell
+        y1[y1 < 0] <- 0 # check for negative probs TODO: fix it
         y1['R'] <- 1 - sum(y1)
 
         if(stoch == T) {
