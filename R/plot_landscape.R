@@ -6,14 +6,13 @@
 #' @param Title character, title of the landscape plot
 #' @param xaxis logical, if \code{TRUE} it will add the x axis with the annual mean temperate values.
 #' @param rmBorder logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.
-#' @param rangeLimit, vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}
-#' @export
+#' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details#' @export
 #' @examples
 #' \dontrun{
 #' plot_landscape(lands = output, step = 100,  Title = 'land at step 100')
 #' }
 
-plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBorder = TRUE, rangeLimit = NULL)
+plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBorder = TRUE, rangeLimitOccup = NULL)
 {
   # Get info
   nCol = lands[['nCol']]
@@ -50,7 +49,7 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
   # plot
   col <- c("darkcyan", "orange", "palegreen3", "black")
 
-  par(mar = c(ifelse(xaxis, 2, 0.5), 0.5, ifelse(is.null(Title), 0.5, 3), 0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimit), T, F), mgp = c(1, 0.2, 0), tck = -.01)
+  par(mar = c(ifelse(xaxis, 2, 0.5), 0.5, ifelse(is.null(Title), 0.5, 3), 0.5), cex.main = 1, xpd = ifelse(!is.null(rangeLimitOccup), T, F), mgp = c(1, 0.2, 0), tck = -.01)
   image(x = coordx, y = coordy, xaxt='n', yaxt = 'n', z = landM, xlab = "", ylab = "", col = col, main = Title, breaks = c(0, 1, 2, 3, 4))
   if(xaxis) {
     par(new = T)
@@ -58,7 +57,8 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
   }
 
   # add rangeLimit line
-  if(!is.null(rangeLimit)) {
+  if(!is.null(rangeLimitOccup)) {
+    rangeLimit <- range_limit(land, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)
     lines(c(rangeLimit[1], rangeLimit[1]), c(nCol, -2), lwd = 2)
     lines(c(rangeLimit[2], rangeLimit[2]), c(nCol, -2), lwd = 2)
   }
