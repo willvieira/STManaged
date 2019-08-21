@@ -73,7 +73,7 @@ run_model <- function(steps,
     # repeate last set of parameters in case steps are higher than climate change time
     if(length(pars) < steps) {
       # define missing years
-      missYr <- which(!seq_len(20) %in% (1:length(pars)))
+      missYr <- which(!seq_len(steps) %in% (1:length(pars)))
       for(i in missYr)
       pars[[i]] <- pars[[length(pars)]]
     }
