@@ -12,7 +12,7 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 \arguments{
 \item{steps}{numeric, the total number of steps to run the model. Here 1 step is equivalent to 5 years.}
 
-\item{initLand}{output object from the \code{\link{create_landscape}} function}
+\item{initLand}{output object from the \code{\link{create_virtual_landscape}} or \code{\link{create_real_landscape}} function}
 
 \item{managInt}{vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.}
 
@@ -42,7 +42,7 @@ This function generates the spatiotemporal dynamics based in the initial landsca
 }
 \examples{
 \dontrun{
-initLand = create_landscape(cellSize = 5)
+initLand = create_virtual_landscape(cellSize = 5)
 
 lands <- run_model(steps = 10, initLand,
                    managInt = c(0.15, 0, 0, 0),

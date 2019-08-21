@@ -8,9 +8,9 @@ plot_landscape(lands, step = NULL, Title = NULL, xaxis = FALSE,
   rmBorder = TRUE, rangeLimitOccup = NULL)
 }
 \arguments{
-\item{lands, }{the object output from either the \code{\link{run_model}} or \code{\link{create_landscape}} functions}
+\item{lands, }{the object output from either the \code{\link{run_model}} or \code{\link{create_virtual_landscape}} or \code{\link{create_real_landscape}} functions}
 
-\item{step}{numeric, time step to be ploted. If \code{NULL} it will plot the initial landscape for a \code{create_landscape} object, and the last time step for a \code{run_model} object.}
+\item{step}{numeric, time step to be ploted. If \code{NULL} it will plot the initial landscape for a \code{\link{create_virtual_landscape}}/\code{\link{create_real_landscape}} object, and the last time step for a \code{run_model} object.}
 
 \item{Title}{character, title of the landscape plot}
 
