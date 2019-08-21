@@ -50,7 +50,7 @@ create_virtual_landscape <- function(climRange = c(-2.61, 5.07),
 #' @return a list with the (i) raster landscape containing the states, temperature and precipition for each cell, (ii) landscape dimensions, (iii) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples
-#' initLand = create_real_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
+#' initLand = create_real_landscape()
 
 create_real_landscape <- function()
 {

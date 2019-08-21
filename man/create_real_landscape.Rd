@@ -13,5 +13,5 @@ a list with the (i) raster landscape containing the states, temperature and prec
 This function creates an initial real landscape to run the simulations
 }
 \examples{
-initLand = create_real_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
+initLand = create_real_landscape()
 }
