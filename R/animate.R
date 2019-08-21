@@ -35,7 +35,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, r
   if(is.integer(lands[[1]])) {
     width = 800; height = 230
   }else{
-    width = 800; height = 600
+    width = 800; height = 500
   }
 
   # loop to save each plot in an obj

@@ -95,6 +95,7 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
       }
     }
 
+    par(mar = c(1.5, 1.5, 2, 2.5), cex.main = 1, mgp = c(1, 0.2, 0), tck = -.01)
     raster::plot(land, main = Title, col = col, legend = FALSE)
     par(xpd = TRUE)
     legend(x = -60, y = 48, legend = c("Boreal", "Mixed", "Temperate", "Regeneration"), fill = col[c(2, 4, 3, 5)], cex = 0.8, inset = 0.9, bty = 'n')
