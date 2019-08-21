@@ -32,7 +32,7 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, r
   }
 
   # in case with and height are NULL
-  if(is.integer(lands[['land']])) {
+  if(is.integer(lands[[1]])) {
     width = 800; height = 230
   }else{
     width = 800; height = 600

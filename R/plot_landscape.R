@@ -23,7 +23,7 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
   coordx <- seq(0, nCol)
   coordy <- seq(0, nRow)
 
-  if(is.integer(lands[['land']]))
+  if(is.integer(lands[[1]]))
   {
     env1 = lands[['env1']]
     if(!is.null(lands[['land']])) {
