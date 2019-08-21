@@ -1,15 +1,15 @@
-#' Create initial landscape
+#' Create virtual landscape
 #'
-#' This function creates an initial landscape to run the simulations
+#' This function creates an initial virtual landscape to run the simulations
 #' @param climRange vector, annual mean temperature with the respective North and South limits. Values must be between -5.3 and 12.2 to respect the parameterization boundary.
 #' @param cellSize numeric, size of the cell of the landscape in Km. Recommended cell size is between 0.3 and 5 km.
 #' @return a list with the (i) initial landscape, (ii) scaled temperature gradient, (iii) landscape dimensions, (iv) position and neighbor are internal objects to run the model in parallel.
 #' @export
 #' @examples
-#' initLand = create_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
+#' initLand = create_virtual_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
 
-create_landscape <- function(climRange = c(-2.61, 5.07),
-                             cellSize = 0.8)
+create_virtual_landscape <- function(climRange = c(-2.61, 5.07),
+                                     cellSize = 0.8)
 {
 
   # checks
@@ -29,7 +29,7 @@ create_landscape <- function(climRange = c(-2.61, 5.07),
 
   # temperature gradient over the grid
   env1 <- seq(climR[1], climR[2], length.out = nCol)
-  landscape <- setNames(rep(env1, nRow), 1:(nRow * nCol)) # list for each col of the matrix
+  landscape <- setNames(rep(env1, each = nRow), 1:(nRow * nCol)) # list for each col of the matrix
 
   land <- sapply(landscape, getState)
 
@@ -41,6 +41,39 @@ create_landscape <- function(climRange = c(-2.61, 5.07),
 
   return(list(land = land, env1 = env1, nCol = nCol, nRow = nRow, position = position, neighbor = neighbor))
 }
+
+
+
+#' Create real landscape
+#'
+#' This function creates an initial real landscape to run the simulations
+#' @return a list with the (i) raster landscape containing the states, temperature and precipition for each cell, (ii) landscape dimensions, (iii) position and neighbor are internal objects to run the model in parallel.
+#' @export
+#' @examples
+#' initLand = create_real_landscape(climRange = c(-2.61, 5.07), cellSize = 4)
+
+create_real_landscape <- function()
+{
+  nCol = land.rBio@nrows
+  nRow = land.rBio@ncols # I'am aware of the inversion between ncol and nrow
+
+  # get adjacent (neighbors)
+  ad <- raster::adjacent(land.rBio[['land']], 1:(nCol * nRow), 8)
+
+  # cells to calculate (all that have 8 neigbors)
+  position <- which(table(ad[, 1]) == 8)
+
+  # get neighbours for each cell position
+  # neighbor <- list()
+  # for(ps in 1:length(position))
+  # {
+  #   neighbor[[ps]] <- ad[which(ad[, 1] == position[ps]), 2]
+  # }
+
+  return(list(land = land.rBio, nCol = nCol, nRow = nRow, position = position, neighbor = neighbor))
+}
+
+
 
 # initial state over the temperature gradient
 getState <- function(env) {
