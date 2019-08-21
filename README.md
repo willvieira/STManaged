@@ -25,8 +25,8 @@ initLand <- create_virtual_landscape(climRange = c(-2.61, 5.07), cellSize = 2)
 # Print the initial landscape
 plot_landscape(initLand, Title = 'initial_landscape')
 
-# Run the model for 200 years with temperature increase of 1.8 degrees
-lands <- run_model(steps = 40,
+# Run the model for 100 years with temperature increase of 1.8 degrees
+lands <- run_model(steps = 20,
                    initLand,
                    managInt = c(0, 0, 0, 0),
                    RCP = 4.5)
