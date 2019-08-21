@@ -76,7 +76,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to STManaged</h1>
             
-            <h4 class="date">2019-08-14</h4>
+            <h4 class="date">2019-08-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/willvieira/STM-managed/blob/master/vignettes/STManaged.Rmd"><code>vignettes/STManaged.Rmd</code></a></small>
       <div class="hidden name"><code>STManaged.Rmd</code></div>
@@ -100,7 +100,7 @@
 <p>To initiate the landscape let’s first define the environmental gradient in which we are going to run the model. A latitudinal gradient will be created using the temperature variation from colder temperature (north) to warmer temperature (south). Annual mean temperature must be between <code>-5.3</code> and <code>12.2</code> <span class="math inline">\(^\circ\)</span>C to respect the parameterization boundary.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">temp_gradient &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">2.61</span>, <span class="fl">5.07</span>)</a></code></pre></div>
 <p>The second argument is the size of cells of the landscape, in Km<span class="math inline">\(^2\)</span>. We recommend not to exceed the limits of <code>0.3</code> to <code>4</code> km<span class="math inline">\(^2\)</span>. Cells smaller than <code>0.3</code> km<span class="math inline">\(^2\)</span> will be time and memory consuming, and cells larger than <code>4</code> km<span class="math inline">\(^2\)</span> may overestimate dispersion (<em>there’s a sensitivity analysis for cell size <a href="https://github.com/willvieira/STManaged/issues/1">here</a></em>).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">initLand &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_landscape.html">create_landscape</a></span>(<span class="dt">climRange =</span> temp_gradient, <span class="dt">cellSize =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">initLand &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_virtual_landscape.html">create_virtual_landscape</a></span>(<span class="dt">climRange =</span> temp_gradient, <span class="dt">cellSize =</span> <span class="fl">0.8</span>)</a></code></pre></div>
 <p><code>initLand</code> is a list of 6 objects with information about the landscape. <code>land</code> informing which forest states is present in each cell, <code>env1</code> storing the (scaled) temperature gradient and <code>nCol</code> and <code>nRow</code> to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(initLand[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; List of 4</span></a>

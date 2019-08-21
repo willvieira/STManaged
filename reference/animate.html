@@ -124,7 +124,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>animate</span>(<span class='no'>lands</span>, <span class='kw'>stepsBy</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fps</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>gifName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rangeLimitOccup</span> <span class='kw'>=</span> <span class='fl'>0.75</span>)</pre>
+  <span class='kw'>rangeLimitOccup</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +152,14 @@
     <tr>
       <th>rangeLimitOccup</th>
       <td><p>numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See <code><a href='run_model.html'>run_model</a></code> for more details</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>numeric, width of gif image</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>numeric, height of gif image</p></td>
     </tr>
     </table>
     
