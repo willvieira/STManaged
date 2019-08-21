@@ -147,16 +147,16 @@ run_model <- function(steps,
     if(!any(is.na(outputLand))) {
       if(i %in% outputLand) {
         if(isRaster) {
-          values(land1.r) <- land1
-          lands.r <- addLayer(lands.r, land1.r)
+          raster::values(land1.r) <- land1
+          lands.r <- raster::addLayer(lands.r, land1.r)
         }else{
         lands[[paste0('land_T', i)]] <- land1 # save land time step
         }
       }
     }else{
       if(isRaster) {
-        values(land1.r) <- land1
-        lands.r <- addLayer(lands.r, land1.r)
+        raster::values(land1.r) <- land1
+        lands.r <- raster::addLayer(lands.r, land1.r)
       }else{
         lands[[paste0('land_T', i)]] <- land1 # save land time step
       }
