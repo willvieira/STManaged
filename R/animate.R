@@ -18,7 +18,7 @@
 #' animate(lands, stepsBy = 1, fps = 5, gifName = 'myGif', rangeLimitOccup = 0.75)
 #' }
 
-animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, rangeLimitOccup = 0.75)
+animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, rangeLimitOccup = 0.75, width = NULL, height = NULL)
 {
   # define land to be ploted
   if(!is.null(steps)) {
@@ -29,10 +29,17 @@ animate <- function(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL, r
     lds <- seq(1, lands[['steps']], by = stepsBy)
   }
 
+  # in case with and height are NULL
+  if(is.integer(lands[['land']])) {
+    width = 800; height = 230
+  }else{
+    width = 800; height = 600
+  }
+
   # loop to save each plot in an obj
   for(i in lds) {
     figName <- paste0('landPlot', i)
-    assign(figName, magick::image_graph(width = 800, height = 230, res = 60, pointsize = 20, clip = TRUE)) # create obj to save `plot_landscape`; clip = FALSE speeds up a lot the process
+    assign(figName, magick::image_graph(width = width, height = height, res = 60, pointsize = 20, clip = TRUE)) # create obj to save `plot_landscape`; clip = FALSE speeds up a lot the process
     plot_landscape(lands, step = i, Title = paste0('land_T', i), rangeLimitOccup = rangeLimitOccup)
     dev.off()
 

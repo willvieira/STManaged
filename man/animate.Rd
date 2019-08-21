@@ -5,7 +5,7 @@
 \title{Make an animated gif of landscape over time}
 \usage{
 animate(lands, stepsBy = 1, steps = NULL, fps = 5, gifName = NULL,
-  rangeLimitOccup = 0.75)
+  rangeLimitOccup = 0.75, width = NULL, height = NULL)
 }
 \arguments{
 \item{lands}{the object output of the \code{\link{run_model}} function}
