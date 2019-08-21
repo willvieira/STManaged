@@ -81,7 +81,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<p>Install the <code>STManaged</code> package with the <code>devtools</code> (or <code>remotes</code>) package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"willvieira/STManaged"</span>)</a></code></pre></div>
+<p>On Linux you need to install the ImageMagick++ library (see <a href="https://ropensci.org/blog/2016/08/23/z-magick-release/">here</a>), or you can install a <a href="https://github.com/willvieira/STManaged/tree/noAnimation">version</a> of this package without the <code>animation()</code> function.</p>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
@@ -110,7 +112,7 @@
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw"><a href="reference/plot_rangeShift.html">plot_rangeShift</a></span>(lands, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a>
 <a class="sourceLine" id="cb2-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24">## animated gif of the dynamics</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="kw"><a href="reference/animate.html">animate</a></span>(lands, <span class="dt">stepsBy =</span> <span class="dv">2</span>, <span class="dt">fps =</span> <span class="dv">5</span>, <span class="dt">gifName =</span> <span class="st">'RCP4.5'</span>, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="kw"><a href="reference/animate.html">animate</a></span>(lands, <span class="dt">fps =</span> <span class="dv">5</span>, <span class="dt">gifName =</span> <span class="st">'RCP4.5'</span>, <span class="dt">rangeLimitOccup =</span> <span class="fl">0.7</span>)</a></code></pre></div>
 </div>
 </div>
   </div>
