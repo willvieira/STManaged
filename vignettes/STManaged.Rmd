@@ -44,7 +44,7 @@ temp_gradient <- c(-2.61, 5.07)
 The second argument is the size of cells of the landscape, in Km$^2$. We recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time and memory consuming, and cells larger than `4` km$^2$ may overestimate dispersion (*there's a sensitivity analysis for cell size [here](https://github.com/willvieira/STManaged/issues/1)*).
 
 ```{r}
-initLand <- create_landscape(climRange = temp_gradient, cellSize = 0.8)
+initLand <- create_virtual_landscape(climRange = temp_gradient, cellSize = 0.8)
 ```
 
 `initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` informing which forest states is present in each cell, `env1` storing the (scaled) temperature gradient and `nCol` and `nRow` to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.

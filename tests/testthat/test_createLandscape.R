@@ -1,34 +1,34 @@
 context("Create landscape")
 library(STManaged)
 
-test_that("create_landscape returns a list of 6 elements", {
+test_that("create_virtual_landscape returns a list of 6 elements", {
 
-  initLand <- create_landscape(cellSize = 4)
+  initLand <- create_virtual_landscape(cellSize = 4)
 
   expect_equal(names(initLand), c("land", "env1", "nCol", "nRow", "position", "neighbor"))
 })
 
-test_that("create_landscape returns an integer vector with four forest states", {
+test_that("create_virtual_landscape returns an integer vector with four forest states", {
 
-  initLand <- create_landscape(cellSize = 4)
+  initLand <- create_virtual_landscape(cellSize = 4)
   land <- initLand[['land']]
 
   expect_equal(sort(unique(land)), c(1, 2, 3, 4))
   expect_match(class(land), "integer")
 })
 
-test_that("create_landscape returns good dimensions", {
+test_that("create_virtual_landscape returns good dimensions", {
 
-  initLand <- create_landscape(cellSize = 4)
+  initLand <- create_virtual_landscape(cellSize = 4)
   nCol <- initLand[['nCol']]
   nRow <- initLand[['nRow']]
 
   expect_true(nCol > nRow)
 })
 
-test_that("create_landscape position and neighbor are correct", {
+test_that("create_virtual_landscape position and neighbor are correct", {
 
-  initLand <- create_landscape(cellSize = 4)
+  initLand <- create_virtual_landscape(cellSize = 4)
   position <- initLand[['position']]
   neighbor <- initLand[['neighbor']]
 
@@ -37,9 +37,9 @@ test_that("create_landscape position and neighbor are correct", {
   expect_equal(position[1], neighbor[[1]][5])
 })
 
-test_that("create_landscape position and neighbor are correct", {
+test_that("create_virtual_landscape position and neighbor are correct", {
 
-  initLand <- create_landscape(cellSize = 4)
+  initLand <- create_virtual_landscape(cellSize = 4)
   position <- initLand[['position']]
   neighbor <- initLand[['neighbor']]
 

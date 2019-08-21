@@ -1,10 +1,11 @@
 # - clim_diff (get the params difference between env1 before and after climate change)
 clim_diff <- function(env1, # pars as a list for each row of the lanscape
                       RCP = 0, # RCP either 0, 2.6, 4.5, 6 and 8.5
+                      nRow,
                       params)
 {
   # unscale temperature to add climate change
-  tempSc0 <- env1
+  tempSc0 <- rep(env1, each = nRow)
   tempUn0 <- tempSc0 * vars.sd['annual_mean_temp'] + vars.means['annual_mean_temp']
 
   # add climate change
