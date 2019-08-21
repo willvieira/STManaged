@@ -35,18 +35,13 @@ initLand <- create_real_landscape()
 ```
 
 ```{r, echo=FALSE}
-tr = round(range(raster::values(r[['tp']]), na.rm = T), 2)
-pr = round(range(raster::values(r[['pp']]), na.rm = T), 2)
+tr = round(range(raster::values(initLand[['land']][['tp']]), na.rm = T), 2)
+pr = round(range(raster::values(initLand[['land']][['pp']]), na.rm = T), 2)
 ```
 
 The defined landscape has temperature ranging from `r tr[1]` to `r tr[2]` $^\circ$C, and precipitation from `r pr[1]` to `r pr[2]` mm.
 
 `initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` is raster with 3 layers informing (i) the forest state, (ii) temperatuer and (iii) precipitation for each cell. The other two objects have information about cells neighbor to be used internally.
-
-
-```{r}
-str(initLand[1:3])
-```
 
 Let's take a look in the `initLand` using the function `plot_landscape()`:
 
