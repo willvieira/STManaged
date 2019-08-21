@@ -82,8 +82,8 @@ plot_landscape <- function(lands, step = NULL, Title = NULL, xaxis = FALSE, rmBo
     col <- c("white", "darkcyan", "orange", "palegreen3", "black")
 
     # define which object (initLand or model output?)
-    if('land' %in% names(lands[['lands']])) {
-      land = lands[['land']]
+    if('land' %in% names(lands[[1]])) {
+      land = lands[['land']][['land']]
     }else{
       availableSteps <- gsub('land_T', '', names(lands[['lands']])[grep('land_', names(lands[['lands']]))])
       if(is.null(step)) {
