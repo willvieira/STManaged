@@ -6,9 +6,13 @@ The `{STManaged}` R package runs the State and transition model for the eastern 
 
 ## Installation
 
+Install the `STManaged` package with the `devtools` (or `remotes`) package:
+
 ```r
 devtools::install_github("willvieira/STManaged")
 ```
+
+On Linux you need to install the ImageMagick++ library (see [here](https://ropensci.org/blog/2016/08/23/z-magick-release/)), or you can install a [version](https://github.com/willvieira/STManaged/tree/noAnimation) of this package without the `animation()` function.
 
 ## Quick start
 
@@ -37,5 +41,5 @@ plot_occupancy(lands, step = 40, spar = 0.4)
 plot_rangeShift(lands, rangeLimitOccup = 0.7)
 
 ## animated gif of the dynamics
-animate(lands, stepsBy = 2, fps = 5, gifName = 'RCP4.5', rangeLimitOccup = 0.7)
+animate(lands, fps = 5, gifName = 'RCP4.5', rangeLimitOccup = 0.7)
 ```
