@@ -7,6 +7,8 @@
 #' @param fps frames per second
 #' @param gifName string with name of the file output
 #' @param rangeLimitOccup numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details
+#' @param width numeric, width of gif image
+#' @param height numeric, height of gif image
 #' @return an animated gif file
 #' @importFrom magick image_graph
 #' @importFrom magick image_join
