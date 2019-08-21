@@ -49,8 +49,8 @@ run_model <- function(steps,
     lands.r <- initLand[['land']]
     names(lands.r) <- c('land_T0', 'tp', 'pp')
     land1.r <- raster::raster(nrows = lands.r@nrows, ncols = lands.r@ncols)
-    extent(land1.r) <- extent(lands.r)
-    crs(land1.r) <- crs(lands.r)
+    raster::extent(land1.r) <- raster::extent(lands.r)
+    raster::crs(land1.r) <- raster::crs(lands.r)
 
   }else{
     lands <- list(land_T0 = initLand[['land']])
