@@ -88,7 +88,7 @@
     <div class="page-header toc-ignore">
       <h1>Using real landscape</h1>
             
-            <h4 class="date">2019-08-21</h4>
+            <h4 class="date">2019-08-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/willvieira/STM-managed/blob/master/vignettes/UseRealLandscape.Rmd"><code>vignettes/UseRealLandscape.Rmd</code></a></small>
       <div class="hidden name"><code>UseRealLandscape.Rmd</code></div>
@@ -97,7 +97,7 @@
 
     
     
-<p>Instead of using a virtual landscape, the <code>{STManaged}</code> package forcene a landscape with real values of temperature and precipitation for the eastern North American forest.</p>
+<p>Instead of using a virtual landscape, the <code>{STManaged}</code> package provides a landscape with real values of temperature and precipitation for the eastern North American forest.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(STManaged)</a></code></pre></div>
 <div id="initiate-the-landscape" class="section level2">
 <h2 class="hasAnchor">
@@ -105,11 +105,11 @@
 <p>As the landscape is already defined, to initiate the real landscape you have to just call the <code><a href="../reference/create_real_landscape.html">create_real_landscape()</a></code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">initLand &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_real_landscape.html">create_real_landscape</a></span>()</a></code></pre></div>
 <p>The defined landscape has temperature ranging from -2.05 to 9.75 <span class="math inline">\(^\circ\)</span>C, and precipitation from 723.73 to 1826.46 mm.</p>
-<p><code>initLand</code> is a list of 5 objects with information about the landscape. <code>land</code> is raster with 3 layers informing (i) the forest state, (ii) temperatuer and (iii) precipitation for each cell. The other two objects have information about cells neighbor to be used internally.</p>
+<p><code>initLand</code> is a list of 5 objects with information about the landscape. <code>land</code> is a raster with 3 layers informing (i) the forest state, (ii) temperature and (iii) precipitation for each cell. The other two objects have information about cells neighbor to be used internally.</p>
 <p>Let’s take a look in the <code>initLand</code> using the function <code><a href="../reference/plot_landscape.html">plot_landscape()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/plot_landscape.html">plot_landscape</a></span>(initLand, <span class="dt">Title =</span> <span class="st">'initial_landscape'</span>)</a></code></pre></div>
 <p><img src="UseRealLandscape_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;"></p>
-<p>Note that when using the real landscape the arguments <code>xaxis</code>, <code>rmBorder</code> and <code>rangeLimitOccup</code> are not</p>
+<p>Note that when using the real landscape the arguments <code>xaxis</code>, <code>rmBorder</code> and <code>rangeLimitOccup</code> are not considered.</p>
 </div>
 <div id="run-the-model" class="section level2">
 <h2 class="hasAnchor">
@@ -117,7 +117,7 @@
 <p>With the initial landscape set, we can now run the model using the function <code><a href="../reference/run_model.html">run_model()</a></code>. We will run the model for 100 years (1 step = 5 years). For now the models supports only the RCP 8.5 scenario when using a real landscape:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">lands &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_model.html">run_model</a></span>(<span class="dt">steps =</span> <span class="dv">20</span>,</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">                   <span class="dt">initLand =</span> initLand)</a></code></pre></div>
-<p>The model output <code>lands</code> is a list containing a raster with all <code>land</code> steps and the initial climate condition (temperature and precipitation), and other useful information such as (i) (i) steps, (ii) management intensity, (iII) RCP scenario and (v) landscape dimensions.</p>
+<p>The model output <code>lands</code> is a list containing a raster with all <code>land</code> steps and the initial climate condition (temperature and precipitation), and other useful information such as (i) steps, (ii) management intensity, (iII) RCP scenario and (v) landscape dimensions.</p>
 </div>
 <div id="plot-output" class="section level2">
 <h2 class="hasAnchor">
