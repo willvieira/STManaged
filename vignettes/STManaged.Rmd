@@ -105,7 +105,7 @@ First we can plot the occupancy of the forest states over the temperature gradie
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
 plot_occupancy(lands, step = 0, spar = 0.4)
-plot_occupancy(lands, step = 150, spar = 0.4)
+plot_occupancy(lands, step = 100, spar = 0.4)
 ```
 
 ### Range Limit shift

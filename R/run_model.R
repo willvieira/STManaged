@@ -40,6 +40,8 @@ run_model <- function(steps,
                       folderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
 {
 
+  cat(" Preparing the model...\r")
+
   # define type of initLand (raster or list?)
   isRaster <- !is.integer(initLand[['land']])
 

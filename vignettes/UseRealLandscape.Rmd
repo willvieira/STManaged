@@ -71,7 +71,7 @@ The model output `lands` is a list containing a raster with all `land` steps and
 
 ## Plot output
 
-For the real landscape you cannot use the functions `plot_occupancy()` and `plot_rangeShift()`, only `animation()`.
+For the real landscape you cannot use the functions `plot_occupancy()` and `plot_rangeShift()`, only `animate()`.
 
 ## Animation
 
