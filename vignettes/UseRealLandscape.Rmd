@@ -1,6 +1,6 @@
 ---
 title: "Using real landscape"
-desc: "Run the model for the Québec boreal-temperate ecotone lanscape"
+desc: "Run the model for the Québec boreal-temperate ecotone landscape"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette:
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Instead of using a virtual landscape, the `{STManaged}` package forcene a landscape with real values of temperature and precipitation for the eastern North American forest.
+Instead of using a virtual landscape, the `{STManaged}` package provides a landscape with real values of temperature and precipitation for the eastern North American forest.
 
 ```{r, message = FALSE}
 library(STManaged)
@@ -41,15 +41,15 @@ pr = round(range(raster::values(initLand[['land']][['pp']]), na.rm = T), 2)
 
 The defined landscape has temperature ranging from `r tr[1]` to `r tr[2]` $^\circ$C, and precipitation from `r pr[1]` to `r pr[2]` mm.
 
-`initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` is raster with 3 layers informing (i) the forest state, (ii) temperatuer and (iii) precipitation for each cell. The other two objects have information about cells neighbor to be used internally.
+`initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` is a raster with 3 layers informing (i) the forest state, (ii) temperature and (iii) precipitation for each cell. The other two objects have information about cells neighbor to be used internally.
 
 Let's take a look in the `initLand` using the function `plot_landscape()`:
 
-```{r,fig.width=10,fig.height=5}
+```{r,fig.width=10,fig.height=7}
 plot_landscape(initLand, Title = 'initial_landscape')
 ```
 
-Note that when using the real landscape the arguments `xaxis`, `rmBorder` and `rangeLimitOccup` are not
+Note that when using the real landscape the arguments `xaxis`, `rmBorder` and `rangeLimitOccup` are not considered.
 
 
 ## Run the model
@@ -66,7 +66,7 @@ lands <- run_model(steps = 20,
 load('data/landsReal.Rdata')
 ```
 
-The model output `lands` is a list containing a raster with all `land` steps and the initial climate condition (temperature and precipitation), and other useful information such as (i) (i) steps, (ii) management intensity, (iII) RCP scenario and (v) landscape dimensions.
+The model output `lands` is a list containing a raster with all `land` steps and the initial climate condition (temperature and precipitation), and other useful information such as (i) steps, (ii) management intensity, (iII) RCP scenario and (v) landscape dimensions.
 
 
 ## Plot output
