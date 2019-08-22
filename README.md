@@ -35,7 +35,7 @@ lands <- run_model(steps = 20,
 ## Forest state occupancy for first and last year
 par(mfrow = c(2, 1))
 plot_occupancy(lands, step = 0, spar = 0.4)
-plot_occupancy(lands, step = 40, spar = 0.4)
+plot_occupancy(lands, step = 20, spar = 0.4)
 
 ## Range limit shift of Boreal and Temperate states over time
 plot_rangeShift(lands, rangeLimitOccup = 0.7)
