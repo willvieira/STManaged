@@ -10,7 +10,6 @@ URL: https://github.com/willvieira/STM-managed
 BugReports: https://github.com/willvieira/STM-managed/issues
 Imports:
     raster,
-    magick,
     parallel
 RoxygenNote: 6.1.1
 Suggests:
