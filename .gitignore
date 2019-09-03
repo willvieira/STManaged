@@ -2,3 +2,5 @@
 *.RDS
 simulation/
 docs/*
+gif/*
+climData/*

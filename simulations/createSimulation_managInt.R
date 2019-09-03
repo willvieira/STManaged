@@ -47,7 +47,7 @@ set.seed(42)
   count = 0
     for(cellSz in cellSize) {
       for(rp in reps) {
-        saveRDS(create_landscape(climRange = c(-2.5, 0.35), cellSize = cellSz), file = paste0(initLandFoder, '/initLand_cellSize_', cellSz, '_rep_', rp, '.RDS'))
+        saveRDS(create_virtual_landscape(climRange = c(-2.5, 0.35), cellSize = cellSz), file = paste0(initLandFoder, '/initLand_cellSize_', cellSz, '_rep_', rp, '.RDS'))
         cat('    creating initial landscapes', round((rp + count)/(length(cellSize) * length(reps)) * 100, 1), '%\r')
       }
       count = count + length(reps)

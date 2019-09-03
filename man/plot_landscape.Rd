@@ -5,12 +5,12 @@
 \title{Plot landscape}
 \usage{
 plot_landscape(lands, step = NULL, Title = NULL, xaxis = FALSE,
-  rmBorder = TRUE, rangeLimit = NULL)
+  rmBorder = TRUE, rangeLimitOccup = NULL)
 }
 \arguments{
-\item{lands, }{the object output from either the \code{\link{run_model}} or \code{\link{create_landscape}} functions}
+\item{lands, }{the object output from either the \code{\link{run_model}} or \code{\link{create_virtual_landscape}} or \code{\link{create_real_landscape}} functions}
 
-\item{step}{numeric, time step to be ploted. If \code{NULL} it will plot the initial landscape for a \code{create_landscape} object, and the last time step for a \code{run_model} object.}
+\item{step}{numeric, time step to be ploted. If \code{NULL} it will plot the initial landscape for a \code{\link{create_virtual_landscape}}/\code{\link{create_real_landscape}} object, and the last time step for a \code{run_model} object.}
 
 \item{Title}{character, title of the landscape plot}
 
@@ -18,7 +18,7 @@ plot_landscape(lands, step = NULL, Title = NULL, xaxis = FALSE,
 
 \item{rmBorder}{logical, if \code{TRUE} the four side borders will be removed of the plot. This option is available because the model do not calculate state prevalence in the borders.}
 
-\item{rangeLimit, }{vector, the latitudinal position of the boreal and temperate range limit in the landscape configuration. This value is obtained from the function \code{\link{range_limit}}}
+\item{rangeLimitOccup}{numeric between 0 and 1 to define the minimum row occupancy of a state in the landscape. It will add a line in the plot for the boreal trailing edge and the temperate leading edge. See \code{\link{run_model}} for more details.}
 }
 \description{
 This function plots a specific time step landscape

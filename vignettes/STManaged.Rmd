@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of the `STManaged` package is to wrap the State and transition model for the eastern North American forest extended with forest management practices.
+The goal of the `STManaged` package is to wrap the **S**tate and **T**ransition **M**odel for the eastern North American forest extended with forest management practices.
 I will describe here step by step all the functionality of the package from the initialization of the model to plotting outputs.
 
 There will be four steps:
@@ -44,7 +44,7 @@ temp_gradient <- c(-2.61, 5.07)
 The second argument is the size of cells of the landscape, in Km$^2$. We recommend not to exceed the limits of `0.3` to `4` km$^2$. Cells smaller than `0.3` km$^2$ will be time and memory consuming, and cells larger than `4` km$^2$ may overestimate dispersion (*there's a sensitivity analysis for cell size [here](https://github.com/willvieira/STManaged/issues/1)*).
 
 ```{r}
-initLand <- create_landscape(climRange = temp_gradient, cellSize = 0.8)
+initLand <- create_virtual_landscape(climRange = temp_gradient, cellSize = 0.8)
 ```
 
 `initLand` is a list of `r length(initLand)` objects with information about the landscape. `land` informing which forest states is present in each cell, `env1` storing the (scaled) temperature gradient and `nCol` and `nRow` to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.
@@ -60,8 +60,8 @@ plot_landscape(initLand, Title = 'initial_landscape')
 
 ## Run the model
 
-With the initial landscape set, we can now run the model using the function `run_model()`. This function has many arguments and I will discuss the important ones here.
-First we need to define the number of steps we want the model to run. Note that one time step in the model means 5 years of forest dynamics. So let's set the model to run for 500 years:
+With the initial landscape set, we can now run the model using the function `run_model()`. This function has many arguments, and I will discuss the important ones here.
+First we need to define the number of steps we want the model to run. Note that one step in the model means 5 years of forest dynamics. So let's set the model running for 500 years:
 
 ```{r}
 # 500 years
@@ -105,7 +105,7 @@ First we can plot the occupancy of the forest states over the temperature gradie
 ```{r,fig.width=5,fig.height=7,fig.align='center'}
 par(mfrow = c(2, 1), cex = 0.9)
 plot_occupancy(lands, step = 0, spar = 0.4)
-plot_occupancy(lands, step = 150, spar = 0.4)
+plot_occupancy(lands, step = 100, spar = 0.4)
 ```
 
 ### Range Limit shift
@@ -116,3 +116,13 @@ Another possibility is to evaluate how the range limit of forest states changes 
 par(cex = 0.9)
 plot_rangeShift(lands, rangeLimitOccup = 0.7)
 ```
+
+## Animation
+
+Finally, we can animate the spatiotemporal dynamic of the model using the `animate()` function. This function needs the output `lands`, the increment value `stepsBy`, the frames per second `fps` and also the `rangeLimitOccup` argument in case we want to print a line with both the boreal and temperate range limits.
+
+```{r,eval=F}
+animate(lands, stepsBy = 2, fps = 5, gifName = 'plant0.15_RCP4.5', rangeLimitOccup = 0.7)
+```
+
+![](img/plant0.15_RCP4.5.gif)

@@ -15,7 +15,7 @@
 range_limit <- function(land, nRow, nCol, occup)
 {
   # list to matrix
-  landM <- matrix(land, ncol = nRow)
+  landM <- matrix(land, ncol = nRow, byrow = TRUE)
 
   prop <- apply(landM, 1, getProp, nRow = nRow)
 

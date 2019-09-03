@@ -12,7 +12,7 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 \arguments{
 \item{steps}{numeric, the total number of steps to run the model. Here 1 step is equivalent to 5 years.}
 
-\item{initLand}{output object from the \code{\link{create_landscape}} function}
+\item{initLand}{output object from the \code{\link{create_virtual_landscape}} or \code{\link{create_real_landscape}} function}
 
 \item{managInt}{vector, intensity of the four ordered management practices: plantation, harvest, thinning and enrichment plantation. Values must be bounded between \code{0} and \code{1}, where \code{0} means the natural dynamics without forest management.}
 
@@ -20,13 +20,13 @@ run_model(steps, initLand, managInt = c(0, 0, 0, 0), RCP = 0,
 
 \item{stoch}{logical, if \code{TRUE}, the prevalence of each cell will depend in a probabilistic random generator. Otherwise the prevalence will be deterministic.}
 
-\item{cores}{numeric,  the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.}
+\item{cores}{numeric, the number of cores to be used in a parallel computation. The parallel is computed with the \code{mclapply} function. If \code{cores = 1}, a loop for will be used instead.}
 
-\item{outputLand}{vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we can reduce memory usage.}
+\item{outputLand}{vector, an integer vector to define the time steps to be saved at the end of the simulation. This argument is useful when we only need to compare the first and last time step \code{outputLand = c(1, steps)}, or when the size of the landscape is too big so we need to reduce memory usage.}
 
-\item{rangeLimitOccup}{numeric between 0 and 1. If \code{rangeLimitOccup} is not \code{NULL}, the function will calculate the south range limit of Boreal state and the north range limit of Temperate state of each time step. The defined value determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. It returns a data frame.}
+\item{rangeLimitOccup}{numeric between 0 and 1. If not \code{NULL}, the function will calculate the landscape position of the boreal trailing edge and the temperate leading edge for each time step. The defined value betwen 0 and 1 determines the minimum occupancy a row of the landscape must be occupied by a specific forest state to be considered part of the state range. E.g. if \code{rangeLimitOccup = 0.8}, the furthest row of the landscape with a proportion less than 0.8 will be considered the range limit of the state. Default is \code{0.85}, but values ranging from \code{0.7} to \code{0.95} does not have much effect on migration rate (see \href{https://github.com/willvieira/STManaged/issues/3}{figure 3} of sensitivity analysis). It returns a data frame.}
 
-\item{stateOccup}{logical, calculate state proportion for each row of the landscape for all time steps. Returns a list with a data frame for each time step}
+\item{stateOccup}{logical, calculate the proportion of the four forest states for each row of the landscape for all time steps. This argument is useful when you need the information from each time step but cannot save all landscapes because of memory limitation. Returns a list with a data frame for each time step}
 
 \item{saveOutput}{logical, if \code{TRUE} it will save the output list in the 'output' directory with an automatic name with the main information from the simulation}
 
@@ -41,10 +41,12 @@ a list with the (i) landscape configuration for each step, (ii) scaled temperatu
 This function generates the spatiotemporal dynamics based in the initial landscape, climate change and forest management
 }
 \examples{
-initLand = create_landscape(cellSize = 5)
+\dontrun{
+initLand = create_virtual_landscape(cellSize = 5)
 
 lands <- run_model(steps = 10, initLand,
                    managInt = c(0.15, 0, 0, 0),
                    RCP = 4.5,
                    rangeLimitOccup = 0.75)
+}
 }

@@ -26,7 +26,7 @@ plot_occupancy <- function(lands, step, spar, states = 1:3, add = FALSE)
   stepName <- paste0('land_T', step)
 
   # vector to matrix
-  land <- matrix(lands[[stepName]], ncol = nRow)
+  land <- matrix(lands[[stepName]], nrow = nCol, byrow = TRUE)
 
   prop <- apply(land, 1, getProp, nRow = nRow)
 
