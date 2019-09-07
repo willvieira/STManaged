@@ -20,8 +20,8 @@ create_virtual_landscape <- function(climRange = c(-2.61, 5.07),
   if(cellSize > 4) warning("Cells larger than 4 km2 may overestimate dispersion... Consider reducing the cell size")
 
   # get grid size
-  landDist <- 800 # TODO: rethink about it
-  nCol <- round(landDist/cellSize, 0) #TODO: define the distance between climRange and real distance
+  landDist <- abs(realDistance[which.min(abs(realDistance[, 2] - climRange[1])), 3] - realDistance[which.min(abs(realDistance[, 2] - climRange[2])), 3])
+  nCol <- round(landDist/cellSize, 0)
   nRow <- round(nCol/10, 0)
 
   # Scale temperature ranges
