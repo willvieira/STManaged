@@ -96,7 +96,7 @@ run_model <- function(steps,
 
   # stateOccup dataframe
   if(stateOccup == TRUE) {
-    stateOccupDF <- apply(matrix(land0, ncol = nRow), 1, getProp, nRow = nRow)
+    stateOccupDF <- apply(matrix(land0, nrow = nCol, byrow = TRUE), 1, getProp, nRow = nRow)
     stateOccupList <- list(stateOccupDF)
   }
 
@@ -141,7 +141,7 @@ run_model <- function(steps,
     if(!is.null(rangeLimitOccup)) rangeLimitDF[i + 1, 2:3] <- range_limit(land1, nRow = nRow, nCol = nCol, occup = rangeLimitOccup)/nCol
 
     # calculate state occupancy of each col of the landscape
-    if(stateOccup == TRUE) stateOccupList[[i + 1]] <- apply(matrix(land0, ncol = nRow), 1, getProp, nRow = nRow)
+    if(stateOccup == TRUE) stateOccupList[[i + 1]] <- apply(matrix(land0, nrow = nCol, byrow = TRUE), 1, getProp, nRow = nRow)
 
     land0 <- land1 # update land0 for next time step
 
