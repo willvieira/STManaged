@@ -116,7 +116,6 @@ run_model <- function(steps,
         parsOfCell <- setNames(pars[[i]][, position[cell]], c('alphab', 'alphat', 'betab', 'betat', 'theta', 'thetat', 'epsB', 'epsT', 'epsM'))
         y1 <- model_fm(t = 1, y0, params = parsOfCell, managInt)
         y1 <- y0 + unlist(y1) # update cell
-        y1[y1 < 0] <- 0 # check for negative probs TODO: fix it
         y1['R'] <- 1 - sum(y1)
 
         if(stoch == T) {
