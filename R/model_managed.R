@@ -39,15 +39,15 @@
 
   get_pars <- function(ENV1, ENV2, params, int) {
 
-  	logit_alphab 	<- params["ab0", 1] + params["ab1", 1] * ENV1 + params["ab2", 1] * ENV2 + params["ab3", 1] * ENV1^2 + params["ab4",1]*ENV2^2 + params["ab5",1]*ENV1^3 + params["ab6",1]*ENV2^3
-  	logit_alphat 	<- params["at0", 1] + params["at1", 1] * ENV1 + params["at2", 1] * ENV2 + params["at3", 1] * ENV1^2 + params["at4",1]*ENV2^2 + params["at5",1]*ENV1^3 + params["at6",1]*ENV2^3
-  	logit_betab 	<- params["bb0", 1] + params["bb1", 1] * ENV1 + params["bb2", 1] * ENV2 + params["bb3", 1] * ENV1^2 + params["bb4",1]*ENV2^2 + params["bb5",1]*ENV1^3 + params["bb6",1]*ENV2^3
-  	logit_betat 	<- params["bt0", 1] + params["bt1", 1] * ENV1 + params["bt2", 1] * ENV2 + params["bt3", 1] * ENV1^2 + params["bt4",1]*ENV2^2 + params["bt5",1]*ENV1^3 + params["bt6",1]*ENV2^3
-  	logit_theta		<- params["th0", 1] + params["th1", 1] * ENV1 + params["th2", 1] * ENV2 + params["th3", 1] * ENV1^2 + params["th4",1]*ENV2^2 + params["th5",1]*ENV1^3 + params["th6",1]*ENV2^3
-  	logit_thetat	<- params["tt0", 1] + params["tt1", 1] * ENV1 + params["tt2", 1] * ENV2 + params["tt3", 1] * ENV1^2 + params["tt4",1]*ENV2^2 + params["tt5",1]*ENV1^3 + params["tt6",1]*ENV2^3
-  	logit_epsB 		<- params["e0", 1]  + params["e1", 1]  * ENV1 + params["e2", 1]  * ENV2 + params["e3", 1]  * ENV1^2 + params["e4",1] *ENV2^2 + params["e5",1] *ENV1^3 + params["e6",1] *ENV2^3
-  	logit_epsT 		<- params["e0", 1]  + params["e1", 1]  * ENV1 + params["e2", 1]  * ENV2 + params["e3", 1]  * ENV1^2 + params["e4",1] *ENV2^2 + params["e5",1] *ENV1^3 + params["e6",1] *ENV2^3
-  	logit_epsM 		<- params["e0", 1]  + params["e1", 1]  * ENV1 + params["e2", 1]  * ENV2 + params["e3", 1]  * ENV1^2 + params["e4",1] *ENV2^2 + params["e5",1] *ENV1^3 + params["e6",1] *ENV2^3
+  	logit_alphab 	<- 3.85502802 + 0.09795949 * ENV1 + 7.39804020 * ENV2 - 0.36426173 * ENV1^2 + 5.08246535 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_alphat 	<- 1.99391609 + 6.25928127 * ENV1 + 1.17114948 * ENV2 + 0.76980055 * ENV1^2 - 0.32574109 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_betab 	<- -2.20523210 - 1.19790280 * ENV1 + 0.01066048 * ENV2 - 0.38339845 * ENV1^2 - 0.02139923 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_betat 	<- -1.53724874 + 0.73115855 * ENV1 + 0.22881246 * ENV2 - 1.03032612 * ENV1^2 - 0.22600455 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_theta		<- -2.81754950 + 0.18052846 * ENV1 - 0.30087526 * ENV2 + 0.30003633 * ENV1^2 + 0.01661800 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_thetat	<- 0.84883267 + 0.52777617 * ENV1 - 0.10106349 * ENV2 - 0.18996130 * ENV1^2 - 0.18073578 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_epsB 		<- -5.75961358 -1.02065171 * ENV1 - 0.00707712 * ENV2 -0.24368088 * ENV1^2 - 0.00841648 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_epsT 		<- -5.75961358 -1.02065171 * ENV1 - 0.00707712 * ENV2 -0.24368088 * ENV1^2 - 0.00841648 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
+  	logit_epsM 		<- -5.75961358 -1.02065171 * ENV1 - 0.00707712 * ENV2 -0.24368088 * ENV1^2 - 0.00841648 * ENV2^2 + 0.00000000 * ENV1^3 + 0.00000000 * ENV2^3
 
   	alphab <- 1-(1-logit_reverse(logit_alphab))^int
   	alphat <- 1-(1-logit_reverse(logit_alphat))^int
