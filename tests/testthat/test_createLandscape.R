@@ -47,3 +47,17 @@ test_that("create_virtual_landscape position and neighbor are correct", {
   expect_equal(position[1], initLand[['nCol']] + 2)
   expect_equal(position[1], neighbor[[1]][5])
 })
+
+
+# Real landscape
+test_that("create_real_landscape is a list with a raster object", {
+
+  initLand <- create_real_landscape()
+  
+  objClass <- class(initLand)
+  objClass2 <- class(initLand[['land']])
+  
+  testthat::expect_identical(objClass, 'list')
+  testthat::expect_identical(objClass2[1], 'RasterStack')
+  
+})
