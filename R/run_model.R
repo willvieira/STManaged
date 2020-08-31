@@ -40,7 +40,7 @@ run_model <- function(steps,
                       folderOutput = NULL) # name of the output file, if NULL will just save in the mail `output` folder
 {
 
-  cat(" Preparing the model...\r")
+  cat(" Preparing the model...\n")
 
   # define type of initLand (raster or list?)
   isRaster <- !is.integer(initLand[['land']])
@@ -126,7 +126,7 @@ run_model <- function(steps,
       }
     }else if(cores > 1) {
       # run for all cells
-      land <- parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
+      land <- parallel::mcmapply(function(cell) cellRun(cell, neighbor, land0, pars, position, i, managInt, stoch, nCol), seq_along(neighbor), mc.cores = cores)
 
       land1 <- setNames(land, position)
 
@@ -217,10 +217,10 @@ neighbor_prop <- function(neighbor) {
   return(c(B = sum(neighbor == 1), T = sum(neighbor == 2), M = sum(neighbor == 3))/9)
 }
 
-cellRun <- function(cell, neighbor, land0, pars, parCell, i, managInt, stoch, nCol) {
+cellRun <- function(cell, neighbor, land0, pars, position, i, managInt, stoch, nCol) {
   states <- 1:4
   y0 <- neighbor_prop(land0[neighbor[[cell]]])
-  y1 <- model_fm(t = 1, y = y0, params = pars[[i]][, parCell[cell]], managInt)
+  y1 <- model_fm(t = 1, y = y0, params = pars[[i]][, position[cell]], managInt)
   y1 <- y0 + unlist(y1) # update cell
   y1['R'] <- 1 - sum(y1)
   if(stoch == T) {
