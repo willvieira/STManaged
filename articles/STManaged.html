@@ -90,7 +90,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to STManaged</h1>
             
-            <h4 class="date">2020-05-15</h4>
+            <h4 class="date">2020-08-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/willvieira/STM-managed/blob/master/vignettes/STManaged.Rmd"><code>vignettes/STManaged.Rmd</code></a></small>
       <div class="hidden name"><code>STManaged.Rmd</code></div>
@@ -118,7 +118,7 @@
 <p><code>initLand</code> is a list of 6 objects with information about the landscape. <code>land</code> informing which forest states is present in each cell, <code>env1</code> storing the (scaled) temperature gradient and <code>nCol</code> and <code>nRow</code> to inform the landscape dimension. The other two objects have information about cells neighbor to be used internally.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">initLand</span>[<span class="fl">1</span>:<span class="fl">4</span>])
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ land: Named int [1:40768] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ land: Named int [1:40768] 1 1 1 1 1 1 4 1 1 1 ...</span>
 <span class="co">#&gt;   ..- attr(*, "names")= chr [1:40768] "1" "2" "3" "4" ...</span>
 <span class="co">#&gt;  $ env1: num [1:637] -2.5 -2.49 -2.49 -2.49 -2.48 ...</span>
 <span class="co">#&gt;  $ nCol: num 637</span>
